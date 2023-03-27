@@ -1,0 +1,277 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+ 
+
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$hostapp-primary: mat.define-palette(mat.$indigo-palette);
+$hostapp-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$hostapp-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$hostapp-theme: mat.define-light-theme((
+  color: (
+    primary: $hostapp-primary,
+    accent: $hostapp-accent,
+    warn: $hostapp-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($hostapp-theme);
+
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'SF UI Display Ultralight';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Display Ultralight'),
+    url('../src/assets/Fonts/sf-ui-display-ultralight-58646b19bf205.woff') format('woff');
+}
+
+
+@font-face {
+  font-family: 'SF UI Display Thin';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Display Thin'),
+    url('../src/assets/Fonts/sf-ui-display-thin-58646e9b26e8b.woff') format('woff');
+}
+
+
+@font-face {
+  font-family: 'SF UI Display Light';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Display Light'),
+    url('../src/assets/Fonts/sf-ui-display-light-58646b33e0551.woff') format('woff');
+}
+
+
+@font-face {
+  font-family: 'SF UI Display Medium';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Display Medium'),
+    url('../src/assets/Fonts/sf-ui-display-medium-58646be638f96.woff') format('woff');
+}
+
+
+@font-face {
+  font-family: 'SF UI Display Semibold';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Display Semibold'), url('../src/assets/Fonts/sf-ui-display-semibold-58646eddcae92.woff') format('woff');
+}
+
+
+@font-face {
+  font-family: 'SF UI Display Bold';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Display Bold'),
+    url('../src/assets/Fonts/sf-ui-display-bold-58646a511e3d9.woff') format('woff');
+}
+
+
+@font-face {
+  font-family: 'SF UI Display Heavy';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Display Heavy'),
+    url('../src/assets/Fonts/sf-ui-display-heavy-586470160b9e5.woff') format('woff');
+}
+
+
+@font-face {
+  font-family: 'SF UI Display Black';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Display Black'),
+    url('../src/assets/Fonts/sf-ui-display-black-58646a6b80d5a.woff') format('woff');
+}
+$primary:#1DB9A1 !important;
+$primary-o:rgba(29,185,161,0.14) !important;
+$black-800:#333 !important;
+$dark:#2A2A2E !important;
+$lighter:#F2F2F2 !important;
+$light:#E5E5E5 !important;
+$black-500:#808080 !important;
+$black-700:#4d4d4d !important;
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: "SF UI Display Medium" !important;
+  color:$dark;
+}
+.text-dark{
+  color:$dark;
+}
+.loader-img {
+  width: 0px;
+  height: 0px;
+  animation: zoom 2s infinite,
+    // rotate 1s infinite;
+}
+
+@keyframes zoom {
+  from {
+    width: 0px;
+    height: 0px;
+  }
+
+  to {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+ .p-sidebar {
+  .p-sidebar-left{
+    height: 98% !important;
+  }
+   box-shadow: none !important;
+  top: 1% !important;
+  left: 1% !important;
+   
+   border-radius: 11px;
+   border: 1px solid $light;
+  .p-sidebar-content{
+    padding: 0 !important;
+  }
+   .sideBar-Nav{
+list-style: none;
+margin: 0;
+width: 100%;
+padding: 0;
+  li {
+    padding: 16px 25px;
+    margin:5px 15px;
+    border-radius: 5px !important;
+
+  a{
+    text-decoration: none;
+    font-size: 14pt;
+       color:$dark;
+    font-weight: medium;
+
+    span{
+      margin-right:10px !important;
+    }
+  }
+  &:hover , &.active{
+    a:after{
+      content: ".";
+      color:$primary;
+      position: absolute;
+      right: 0;
+          // top: 3%;
+          height: 30%;
+      background-color: $primary;
+    }
+    a{
+      color: $primary;
+   
+    }
+       background: $primary-o;
+  }
+  }
+
+}
+
+ }
+ .br-11px{
+  border-radius: 11px !important;
+ }
+.bg-primary{
+  background-color: $primary;
+}
+.wrapper{
+  margin-left: 25rem !important;
+  margin-top: 0.5%;;
+}
+.bg-lighter{
+  background-color:$lighter;
+}
+.text-primary{
+  color:$primary;
+}
+.shadow{
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25) !important  ;
+}
+.br-15px{
+  border-radius: 15px !important;
+}
+.br-6px{
+  border-radius: 6px !important;
+}
+.z-index-6{
+  z-index: 6 !important;
+}
+
+.border-light{
+ 
+  border :1px solid $black-700;
+}
+.border-lighter{
+  border :1px solid $light;
+}
+.btn{
+  padding: 10px 24px !important;
+   border-radius: 6px !important;
+   opacity: 1 !important;
+   &:hover{
+    opacity: 0.8 !important;
+   }
+}
+.p-component {
+ font-family: "SF UI Display Medium" !important;
+}
+.p-inputtext {
+  color: $black-700;
+  ::placeholder{
+    color: $black-500;
+  }
+  background: $lighter;
+      border: 0.5px solid $light;
+      border-radius: 6px !important;
+      padding: 20px !important;
+}
+
+.p-input-icon-right>i {
+  right: 4% !important;
+  color: $black-700;
+}
+.p-inputtext:enabled:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow:None !important;
+  border-color:$light;
+}
+.cursor-pointer{
+  cursor: pointer !important;
+}

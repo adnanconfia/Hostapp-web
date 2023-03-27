@@ -1,0 +1,69 @@
+<div class="container h-100 d-flex flex-column justify-content-center">
+    <div class="row ">
+        <div class="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
+            <div class="card shadow br-15px">
+                <div class="w-100 text-center py-5">
+                    <img src="../../../assets/Images/logo.png" alt="Logo">
+                </div>
+                <div class="w-100 text-center">
+                    <h4>Login</h4>
+                </div>
+                <form [formGroup]="loginForm" (submit)="login()" class="w-100">
+                    <div class="form-group px-5 mt-3">
+                        <h5>Email</h5>
+                        <input type="text" pInputText placeholder="Email" formControlName="email" class="w-100 mt-2" />
+                          <small *ngIf="loginForm.get('email')?.invalid &&  (loginForm.get('email')?.touched  ||loginForm.get('email')?.dirty)"  class="text-danger">
+                            Please enter email
+                        </small>
+                    </div>
+                    <div class="form-group px-5 mt-4">
+                        <h5>Password</h5>
+                        <span class="p-input-icon-right w-100">
+                        <input [type]="_showpass?'text':'password'"  formControlName="password" pInputText placeholder="Enter password" class="w-100 mt-2" />
+                        
+                           <i class="material-icons cursor-pointer" (click)="showPass()" *ngIf="!_showpass">
+visibility
+</i>
+<i class="material-icons  cursor-pointer" (click)="hidePass()" *ngIf="_showpass">
+visibility_off
+</i>
+
+                            <!-- <i class="pi pi-eye-slash"></i> -->
+                        </span>
+                        <small *ngIf="loginForm.get('password')?.invalid &&  (loginForm.get('password')?.touched  ||loginForm.get('password')?.dirty)"  class="text-danger">
+                            Please enter password
+                        </small>
+                    </div>
+                    <div class="w-100 px-5 mb-5 mt-5">
+                        <button class="btn w-100 text-white  btn-lg bg-primary btn-block"  [disabled]="loginForm.invalid">Sign in</button>
+                    </div>
+                </form>
+                <!-- <div class="w-100 px-5 my-3">
+                       <p-divider align="center" type="dashed">
+        OR
+    </p-divider>
+                </div>
+                  <div class="w-100 px-5 mt-1">
+                        <button class="btn w-100 text-dark d-flex align-items-center justify-content-center border-light btn-lg bg-white btn-block">
+                            
+                            <svg width="21" height="21" class="me-2" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.8296 10.728C20.8305 10.0466 20.7724 9.36637 20.6562 8.6948H11.1604V12.546H16.5992C16.4879 13.1611 16.2523 13.7474 15.9067 14.2697C15.5611 14.7919 15.1125 15.2393 14.5881 15.5847V18.0846H17.834C19.7346 16.3444 20.8296 13.7709 20.8296 10.728Z" fill="#4285F4"/>
+<path d="M11.1604 20.5C13.8776 20.5 16.1656 19.6139 17.834 18.0862L14.5881 15.5864C13.6846 16.1947 12.5211 16.5419 11.1604 16.5419C8.53398 16.5419 6.30477 14.7836 5.50763 12.4143H2.16382V14.9906C3.00189 16.6467 4.28699 18.0389 5.87563 19.0118C7.46427 19.9847 9.29394 20.4999 11.1604 20.5V20.5Z" fill="#34A853"/>
+<path d="M5.50755 12.414C5.08613 11.1724 5.08613 9.82792 5.50755 8.58638V6.01012H2.16374C1.45873 7.40332 1.09155 8.94094 1.09155 10.5002C1.09155 12.0594 1.45873 13.597 2.16374 14.9902L5.50755 12.414Z" fill="#FBBC04"/>
+<path d="M11.1604 4.45879C12.5963 4.43549 13.9838 4.97429 15.023 5.95872L17.8969 3.10469C16.0746 1.40488 13.6603 0.471659 11.1604 0.500656C9.29394 0.500741 7.46427 1.01598 5.87563 1.98886C4.28699 2.96174 3.00189 4.35397 2.16382 6.0101L5.50763 8.58636C6.30477 6.21704 8.53398 4.45879 11.1604 4.45879Z" fill="#EA4335"/>
+</svg>
+
+                            Sign in with Google
+                        </button>
+                    </div>
+                  <div class="w-100 px-5 mt-3 mb-5">
+                        <button class="btn w-100 text-white bg-dark d-flex align-items-center justify-content-center btn-lg btn-block">
+                            
+                  <fa-icon [icon]="apple" class="me-2"></fa-icon>
+                            Sign in with Google
+                        </button>
+                    </div> -->
+            </div>
+        </div>
+    </div>
+</div>
