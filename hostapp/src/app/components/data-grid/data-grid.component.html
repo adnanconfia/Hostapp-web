@@ -1,0 +1,169 @@
+<p-table [columns]="selectedColumns" [value]="respFiles">
+    <ng-template pTemplate="header" let-columns>
+
+        <tr>
+            <!-- <th>Select</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Is Active</th>
+            <th>Image</th>
+            <th>Action</th> -->
+            <!-- <ng-container *ngIf="columns.show==true; else elseBlock"> -->
+
+            <!-- <th>Select</th> -->
+            <th>
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+
+            <th *ngFor="let col of columns">
+
+                {{col.header}}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data let-columns>
+        <tr>
+            <td>
+                <p-tableCheckbox [value]="data"></p-tableCheckbox>
+            </td>
+            <!-- for booking -->
+            <td *ngIf="data.BookingId">
+                {{data.BookingId}}
+            </td>
+            <!-- for users -->
+            <td *ngIf="data.UserName ">{{data.UserName}}</td>
+
+            <td *ngIf="data.Role">{{data.Role}}</td>
+
+            <td *ngIf="data.Email">{{data.Email}}</td>
+
+            <td *ngIf="data.Role">
+                <!-- <p-checkbox *ngIf="data.isActive==true" class="me-2"></p-checkbox> -->
+                <mat-checkbox [checked]="data.isActive" [disabled]="true" class="me-2">
+                </mat-checkbox>
+                <!-- <p-checkbox *ngIf="data.isActive==false" class="me-2"></p-checkbox> -->
+                Is Active
+            </td>
+            <td *ngIf="data.UserName && data.Role">
+                <img src="../../../../assets/Images/user_pic.png" alt="" width="31px" height="31px">
+            </td>
+            <!-- for rooms -->
+            <td *ngIf="data.roomNumber ">{{data.roomNumber}}</td>
+            <td *ngIf="columns.roomNumber" class="text-center">
+                <img src="../../../../assets/Images/room_pic.png" alt="" width="50px" height="41px">
+            </td>
+            <td *ngIf="data.roomType ">{{data.roomType}}</td>
+            <td *ngIf="data.bedType ">{{data.bedType}}</td>
+            <td *ngIf="data.facilities ">{{data.facilities}}</td>
+            <td *ngIf="data.price ">{{data.price}}</td>
+            <!-- for room type -->
+            <td *ngIf="data.isAvailable==true || data.isAvailable==false">
+                <!-- <p-checkbox [checked]=" data.isAvailable " [binary]="true " class="me-2 "></p-checkbox> -->
+                <mat-checkbox [checked]="data.isAvailable " [disabled]="true" class="me-2">
+                </mat-checkbox>
+
+                Is Available
+            </td>
+
+
+            <!-- For Services -->
+            <td *ngIf="data.list ">
+                <img src="../../../../assets/Images/room_pic.png " alt=" " width="50px " height="41px ">
+            </td>
+            <td *ngIf="data.list ">
+                {{data.list}}
+            </td>
+
+            <!-- for booking -->
+
+            <td *ngIf="data.HotelTitle">
+                {{data.HotelTitle}}
+            </td>
+            <td *ngIf="data.CheckIn">
+                {{data.CheckIn}}
+            </td>
+            <td *ngIf="data.CheckOut">
+                {{data.CheckOut}}
+            </td>
+            <td *ngIf="data.BookingStatus">
+                <div class="inprogress p-1 text-center br-6px" *ngIf="data.BookingStatus==2">
+                    In Progress
+                </div>
+                <div class="confirm p-1 text-center br-6px" *ngIf="data.BookingStatus==1">
+                    Confirmed
+                </div>
+
+            </td>
+            <!-- for booking page User details -->
+
+            <td *ngIf="data.Country">
+                {{data.Country}}
+            </td>
+            <td *ngIf="data.PostelCode">
+                {{data.PostelCode}}
+            </td>
+            <td *ngIf="data.City">
+                {{data.City}}
+            </td>
+            <td *ngIf="data.UserAddress">
+                {{data.UserAddress}}
+            </td>
+            <td *ngIf="data.Phone">
+                {{data.Phone}}
+            </td>
+
+            <td>
+                <div class="d-inline-flex ">
+                    <fa-icon [icon]="editIcon " class="mx-2 "></fa-icon>
+                    <a href="/account/booking/detailbooking" *ngIf="data.BookingId" class="text-decoration-none text-primary cursor-pointer me-2">View</a>
+                    <a href="/account/rooms/viewroom" *ngIf="data.roomNumber" class="text-decoration-none text-primary cursor-pointer me-2">View</a>
+                    <fa-icon [icon]="trash " class="text-danger "></fa-icon>
+                </div>
+
+            </td>
+
+
+
+            <!-- <ng-container>
+                <p-tableCheckbox [value]="data "></p-tableCheckbox>
+
+                <td *ngIf="columns.show ">{{data.username}}</td>
+                <td *ngIf="columns.show==true ">{{data.role}}</td>
+                <td *ngIf="columns.show==true ">{{data.email}}</td>
+
+                <td *ngIf="columns.show==true ">
+                    <p-checkbox *ngIf="data.isActive==true " class="me-2 "></p-checkbox>
+                    <p-checkbox *ngIf="data.isActive==false " class="me-2 "></p-checkbox>
+                    Is Active
+                </td>
+                <td>
+                    <img src="../../../../assets/Images/user_pic.png " alt=" " width="31px " height="31px ">
+                </td>
+                <td>
+                    <fa-icon [icon]="editIcon " class="mx-2 "></fa-icon>
+                    <fa-icon [icon]="trash " class="text-danger "></fa-icon>
+                </td>
+            </ng-container> -->
+
+        </tr>
+    </ng-template>
+    <!-- <ng-template pTemplate="footer " class="text-end ">
+        <div class="w-100 d-flex justify-content-end ">
+            
+        </div>
+
+    </ng-template> -->
+
+</p-table>
+<div class="d-flex justify-content-end align-items-center mt-2 ">
+    <p-paginator [rows]="10 " [totalRecords]="respFiles.length " [first]="first " (onPageChange)="onPageChange($event) "></p-paginator>
+    <div>
+        <button *ngIf="addUserbtn " class="btn btn-primary text-white d-inline-flex " (click)="showForm() "> <span class="material-symbols-rounded me-2 ">add</span>Add New User</button>
+        <a href="account/rooms/addroom " *ngIf="addRoombtn " class="btn btn-primary text-white d-inline-flex "> <span class="material-symbols-rounded me-2 ">add</span>Add New Room</a>
+        <a href="account/booking/addbooking " *ngIf="addBookingbtn " class="btn btn-primary text-white d-inline-flex "> <span class="material-symbols-rounded me-2 ">add</span>Add Booking</a>
+        <button *ngIf="roomTypebtn " class="btn btn-primary text-white d-inline-flex " (click)="showRoomTypeForm() "> <span class="material-symbols-rounded me-2 ">add</span>Add New Type</button>
+        <button *ngIf="servicesAddbtn " class="btn btn-primary text-white d-inline-flex " (click)="shwoServiceForm() "> <span class="material-symbols-rounded me-2 ">add</span>Add New Item</button>
+    </div>
+
+</div>

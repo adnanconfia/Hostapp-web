@@ -1,0 +1,41 @@
+<div class="row w-100 mb-3">
+    <div class="col-12 p-3 border-lighter br-11px">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h6 class="py-2 px-5 text-center w-100 border-lighter br-8px mb-0">
+                    Today · Wed · 12 28 2023
+                </h6>
+            </div>
+            <div class="d-flex align-items-center justify-content-around">
+                <div class="icon-outline my-auto mx-2 text-center">
+                    <span class="material-symbols-rounded my-auto mt-2 fs-20px text-dark-500 cursor-pointer" mat-button [matMenuTriggerFor]="notification">
+                                notifications_none
+                                  </span>
+                    <mat-menu #notification="matMenu">
+                        <div class="p-3">
+                            <p>Notification Area</p>
+                        </div>
+                    </mat-menu>
+                </div>
+
+                <div class="user-pick ms-2">
+                    <img src="../../../assets/Images/user_pic.png" alt="">
+                </div>
+                <div class="me-2 mt-2">
+                    <span class="material-symbols-rounded cursor-pointer text-green fs-2" mat-button [matMenuTriggerFor]="menu">
+                                expand_more
+                                  </span>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item class="d-inline-flex justify-content-center align-items-center">
+                                                <span class="material-icons me-2">
+                                                        exit_to_app
+                                                    </span>
+                                                    Logout
+                                        </button>
+                    </mat-menu>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

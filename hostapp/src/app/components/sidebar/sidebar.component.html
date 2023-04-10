@@ -1,49 +1,62 @@
-<p-sidebar [visible]="true" [modal]="false" [showCloseIcon]="false" [baseZIndex]="1"> 
-   <div class="w-100 text-center py-3" >
- <a href="/account/dashboard"> <img src="../../../assets/Images/logo.png" alt="logo"></a>
-   </div>
-  <ng-scrollbar [autoHeightDisabled]="false">
-    <ul class="sideBar-Nav">
-       
-           
-        
-          <li [ngClass]="urlComplete!.indexOf('dashboard')>0?'active':' '">
-        <a href="/account/dashboard" class="d-flex align-items-center me-2">
-          <span class="material-symbols-rounded">
+<p-sidebar [visible]="true" [modal]="false" [showCloseIcon]="false" [baseZIndex]="1">
+    <div class="w-100 text-center py-3">
+        <a href="/account/dashboard"> <img src="../../../assets/Images/logo.png" alt="logo"></a>
+    </div>
+    <ng-scrollbar [autoHeightDisabled]="false">
+        <ul class="sideBar-Nav">
+
+
+
+            <li [ngClass]="urlComplete!.indexOf('dashboard')>0?'active':' '">
+                <a href="/account/dashboard" class="d-flex align-items-center me-2">
+                    <span class="material-symbols-rounded">
             dashboard
-          </span>
-
-         Dashboard
-          </a>
-      </li>
-          <li [ngClass]="urlComplete!.indexOf('bookings')>0?'active':' '">
-        <a href="/account/booking" class="d-flex align-items-center me-2">
-          <span class="material-symbols-rounded">
+          </span> Dashboard
+                </a>
+            </li>
+            <li [ngClass]="urlComplete!.indexOf('booking')>0?'active':' '">
+                <a href="/account/booking" class="d-flex align-items-center me-2">
+                    <span class="material-symbols-rounded">
             calendar_month
-          </span>
-
-         Bookings
-          </a>
-      </li>
-          <li [ngClass]="urlComplete!.indexOf('users')>0?'active':' '">
-        <a href="/account/users" class="d-flex align-items-center me-2">
-          <span class="material-symbols-rounded">
+          </span> Bookings
+                </a>
+            </li>
+            <li [ngClass]="urlComplete!.indexOf('users')>0?'active':' '">
+                <a href="/account/users" class="d-flex align-items-center me-2">
+                    <span class="material-symbols-rounded">
             group
-          </span>
-
-         Users
-          </a>
-      </li>
-          <li>
-        <a href="javascript:void(0)" (click)="logout()" class="d-flex align-items-center me-2">
-          <span class="material-symbols-rounded">
+          </span> Users
+                </a>
+            </li>
+            <li [ngClass]="urlComplete!.indexOf('rooms')>0?'active':' '">
+                <a href="/account/rooms" class="d-flex align-items-center me-2">
+                    <span class="material-symbols-rounded">
+                        event_seat
+            </span> Rooms
+                </a>
+            </li>
+            <li [ngClass]="urlComplete!.indexOf('roomtypes')>0?'active':' '">
+                <a href="/account/roomtypes" class="d-flex align-items-center me-2">
+                    <span class="material-symbols-rounded">
+                            home
+                </span> Room Types
+                </a>
+            </li>
+            <li [ngClass]="urlComplete!.indexOf('services')>0?'active':' '">
+                <a href="/account/services" class="d-flex align-items-center me-2">
+                    <span class="material-symbols-rounded">
+                            room_service
+                    </span> Services
+                </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)" (click)="logout()" class="d-flex align-items-center me-2">
+                    <span class="material-symbols-rounded">
             group
-          </span>
-
-         Logout
-          </a>
-      </li>
+          </span> Logout
+                </a>
+            </li>
         </ul>
-        </ng-scrollbar>
+    </ng-scrollbar>
 
 </p-sidebar>

@@ -1,0 +1,61 @@
+<div class="row w-100">
+    <div class="col-12  border-lighter br-11px p-3">
+        <div class="border-lighter br-8px p-3">
+            <div class="form-section mb-4" *ngIf="showform">
+                <h5>Add Types</h5>
+                <form class="row" [formGroup]="AddForm" (ngSubmit)="onSubmit()">
+                    <div class="col-6 col-md-3 mt-3 mt-sm-3 mt-md-0">
+                        <div class="form-group">
+                            <!-- <label>Room Type</label>
+                            <select class="form-select p-12px br-8px mt-2" formControlName="RoomType" aria-label="Default select example">
+                                <option value="0" class="text-black-50">Room Type</option>
+                                <option value="1">Luxury</option>
+                                <option value="2">Family Room</option>
+                                <option value="3">Disable Guest</option>
+                                <option value="1">Luxury Marqu</option>
+                                <option value="2">Under 16 Kids</option>
+                                <option value="3">Friends Room</option>
+                            </select> -->
+                            <p class="mb-2">Room Type</p>
+                            <p-dropdown [options]="roomTypeList" formControlName="RoomType" placeholder="Room Type" optionLabel="name"></p-dropdown>
+                            <small class="text-danger" *ngIf="AddForm.get('RoomType')!.invalid && (AddForm.get('RoomType')!.dirty || AddForm.get('RoomType')!.touched)">Select Room Type</small>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mt-3 mt-sm-3 mt-md-0">
+                        <div class="form-group">
+                            <!-- <label>Bed Type</label>
+                            <select class="form-select p-12px br-8px mt-2" formControlName="BedType" aria-label="Default select example">
+                                <option value="0" class="text-black-50">Bed Type</option>
+                                <option value="1">Single Bed</option>
+                                <option value="2">Double Bed</option>
+                            </select> -->
+                            <p class="mb-2">Bed Type</p>
+                            <p-dropdown [options]="bedTypeList" formControlName="BedType" placeholder="Bed Type" optionLabel="name"></p-dropdown>
+                            <small class="text-danger" *ngIf="AddForm.get('BedType')!.invalid && (AddForm.get('BedType')!.dirty || AddForm.get('BedType')!.touched)">Select Bed Type</small>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mt-3 mt-sm-3 mt-md-0">
+                        <div>
+                            <label>Is Available</label><br>
+                            <mat-slide-toggle formControlName="isAvailable" class="text-black mt-4">Is Abailable?</mat-slide-toggle>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-9">
+
+                        </div>
+
+                        <div class="col-3 pe-0">
+                            <div class="d-flex justify-content-end w-100">
+                                <button href="#" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 w-100 br-8px mx-2">Cancel</button>
+                                <button href="#" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px" [disabled]="!AddForm.valid" type="submit">Add</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <app-data-grid [cols]="cols" [respFiles]="roomtypes" (showRoomTypeFormEmitter)="showForm()" [roomTypebtn]="true"></app-data-grid>
+        </div>
+    </div>
+</div>

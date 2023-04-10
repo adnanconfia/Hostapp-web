@@ -1,0 +1,51 @@
+<div class="row w-100">
+    <div class="col-12  border-lighter br-11px p-3">
+        <div class="border-lighter br-8px p-3">
+            <div class="form-section mb-4" *ngIf="serviceFormShow">
+                <h5>Add Details</h5>
+                <form class="row" [formGroup]="AddForm" (ngSubmit)="onSubmit()">
+                    <div class="col-6 col-md-3 mt-3 mt-sm-3 mt-md-0">
+                        <div class="form-group">
+                            <p class="mb-2">Select Items</p>
+                            <p-multiSelect id="select-items" defaultLabel="Select items" [options]="itemsList" formControlName="items" optionLabel="name"></p-multiSelect>
+                            <small class="text-danger" *ngIf="AddForm.get('items')!.invalid && (AddForm.get('items')!.dirty || AddForm.get('items')!.touched)">Select items</small>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mt-3 mt-sm-3 mt-md-0">
+                        <p class="mb-2">Upload Image</p>
+                        <div class="image-upload-wrapper-items">
+                            <div class=" d-flex align-items-center justify-content-center flex-column " multiple>
+                                <input type="file" (change)="onFileSelected($event)" accept="image/jpeg, image/png, image/jpg" id=" input-file-now " formControlName="image" class="file-upload" />
+                                <div class="d-inline-flex align-content-center">
+                                    <span class="material-symbols-rounded fs-3 text-dark-500">image</span>
+                                    <p class="fs-6 my-auto ms-2 text-dark-800">Uplad Image</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <small class="text-danger" *ngIf="AddForm.get('image')!.invalid && (AddForm.get('image')!.dirty || AddForm.get('image')!.touched)">Image is required</small>
+
+                    </div>
+                    <div class="col-6 col-md-4 mt-3 mt-sm-3 mt-md-0" *ngIf="imagePreview">
+                        <img [src]="imagePreview" alt="" class="br-8px" width="120px" height="100px">
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-9">
+
+                        </div>
+
+                        <div class="col-3 pe-0">
+                            <div class="d-flex justify-content-end w-100">
+                                <button href="#" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 w-100 br-8px mx-2">Cancel</button>
+                                <button href="#" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px" [disabled]="!AddForm.valid" type="submit">Add</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <app-data-grid [cols]="cols" [respFiles]="itemsDetails" (showServicesFormEmitter)="showForm()" [servicesAddbtn]="true"></app-data-grid>
+        </div>
+    </div>
+</div>

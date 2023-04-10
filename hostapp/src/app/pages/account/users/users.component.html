@@ -1,4 +1,4 @@
-<div class="row w-100">
+<!-- <div class="row w-100">
     <div class="col-12 py-4 border-lighter br-11px">
         <div class="w-100">
             
@@ -8,5 +8,72 @@
           <small class="text-muted">Overview</small>
         <h3>Users</h3>
       </div>
+    </div>
+</div> -->
+<div class="row w-100">
+    <div class="col-12  border-lighter br-11px p-3">
+        <div class="border-lighter br-8px p-3">
+            <div class="form-section mb-4" *ngIf="showAddUserForm">
+                <h5>Add Table</h5>
+                <form class="row" [formGroup]="AddForm" (ngSubmit)="onSubmit()">
+                    <div class="col-6 col-md-3 mt-3 mt-sm-3 mt-md-0">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" placeholder="Anum" class="form-control p-12px br-8px mt-2" formControlName="FirstName">
+
+                            <small class="text-danger" *ngIf="AddForm.get('FirstName')!.invalid && (AddForm.get('FirstName')!.dirty || AddForm.get('FirstName')!.touched)">First Name is required</small>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 mt-3 mt-sm-3 mt-md-0">
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" placeholder="Farooq" class="form-control p-12px br-8px mt-2" formControlName="LastName">
+
+                            <small class="text-danger" *ngIf="AddForm.get('LastName')!.invalid && (AddForm.get('LastName')!.dirty || AddForm.get('LastName')!.touched)">Last Name is required</small>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6  mt-3 mt-sm-3 mt-md-0">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="anumfarooq@gmail.com" class="form-control p-12px br-8px  mt-2" formControlName="Email">
+
+                            <small class="text-danger" *ngIf="AddForm.get('Email')!.invalid && (AddForm.get('Email')!.dirty || AddForm.get('Email')!.touched)">Email is required</small>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-9">
+                            <div class="form-group">
+                                <label>User Role</label>
+                                <div class="field-checkbox">
+                                    <p-checkbox name="group1" value="manager" formControlName="UserRole" inputId="ny"></p-checkbox>
+                                    <label class="ms-2 me-3" for="ny">Manager</label>
+                                    <p-checkbox name="group1" value="worker" formControlName="UserRole" inputId="sf"></p-checkbox>
+                                    <label class="ms-2 me-3" for="sf">Worker</label>
+                                </div>
+
+                                <small class="text-danger" *ngIf="AddForm.get('UserRole')!.invalid && (AddForm.get('UserRole')!.dirty || AddForm.get('UserRole')!.touched)">Role is required</small>
+                            </div>
+                        </div>
+
+                        <div class="col-3 pe-0">
+                            <div class="d-flex justify-content-end w-100">
+                                <button href="#" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 w-100 br-8px mx-2">
+Cancel</button>
+                                <button href="#" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px" [disabled]="!AddForm.valid" type="submit">
+Add</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <app-data-grid [cols]="cols" [respFiles]="users" (showFormEmitter)="showForm()" [addUserbtn]="true"></app-data-grid>
+
+        </div>
+
+
     </div>
 </div>
