@@ -29,14 +29,17 @@ export class AddRoomComponent implements OnInit {
 
   ngOnInit(): void {
     this.AddForm = this.fb.group({
-      Image:['',Validators.required],
+      Image: ['', Validators.required],
       RoomNumber: ['', Validators.required],
       RoomType: [0, Validators.required],
       Facilities: ['', Validators.required],
-      Price:[20,Validators.required]
+      Price: [20, Validators.required],
+      imageSrcs: this.imageSrcs
     });
   }
-  onSubmit() {}
+  onSubmit() {
+    
+  }
   onFileSelected(event: any): void {
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
@@ -48,6 +51,36 @@ export class AddRoomComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+  }
+  replaceImage(index: any, event: any) {
+    // const fileInput = document.createElement('input');
+    // fileInput.type = 'file';
+    // fileInput.accept = 'image/*';
+    // // this.selectedImage = event.target.files[0];
+    // let file = event.target.files[0];
+    // const reader = new FileReader();
+
+    // reader.onload = () => {
+    //   const imageSrc: string = reader.result as string;
+    //   this.imageSrcs[index] = imageSrc;
+    // };
+    // reader.readAsDataURL(file);
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.addEventListener('change', (event: any) => {
+      const file = event.target.files[0];
+      // let filelist: any = this.AddForm.controls['Image'];
+      console.log(this.AddForm.controls['Image']);
+      // filelist[index] = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const imageSrc: string = reader.result as string;
+        this.imageSrcs[index] = imageSrc;
+      };
+      reader.readAsDataURL(file);
+    });
+    fileInput.click();
   }
   removeImage(index: any) {
     this.imageSrcs.splice(index, 1);

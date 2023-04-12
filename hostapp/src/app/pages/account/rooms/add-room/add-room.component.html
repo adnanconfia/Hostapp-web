@@ -18,16 +18,7 @@
                                 <div class="col-6 col-md-6 mt-3 mt-sm-3 mt-md-0">
 
                                     <div class="form-group">
-                                        <!-- <label>Room Type</label>
-                                        <select class="form-select p-12px br-8px mt-2" formControlName="RoomType" aria-label="Default select example">
-                                                        <option value="0" class="text-black-50">Room Type</option>
-                                                        <option value="1">Luxury</option>
-                                                        <option value="2">Family Room</option>
-                                                        <option value="3">Disable Guest</option>
-                                                        <option value="1">Luxury Marqu</option>
-                                                        <option value="2">Under 16 Kids</option>
-                                                        <option value="3">Friends Room/option>
-                                                      </select> -->
+
                                         <p class="mb-2">Room Type</p>
                                         <p-dropdown [options]="roomTypeList" formControlName="RoomType" placeholder="Room Type" optionLabel="name"></p-dropdown>
                                         <small class="text-danger" *ngIf="AddForm.get('RoomType')!.invalid && (AddForm.get('RoomType')!.dirty || AddForm.get('RoomType')!.touched)">Select Room Type</small>
@@ -75,16 +66,13 @@
                             <div class="row px-2" *ngIf="imageSrcs.length > 0">
                                 <div *ngFor="let src of imageSrcs;let index=index" class="col-6 p-2 m-0 text-center position-relative">
                                     <!-- <img [src]="src" alt="" class="br-15px "> -->
-                                    <p-image [src]="src" alt="Image" class="br-15px object-fit-cover" [preview]="true" width="178px" height="149px">
-                                        <ng-template pTemplate="indicator">
-                                            <div class=" d-flex justify-content-center flex-column align-items-center">
-                                                <span class="material-symbols-rounded">search</span>
-                                                <p class="mt-2">View Full Screen</p>
-                                            </div>
+                                    <p-image [src]="src" alt="Image" class="br-15px object-fit-cover image-change position-relative" width="178px" height="149px">
 
-                                        </ng-template>
                                     </p-image>
-                                    <span class="material-symbols-rounded position-absolute  remove-icon" (click)="removeImage(index)">remove</span>
+                                    <div class=" text-white position-absolute image-overlay" type="button" (click)="replaceImage(index,$event)">
+                                        Change Image
+                                    </div>
+                                    <!-- <span class="material-symbols-rounded position-absolute  remove-icon" (click)="removeImage(index)">remove</span> -->
                                 </div>
                             </div>
                             <div class="row px-2">

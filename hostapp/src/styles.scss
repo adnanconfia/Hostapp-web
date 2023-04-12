@@ -538,6 +538,26 @@ p-checkbox {
     -o-border-radius: 15px !important;
 }
 
+.image-change {
+    img {
+        background: rgba(29, 185, 161, 0.52) !important;
+        border-radius: 15px !important;
+        -webkit-border-radius: 15px !important;
+        -moz-border-radius: 15px !important;
+        -ms-border-radius: 15px !important;
+        -o-border-radius: 15px !important;
+    }
+}
+
+.image-overlay {
+    bottom: 8px;
+    right: 10px;
+    width: 90%;
+    padding: 10px 0px;
+    background: rgba(29, 185, 161, 0.51);
+    border-radius: 0px 0px 15px 15px;
+}
+
 .p-inputnumber-input {
     text-align: center !important;
     color: $primary;

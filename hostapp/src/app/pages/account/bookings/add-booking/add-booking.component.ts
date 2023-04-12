@@ -23,6 +23,7 @@ export class AddBookingComponent implements OnInit {
       Email: ['', Validators.required],
       PostelCode: ['', Validators.required],
       UserAddress: ['', Validators.required],
+      PhoneNuber: ['', Validators.required],
       City: ['', Validators.required],
       Country: ['', Validators.required],
       HotelName: ['', Validators.required],

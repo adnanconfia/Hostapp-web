@@ -1,3 +1,13 @@
+import {
+  Firestore,
+  addDoc,
+  collectionData,
+  collection,
+  doc,
+  updateDoc,
+  deleteDoc
+} from '@angular/fire/firestore';
+import { Loader } from './../../../helpers/loader';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,17 +18,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
   public showAddUserForm: boolean = false;
-  AddForm!: FormGroup;
+  AddUserForm!: FormGroup;
+  UpdateForm!: FormGroup;
   cols: any = [];
-  constructor(private fb: FormBuilder) {}
+  public roleIdManager: any;
+  public roleIdWorker: any;
+  public roleIdAdmin: any;
+  constructor(private fb: FormBuilder, private firestore: Firestore) {}
   public users: any;
   ngOnInit(): void {
-    this.AddForm = this.fb.group({
-      FirstName: ['', Validators.required],
-      LastName: ['', Validators.required],
-      CompanyName: ['', Validators.required],
-      Email: ['', [Validators.email, Validators.required]],
-      UserRole: ['', Validators.required]
+    this.AddUserForm = this.fb.group({
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      email: ['', [Validators.email, Validators.required]],
+      userrole: ['', Validators.required]
     });
     this.cols = [
       { header: 'User Name' },
@@ -26,9 +39,7 @@ export class UsersComponent implements OnInit {
       { header: 'Eamil' },
       { header: 'Is Active' },
       { header: 'Picture' },
-      { header: 'Action' },
-      { showchekbox: true },
-      { showtablecheckbox: true }
+      { header: 'Action' }
     ];
     this.users = [
       {
@@ -56,33 +67,93 @@ export class UsersComponent implements OnInit {
         isActive: true
       }
     ];
+    this.getDataRoleId();
+    this.getAllUsers();
   }
   onSubmit() {
-    if (this.AddForm.valid) {
-      // var data = this.AddForm.value;
-      // // loader.isLoading = true;
-      // this.conactService.ContactPost(data).subscribe(
-      //   (resp: any) => {
-      //     Swal.fire(
-      //       'Success',
-      //       'Thanks for contacting us we will contact you soon.',
-      //       'success'
-      //     );
-      //     this.AddForm.reset();
-      //     // this.isAgree = false;
-      //     loader.isLoading = false;
-      //   },
-      //   error => {
-      //     Swal.fire('Error', 'Some thing is not right', 'error');
-      //     // this.isAgree = false;
-      //     loader.isLoading = false;
-      //   }
-      // );
+    if (this.AddUserForm.valid) {
+      var data = this.AddUserForm.value;
+      console.log(data);
+      let dataform: any = {};
+      let name =
+        this.AddUserForm.controls['firstname'].value +
+        this.AddUserForm.controls['lastname'].value;
+      dataform.name = name;
+      dataform.email = this.AddUserForm.controls['email'].value;
+      if (this.AddUserForm.controls['userrole'].value == 1) {
+        dataform.roleId = this.roleIdManager;
+      }
+      if (this.AddUserForm.controls['userrole'].value == 2) {
+        dataform.roleId = this.roleIdWorker;
+      }
+      console.log('name=' + dataform.name);
+      Loader.isLoading = true;
+      const collectionInstance = collection(this.firestore, 'users');
+      addDoc(collectionInstance, dataform)
+        .then(() => {
+          Loader.isLoading = false;
+          console.log('Data saved successfully');
+        })
+        .catch(err => {
+          Loader.isLoading = false;
+          console.log(err);
+        });
     } else {
-      this.AddForm.markAllAsTouched();
+      this.AddUserForm.markAllAsTouched();
     }
   }
   showForm() {
     this.showAddUserForm = !this.showAddUserForm;
   }
+  getDataRoleId() {
+    const collectionInstance = collection(this.firestore, 'roles');
+    collectionData(collectionInstance).subscribe(
+      (resp: any) => {
+        console.log(resp);
+        this.roleIdAdmin = resp[0].roleId;
+        this.roleIdManager = resp[1].roleId;
+        this.roleIdWorker = resp[2].roleId;
+        // console.log(roleIdManager);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+  Update(id: any) {
+    const updateInstance = doc(this.firestore, 'users', id);
+    let name =
+      this.UpdateForm.controls['firstname'].value +
+      ' ' +
+      this.UpdateForm.controls['lastname'].value;
+    const update = {};
+    updateDoc(updateInstance, update)
+      .then(() => {
+        console.log('User Updated');
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  }
+  getAllUsers() {
+    const userIns = collection(this.firestore, 'users');
+    collectionData(userIns, { idField: 'id' }).subscribe(
+      (resp: any) => {
+        console.log(resp);
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+  deleteUser(id: any) {
+    const userDeleteIns = doc(this.firestore, 'users', id);
+    deleteDoc(userDeleteIns)
+      .then(() => {
+        console.log('User deleted');
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  }  
 }
