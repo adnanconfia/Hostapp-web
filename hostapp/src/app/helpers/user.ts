@@ -3,5 +3,12 @@ export const User={
     id:"",
     name:"",
     role:"",
-    isLoggedin:false
+    isLoggedin:false,
+    roleId:"",
+    roleName:"",
+    serviceId:"",
+    serviceName:"",
+    hotel:"",
+    isActive:false,
+    imageUrl:""
 }

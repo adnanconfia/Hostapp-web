@@ -27,21 +27,15 @@ export class LoginViewComponent implements OnInit {
   );
   constructor(private authService:AuthService,private fb:FormBuilder,private router:Router) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.loginForm = this.fb.group({
       email: ["", [Validators.email, Validators.required]],
       password: ["", Validators.required],
     })
-    this.authService.checkToken().then((resp:any)=>{
-      var check =resp;
-    
-      if (check == true) {
-        this.router.navigateByUrl("/account/dashboard");
-      }
-    });
+  await  this.authService.checkToken();
    
   }
-  login(){
+  async login(){
     if(this.loginForm.invalid){
       Swal.fire({
         title: "Alert",

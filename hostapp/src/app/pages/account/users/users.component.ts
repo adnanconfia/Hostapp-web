@@ -139,7 +139,7 @@ export class UsersComponent implements OnInit {
     const userIns = collection(this.firestore, 'users');
     collectionData(userIns, { idField: 'id' }).subscribe(
       (resp: any) => {
-        console.log(resp);
+        console.log(resp,"users");
       },
       (error: any) => {
         console.log(error);

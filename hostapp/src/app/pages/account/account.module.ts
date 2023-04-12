@@ -32,6 +32,7 @@ import { AddBookingComponent } from './bookings/add-booking/add-booking.componen
 import { CalendarModule } from 'primeng/calendar';
 import { DetailBookingComponent } from './bookings/detail-booking/detail-booking.component';
 import { ViewRoomsComponent } from './rooms/view-rooms/view-rooms.component';
+import { HotelComponent } from './hotel/hotel.component';
 
 @NgModule({
   declarations: [
@@ -40,14 +41,8 @@ import { ViewRoomsComponent } from './rooms/view-rooms/view-rooms.component';
     SidebarComponent,
     HeaderComponent,
     DataGridComponent,
-    RoomsComponent,
-    AddRoomComponent,
-    RoomTypesComponent,
-    ServicesComponent,
-    BookingsComponent,
-    AddBookingComponent,
-    DetailBookingComponent,
-    ViewRoomsComponent
+   
+   
   ],
   imports: [
     CommonModule,

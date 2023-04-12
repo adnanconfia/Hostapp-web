@@ -1,6 +1,6 @@
-import { User } from './../../helpers/user';
+import { User as u } from './../../helpers/user';
 import { Router } from '@angular/router';
-import { Auth, signOut } from '@angular/fire/auth';
+import { Auth, User, signOut } from '@angular/fire/auth';
 import { Loader } from './../../helpers/loader';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
 
     this.urlComplete = path;
   }
-
+  user=u;
   ngOnInit(): void {
   }
   logout(){
@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
     signOut(this.afAuth).then((resp: any) => {
 
       this.router.navigateByUrl("login")
-      User.isLoggedin = false;
+      u.isLoggedin = false;
     });
   }
 }

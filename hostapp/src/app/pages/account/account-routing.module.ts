@@ -11,6 +11,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RoomTypesComponent } from './rooms/room-types/room-types.component';
 import { ServicesComponent } from './services/services.component';
 import { ViewRoomsComponent } from './rooms/view-rooms/view-rooms.component';
+import { HotelComponent } from './hotel/hotel.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,12 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent
       },
+      
+      {
+        path: 'hotels',
+        component: HotelComponent
+      },
+
       {
         path: 'users',
         component: UsersComponent
@@ -71,4 +78,12 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AccountRoutingModule {}
-export const RoutingComps = [DashboardComponent, UsersComponent];
+export const RoutingComps = [DashboardComponent, UsersComponent, HotelComponent,
+  RoomsComponent,
+  AddRoomComponent,
+  RoomTypesComponent,
+  ServicesComponent,
+  BookingsComponent,
+  AddBookingComponent,
+  DetailBookingComponent,
+  ViewRoomsComponent,];

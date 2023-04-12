@@ -14,39 +14,47 @@
           </span> Dashboard
                 </a>
             </li>
-            <li [ngClass]="urlComplete!.indexOf('booking')>0?'active':' '">
+            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('booking')>0?'active':' '">
                 <a href="/account/booking" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
             calendar_month
           </span> Bookings
                 </a>
             </li>
-            <li [ngClass]="urlComplete!.indexOf('users')>0?'active':' '">
+            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('users')>0?'active':' '">
                 <a href="/account/users" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
             group
           </span> Users
                 </a>
             </li>
-            <li [ngClass]="urlComplete!.indexOf('rooms')>0?'active':' '">
+            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('rooms')>0?'active':' '">
                 <a href="/account/rooms" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
                         event_seat
             </span> Rooms
                 </a>
             </li>
-            <li [ngClass]="urlComplete!.indexOf('roomtypes')>0?'active':' '">
+            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('roomtypes')>0?'active':' '">
                 <a href="/account/roomtypes" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
                             home
                 </span> Room Types
                 </a>
             </li>
-            <li [ngClass]="urlComplete!.indexOf('services')>0?'active':' '">
+            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('services')>0?'active':' '">
                 <a href="/account/services" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
                             room_service
                     </span> Services
+                </a>
+            </li>
+            
+            <li *ngIf="user.roleName=='Super Admin' " [ngClass]="urlComplete!.indexOf('hotels')>0?'active':' '">
+                <a href="/account/hotels" class="d-flex align-items-center me-2">
+                    <span class="material-symbols-rounded">
+                            hotel
+                    </span> Hotels
                 </a>
             </li>
             <li>

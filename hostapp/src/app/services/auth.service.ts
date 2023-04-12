@@ -10,27 +10,27 @@ import { Observable } from 'rxjs';
 import { tap, shareReplay, filter, pairwise, finalize, map } from 'rxjs/operators';
 
 import { isPlatformBrowser } from '@angular/common';
-import { Auth, authState, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
-import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { Auth, authState, signInWithEmailAndPassword, signOut, user } from '@angular/fire/auth';
+import { Firestore, collection, collectionData, getDocs, query, where } from '@angular/fire/firestore';
 import Swal from 'sweetalert2';
 import { User } from '../helpers/user';
 
 @Injectable()
 export class AuthService {
 
- 
-  isBrowser:boolean;
-  constructor(private http: HttpClient, private router: Router, @Inject(PLATFORM_ID) platformId: Object, public afAuth: Auth, private firestore: Firestore) {
+
+  isBrowser: boolean;
+  constructor(private http: HttpClient, private router: Router, @Inject(PLATFORM_ID) platformId: Object, public afAuth: Auth, private firestore: Firestore,) {
     this.isBrowser = isPlatformBrowser(platformId)
-   }
+  }
 
-  private setSession(authResult:any) {
-   if(this.isBrowser && authResult.data.status==0){
-    const token = authResult.res.token;
+  private setSession(authResult: any) {
+    if (this.isBrowser && authResult.data.status == 0) {
+      const token = authResult.res.token;
 
-    // if (authResult['isDelete'] == true || authResult['isActive'] == false || authResult['isVerified'] == false) {
-    //   this.logout();
-    // } else {
+      // if (authResult['isDelete'] == true || authResult['isActive'] == false || authResult['isVerified'] == false) {
+      //   this.logout();
+      // } else {
 
 
 
@@ -38,98 +38,170 @@ export class AuthService {
 
 
     }
-  // }
+    // }
   }
 
   get token() {
-    if(this.isBrowser){return localStorage.getItem('token');}
+    if (this.isBrowser) { return localStorage.getItem('token'); }
     return null;
   }
 
-  login(Email: any, password: any) {
-   if(this.isBrowser){ 
- 
-     signInWithEmailAndPassword(this.afAuth, Email,password).then(value => {
-      console.log(value.user);
-       console.log(value.user?.uid)
-       this.router.navigateByUrl('/account/dashboard')
+  async login(Email: any, password: any){
+    // if (this.isBrowser) {
+      Loader.isLoading = true;
+      var check = false;
+        await signInWithEmailAndPassword(this.afAuth, Email, password).then(async value => {
+        // console.log(value.user);
+        var id = value.user?.uid
+       
+        
+        var ref = collection(this.firestore, "administrators");
+       
+        var q = query(ref,where("id","==",id));
+       
+      var  qSnap = await getDocs(q);
+        var roleId = "";
+        qSnap.forEach((doc)=>{
+         roleId =  doc.data()["roleId"];
+         if(doc.data()['isActive']==false){
+          Swal.fire({
+            text:"Account is inactive",
+            icon:"error",
+            showConfirmButton:true
+          }).then((resp:any)=>{
+            // this.logout();
+          })
+       
+         }
+        })
+      
+         ref = collection(this.firestore, "roles");
+       
+        q = query(ref,where("roleId","==",roleId));
+       
+         qSnap = await getDocs(q);
+        var roleName = "";
+        qSnap.forEach((doc)=>{
+          roleName =  doc.data()["name"];
+        })
+        console.log(roleName)
+        if(roleName.toLowerCase()!="admin" && roleName.toLowerCase()!="super admin"  && roleName.toLowerCase()!="manager"){
+          this.logout();
+        }else{
+          this.router.navigateByUrl("/account/dashboard")
+        }
+      }).catch(err => {
+        Swal.fire('alert', 'Something went wrong: ' + err.message, 'error');
+        Loader.isLoading = false;
+        this.logout();
+       
+      });
 
-     }).catch(err => {
-       Swal.fire('alert', 'Something went wrong: ' + err.message, 'error');
- 
-       Loader.isLoading= false;
-     });
-   
-}
-return null;
+    // }
   }
 
   //   signup(username: string, email: string, password1: string, password2: string) {
   //     // TODO: implement signup
   //   }
 
-  logout() {
-  signOut(this.afAuth).then((resp:any)=>{
-    console.log(resp,"signout");
-    User.isLoggedin=false;
-    this.router.navigateByUrl("/login");
-  },(err:any)=>{
-    console.log(err)
-  })
+  async logout() {
+   await signOut(this.afAuth).then((resp: any) => {
+      console.log(resp, "signout"); 
+      User.isLoggedin = false;
+      // this.router.navigateByUrl("/login");
+      window.location.reload();
+    }, (err: any) => {
+      console.log(err)
+    })
 
   }
 
 
 
-  async checkToken() {
-//  if(this.isBrowser){
-    var check = true;
+  async checkToken(){
+    //  if(this.isBrowser){
 
-    authState(this.afAuth).subscribe(async (_user: any) => {
-      if (_user) {
-        console.log(_user.uid)
-        var _collection = collection(this.firestore, "users");
+    var self= this;
 
-        await collectionData(_collection).subscribe((resp: any) => {
-       
-          resp = resp.filter((x: any) => x.id == _user.uid);
-          User.email = resp[0].email
-          User.name = resp[0].name
-          User.id = resp[0].id
-          User.isLoggedin = true;
-          check=true;
-          // user.Email = resp[0].email;
-          // user.FirstName = resp[0].firstName;
-          // user.Id = _user.uid;
-          Loader.isLoading = false;
-          console.log(User);
-        },(err: any) => {
-          console.log(err);
-          check = false;
-          Loader.isLoading = false;
-        });
+  var check = false;
+  // await authState(self.afAuth).subscribe(async (_user: any) => {
+ this.afAuth.onAuthStateChanged(async (user:any)=>{
+  if(user){
+    var id=user.uid;
+    User.id = id;
+  console.log(id)
+  var ref = collection(this.firestore, "administrators");
+  console.log(ref)
+  var q = query(ref,where("id","==",id));
+  console.log(q)
+  var  qSnap = await getDocs(q);
+  var roleId = "";
+  qSnap.forEach((doc)=>{
+    var data =  doc.data();
+   roleId = data["roleId"];
+   User.roleId = roleId;
+   User.name =data['name']
+   User.email =data['email']
+   User.isActive =data['isActive'];
+   
+   User.serviceId =data['serviceId'];
+   User.imageUrl =data['imageUrl'];
+   
+   User.hotel =data['hotelId'];
+   if( User.isActive==false){
+    this.logout();
+  }
 
-
+  })
+   ref = collection(this.firestore, "roles");
+ 
+  q = query(ref,where("roleId","==",roleId));
+ 
+   qSnap = await getDocs(q);
+  var roleName = "";
+  qSnap.forEach((doc)=>{
+    roleName =  doc.data()["name"];
+    User.roleName=roleName;
+  })
+  console.log(User)
+ 
+  if(roleName.toLowerCase()!="admin" && roleName.toLowerCase()!="super admin"  && roleName.toLowerCase()!="manager" ){
+         
+    this.logout();
+  }
+  
+  return true;
+  }else{
+    return false;
+  }
+ })
     
-      } else {
-        check = false;
-        Loader.isLoading = false;
+// })
+  // await authState(self.afAuth).subscribe(async (_user: any) => {
+  
+  //     if (_user) {
+  //     console.log(_user)
+     
+  //       Promise.resolve(check);
 
-      }
-    },(err:any)=>{
-      console.log(err);
-      check = false;
-      Loader.isLoading = false;
-    })
+  //     } else {
+  //       check = false;
+  //       Loader.isLoading = false;
 
-    Loader.isLoading = true;
-
-    Loader.isLoading = false;
-
-    
-    return check;
-  // }
-}
+  //     }
+  //      console.log(check)
+  //      Promise.resolve(check);
+  //   }, (err: any) => {
+  //     console.log(err);
+  //     check = false;
+     
+  //     Loader.isLoading = false;
+  //     console.log(check)
+  //     Promise.resolve(check);
+  //   })
+    // }
+  
+  }
 }
 
 // @Injectable()
@@ -175,17 +247,17 @@ return null;
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  isBrowser:boolean
-  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute,@Inject(PLATFORM_ID) platformId: Object) {
+  isBrowser: boolean
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute, @Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId)
-   }
+  }
 
 
   is_valid = true;
 
   async canActivate(_route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-    await this.authService.checkToken().then(success => {
+    await this.authService.checkToken().then((success:any) => {
 
       this.is_valid = success
 
@@ -198,7 +270,7 @@ export class AuthGuard implements CanActivate {
 
 
     // if(this.isBrowser) {
-      if (this.is_valid ) {
+    if (this.is_valid) {
 
       this.router.events.pipe(
         filter(e => e instanceof RoutesRecognized),
@@ -218,7 +290,7 @@ export class AuthGuard implements CanActivate {
 
       return true;
     }
-  // }
+    // }
 
   }
 }

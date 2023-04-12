@@ -15,11 +15,13 @@ const routes: Routes = [
 
   },
   {
+    // ...canActivate(redirectLoggedInToHome)
     path: "login", ...canActivate(redirectLoggedInToHome), component: LoginComponent
   },
   {
-    path: 'account',
-    ...canActivate(redirectUnauthorizedToLogin),
+    // ...canActivate(redirectUnauthorizedToLogin)
+    path: 'account',...canActivate(redirectUnauthorizedToLogin)
+  ,
     loadChildren: () =>
       import('../app/pages/account/account.module').then(m => m.AccountModule)
 
