@@ -1,6 +1,13 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Firestore, addDoc, collection, doc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { getDownloadURL, getStorage, listAll, ref, uploadString } from '@angular/fire/storage';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { faApple } from '@fortawesome/free-brands-svg-icons';
+import { Loader } from 'src/app/helpers/loader';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-hotel',
   templateUrl: './add-hotel.component.html',
@@ -18,7 +25,7 @@ export class AddHotelComponent implements OnInit {
   AddForm!: FormGroup;
   @ViewChild('calendar')
   calendar: any;
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private firestore: Firestore, private title: Title, public afAuth: Auth,private auth:AuthService) {}
   public facilityList: any;
   public bookingStatusList: any;
   public selectedImage: any;
@@ -28,15 +35,17 @@ export class AddHotelComponent implements OnInit {
   selectedProfilePic:any;
   currentdate = new Date();
   ngOnInit(): void {
+    this.title.setTitle("Create Hotel");
     this.AddForm = this.fb.group({
       HotelName: ['', Validators.required],
-      HotelTitle: ['', Validators.required],
+      // HotelTitle: ['', Validators.required],
       HotelAddress: ['', Validators.required],
       Description: ['', Validators.required],
       PriceGuest: [100, Validators.required],
       PriceRoom: [100, Validators.required],
+      vat: [0, Validators.required],
       // Facilities: ['', Validators.required],
-      Image: ['', Validators.required],
+      Image: [null],
       username: ['', Validators.required],
       profile_pic: [''],
       email: ['', Validators.required],
@@ -55,29 +64,174 @@ export class AddHotelComponent implements OnInit {
     ];
   }
 
-  onSubmit() {
+  async submit() {
     if (this.AddForm.valid) {
-      // var data = this.AddForm.value;
-      // // loader.isLoading = true;
-      // this.conactService.ContactPost(data).subscribe(
-      //   (resp: any) => {
-      //     Swal.fire(
-      //       'Success',
-      //       'Thanks for contacting us we will contact you soon.',
-      //       'success'
-      //     );
-      //     this.AddForm.reset();
-      //     // this.isAgree = false;
-      //     loader.isLoading = false;
-      //   },
-      //   error => {
-      //     Swal.fire('Error', 'Some thing is not right', 'error');
-      //     // this.isAgree = false;
-      //     loader.isLoading = false;
-      //   }
-      // );
+      Loader.isLoading=true;
+      var timeStamp = (new Date()).getTime()
+    var hotelRef = collection(this.firestore, "hotels");
+     
+
+      var formData= this.AddForm.value;
+      
+      
+    var hotelPayload = {
+      createdAt:timeStamp,
+      description: formData["Description"],
+      location: formData["HotelAddress"],
+      name: formData["HotelName"],
+      photos: [],
+      id:"",
+      photo:"",
+      pricePerGuest: formData["PriceGuest"],
+      pricePerRoom: formData["PriceRoom"],
+      rating:5,
+      vat: formData["vat"]
+
+      }
+      var hotelId :any= 0;
+     await  addDoc(hotelRef, hotelPayload).then((resp)=>{
+       hotelId = resp.id
+       });
+
+       var serviceRef = collection(this.firestore,"hotels/"+hotelId+"/services");
+       var servicePayload={
+        id:"",
+        name:"House Keeping",
+        description:"kuch bhi",
+       }
+       var serviceId:any=0;
+      await addDoc(serviceRef, servicePayload).then((resp) => {
+        serviceId = resp.id
+      });
+      var serviceDocRef = doc(this.firestore, "hotels/" + hotelId+"/services/"+serviceId);
+      await updateDoc(serviceDocRef,{
+        id:serviceId
+      })
+     
+        servicePayload={
+        id:"",
+        name:"Front Office",
+        description:"kuch bhi",
+       }
+      
+      await addDoc(serviceRef, servicePayload).then((resp) => {
+        serviceId = resp.id
+      });
+      serviceDocRef = doc(this.firestore, "hotels/" + hotelId + "/services/" + serviceId);
+      await updateDoc(serviceDocRef,{
+        id:serviceId
+      })
+        servicePayload={
+        id:"",
+        name:"Room Service",
+        description:"kuch bhi",
+       }
+      
+      await addDoc(serviceRef, servicePayload).then((resp) => {
+        serviceId = resp.id
+      });
+
+      serviceDocRef = doc(this.firestore, "hotels/" + hotelId + "/services/" + serviceId);
+      await updateDoc(serviceDocRef,{
+        id:serviceId
+      })
+        servicePayload={
+        id:"",
+        name:"Maintenance",
+        description:"kuch bhi",
+       }
+      
+      await addDoc(serviceRef, servicePayload).then((resp) => {
+        serviceId = resp.id
+      });
+      serviceDocRef = doc(this.firestore, "hotels/" + hotelId + "/services/" + serviceId);
+      await updateDoc(serviceDocRef,{
+        id:serviceId
+      })
+      var storage =   getStorage();
+      var photos :any= []
+      this.imageSrcs.forEach(async (item:any)=>{
+       
+        var storageRef = ref(storage, "hotels/" + hotelId + "/" + (new Date()).getTime() + ".png");
+    await    uploadString(storageRef, item, 'data_url').then((snapshot) => {
+          // console.log('Uploaded a data_url string!',snapshot);
+          getDownloadURL(storageRef).then((resp:any)=>{
+            photos.push(resp);
+            console.log(photos)
+          })
+        }).catch((err:any)=>{
+          Loader.isLoading=false;
+          console.log(err);
+        });
+      })
+     
+      // Find all the prefixes and items.
+ 
+     setTimeout(async ()=>{
+      //  await listAll(listRef).then((resp: any) => {
+      //    var photos = resp.items;
+      //  })
+    var photo ="";
+    if(photos.length>0){
+      photo=photos[0];
+    }
+    
+    var hotelDocref = doc(this.firestore,"hotels/"+hotelId);
+    await updateDoc(hotelDocref,{
+      id:hotelId,
+      photo:photo,
+      photos:photos
+    });
+
+    console.log(formData);
+    createUserWithEmailAndPassword(this.afAuth,formData["email"],formData["password"]).then(async (resp:any)=>{
+      
+      const adminRef = collection(this.firestore, 'administrators');
+      var storageRef = ref(storage, "users/" + resp.user.uid + "/" + (new Date()).getTime() + ".png");
+      var url="";
+      if (formData['Image']){
+      await uploadString(storageRef, formData['Image'], 'data_url').then((snapshot) => {
+        // console.log('Uploaded a data_url string!',snapshot);
+        getDownloadURL(storageRef).then((resp: any) => {
+          url=resp;
+          
+        })
+      }).catch((err: any) => {
+        Loader.isLoading = false;
+        console.log(err);
+      });
+    }
+      setTimeout(async ()=>{
+        var user = {
+          "id": resp.user.uid,
+          "email": formData['email'],
+          "isActive": true,
+          "name": formData["username"],
+          "serviceId": "",
+          "hotelId": hotelId,
+          "imageUrl": url,
+          "roleId":"NAER11fuLRi6jloPEJTo"
+        }
+        await addDoc(adminRef, user).then((res: any) => {
+
+          Swal.fire("Congratulations", "Hotel Created Successfully", "success");
+          // this.router.navigateByUrl("/trainers");
+        }).catch((err: any) => {
+          console.log(err);
+        })
+      },1000);
+    }).catch((err:any)=>{
+      console.log(err);
+    })
+     }, 2500)
+    Loader.isLoading = false;
+      
     } else {
-      this.AddForm.markAllAsTouched();
+      Swal.fire({
+        title:"Alert",
+        text:"All fields are required",
+        icon:"warning"
+      })
     }
   }
   increment() {
@@ -98,6 +252,15 @@ export class AddHotelComponent implements OnInit {
     const price = this.AddForm.controls['PriceGuest'].value;
     this.AddForm.controls['PriceGuest'].setValue(price - 5);
   }
+  vatIncrement() {
+    const price = this.AddForm.controls['vat'].value;
+    this.AddForm.controls['vat'].setValue(price + 5);
+  }
+
+  varDecrement() {
+    const price = this.AddForm.controls['vat'].value;
+    this.AddForm.controls['vat'].setValue(price - 5);
+  }
   onFileSelected(event: any): void {
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
@@ -111,7 +274,22 @@ export class AddHotelComponent implements OnInit {
     }
   }
   removeImage(index: any) {
-    this.imageSrcs.splice(index, 1);
+    Swal.fire({
+      title:"Notice",
+      text:"Do you really want to remove this item?",
+      icon:"question",
+      showCancelButton:true,
+      showConfirmButton:true,
+      confirmButtonText:"Yes",
+      cancelButtonText:"No",
+      
+      
+    }).then((Resp:any)=>{
+      if(Resp.value){
+        this.imageSrcs.splice(index, 1);
+      }
+    })
+
   }
   openCalendar(event: any) {
     // this.calendar.showOverlay(this.calendar.inputfieldViewChild.nativeElement);
@@ -128,11 +306,35 @@ export class AddHotelComponent implements OnInit {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.profilePicPriview = reader.result as string;
-      let ImgagePath = reader.result as string;
+      let ImagePath = reader.result as string;
       this.AddForm.patchValue({
-        imageSource: ImgagePath
+        Image: ImagePath
       });
     };
     // reader.readAsDataURL(this.selectedImage);
   }
+  removeProfilePic(){
+    Swal.fire({
+      title: "Notice",
+      text: "Do you really want to remove this item?",
+      icon: "question",
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+
+
+    }).then((Resp: any) => {
+      if (Resp.value) {
+        this.AddForm.patchValue({
+          Image: null
+        });
+      }
+    })
+   
+  }
 }
+function Collection(firestore: Firestore, arg1: string) {
+  throw new Error('Function not implemented.');
+}
+

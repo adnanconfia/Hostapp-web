@@ -321,7 +321,7 @@ body {
 
 .btn-primary {
     background-color: $primary;
-    color: $light;
+    color: $white;
     border: none !important;
     &:hover {
         opacity: .7 !important;
@@ -329,12 +329,10 @@ body {
 }
 
 .btn-dark {
-    background: #F6F6F6;
+    background: $light;
     color: $black-500;
     border: none !important;
-    &:hover {
-        opacity: .1 !important;
-    }
+   
 }
 
 .form-control:focus,
@@ -374,7 +372,21 @@ p-checkbox {
 .text-white {
     color: $white;
 }
-
+.file-bg {
+    background: #F0F0F0;
+    display: flex;
+    justify-content: center;
+    line-height: 1.5;
+    // width: 178px !important;
+    // height: 149px !important;
+    border: 1px dashed #A2A2A2;
+    border-radius: 15px !important;
+    -webkit-border-radius: 15px !important;
+    -moz-border-radius: 15px !important;
+    -ms-border-radius: 15px !important;
+    -o-border-radius: 15px !important;
+    text-align: center !important;
+}
 // .p-paginator {
 //     justify-content: end !important;
 //     position: absolute;
@@ -391,7 +403,7 @@ p-checkbox {
     display: flex;
     justify-content: center;
     line-height: 1.5;
-    width: 178px !important;
+    // width: 178px !important;
     height: 149px !important;
     border: 1px dashed #A2A2A2;
     border-radius: 15px !important;

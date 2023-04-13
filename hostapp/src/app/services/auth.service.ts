@@ -46,7 +46,7 @@ export class AuthService {
     return null;
   }
 
-  async login(Email: any, password: any){
+  async login(Email: any, password: any,_check:any=false){
     // if (this.isBrowser) {
       Loader.isLoading = true;
       var check = false;
@@ -75,21 +75,49 @@ export class AuthService {
          }
         })
       
-         ref = collection(this.firestore, "roles");
-       
-        q = query(ref,where("roleId","==",roleId));
-       
-         qSnap = await getDocs(q);
-        var roleName = "";
-        qSnap.forEach((doc)=>{
-          roleName =  doc.data()["name"];
-        })
-        console.log(roleName)
+          var ref = collection(this.firestore, "administrators");
+          console.log(ref)
+          var q = query(ref, where("id", "==", id));
+          console.log(q)
+          var qSnap = await getDocs(q);
+          var roleId = "";
+          qSnap.forEach((doc) => {
+            var data = doc.data();
+            roleId = data["roleId"];
+            User.roleId = roleId;
+            User.name = data['name']
+            User.email = data['email']
+            User.isActive = data['isActive'];
+
+            User.serviceId = data['serviceId'];
+            User.imageUrl = data['imageUrl'];
+
+            User.hotel = data['hotelId'];
+            //  if( User.isActive==false){
+            //   this.logout();
+            // }
+
+          })
+          ref = collection(this.firestore, "roles");
+
+          q = query(ref, where("roleId", "==", roleId));
+
+          qSnap = await getDocs(q);
+          var roleName = "";
+          qSnap.forEach((doc) => {
+            roleName = doc.data()["name"];
+            User.roleName = roleName;
+          })
         if(roleName.toLowerCase()!="admin" && roleName.toLowerCase()!="super admin"  && roleName.toLowerCase()!="manager"){
           this.logout();
         }else{
-          this.router.navigateByUrl("/account/dashboard")
+          if(_check==false){
+          this.router.navigateByUrl("/account/dashboard");
+          localStorage.setItem("email",Email);
+          localStorage.setItem("pass",password);
+          }
         }
+        Loader.isLoading=false
       }).catch(err => {
         Swal.fire('alert', 'Something went wrong: ' + err.message, 'error');
         Loader.isLoading = false;
@@ -125,56 +153,59 @@ export class AuthService {
 
   var check = false;
   // await authState(self.afAuth).subscribe(async (_user: any) => {
- this.afAuth.onAuthStateChanged(async (user:any)=>{
-  if(user){
-    var id=user.uid;
-    User.id = id;
-  console.log(id)
-  var ref = collection(this.firestore, "administrators");
-  console.log(ref)
-  var q = query(ref,where("id","==",id));
-  console.log(q)
-  var  qSnap = await getDocs(q);
-  var roleId = "";
-  qSnap.forEach((doc)=>{
-    var data =  doc.data();
-   roleId = data["roleId"];
-   User.roleId = roleId;
-   User.name =data['name']
-   User.email =data['email']
-   User.isActive =data['isActive'];
+    if (localStorage.getItem("email") && localStorage.getItem("pass")){
+    this.login(localStorage.getItem("email"), localStorage.getItem("pass"),true);
+    }
+//  this.afAuth.onAuthStateChanged(async (user:any)=>{
+//   if(user){
+//     this.login(localStorage.getItem("email"), localStorage.getItem("pass"));
+//     var id=user.uid;
+//     User.id = id;
+ 
+//   var ref = collection(this.firestore, "administrators");
+//   console.log(ref)
+//   var q = query(ref,where("id","==",id));
+//   console.log(q)
+//   var  qSnap = await getDocs(q);
+//   var roleId = "";
+//   qSnap.forEach((doc)=>{
+//     var data =  doc.data();
+//    roleId = data["roleId"];
+//    User.roleId = roleId;
+//    User.name =data['name']
+//    User.email =data['email']
+//    User.isActive =data['isActive'];
    
-   User.serviceId =data['serviceId'];
-   User.imageUrl =data['imageUrl'];
+//    User.serviceId =data['serviceId'];
+//    User.imageUrl =data['imageUrl'];
    
-   User.hotel =data['hotelId'];
-   if( User.isActive==false){
-    this.logout();
-  }
+//    User.hotel =data['hotelId'];
+//   //  if( User.isActive==false){
+//   //   this.logout();
+//   // }
 
-  })
-   ref = collection(this.firestore, "roles");
+//   })
+//    ref = collection(this.firestore, "roles");
  
-  q = query(ref,where("roleId","==",roleId));
+//   q = query(ref,where("roleId","==",roleId));
  
-   qSnap = await getDocs(q);
-  var roleName = "";
-  qSnap.forEach((doc)=>{
-    roleName =  doc.data()["name"];
-    User.roleName=roleName;
-  })
-  console.log(User)
- 
-  if(roleName.toLowerCase()!="admin" && roleName.toLowerCase()!="super admin"  && roleName.toLowerCase()!="manager" ){
+//    qSnap = await getDocs(q);
+//   var roleName = "";
+//   qSnap.forEach((doc)=>{
+//     roleName =  doc.data()["name"];
+//     User.roleName=roleName;
+//   })
+
+//   // if(roleName.toLowerCase()!="admin" && roleName.toLowerCase()!="super admin"  && roleName.toLowerCase()!="manager" ){
          
-    this.logout();
-  }
+//   //   this.logout();
+//   // }
   
-  return true;
-  }else{
-    return false;
-  }
- })
+//   return true;
+//   }else{
+//     return false;
+//   }
+//  })
     
 // })
   // await authState(self.afAuth).subscribe(async (_user: any) => {
