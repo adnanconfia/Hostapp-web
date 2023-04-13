@@ -1,3 +1,4 @@
+import { AddHotelComponent } from './hotel/add-hotel/add-hotel.component';
 import { DetailBookingComponent } from './bookings/detail-booking/detail-booking.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { AddBookingComponent } from './bookings/add-booking/add-booking.component';
@@ -27,12 +28,15 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent
       },
-      
+
       {
         path: 'hotels',
         component: HotelComponent
       },
-
+      {
+        path: 'hotels/addhotel',
+        component: AddHotelComponent
+      },
       {
         path: 'users',
         component: UsersComponent
@@ -78,7 +82,10 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AccountRoutingModule {}
-export const RoutingComps = [DashboardComponent, UsersComponent, HotelComponent,
+export const RoutingComps = [
+  DashboardComponent,
+  UsersComponent,
+  HotelComponent,
   RoomsComponent,
   AddRoomComponent,
   RoomTypesComponent,
@@ -86,4 +93,5 @@ export const RoutingComps = [DashboardComponent, UsersComponent, HotelComponent,
   BookingsComponent,
   AddBookingComponent,
   DetailBookingComponent,
-  ViewRoomsComponent,];
+  ViewRoomsComponent
+];

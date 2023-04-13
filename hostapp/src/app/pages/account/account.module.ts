@@ -33,6 +33,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { DetailBookingComponent } from './bookings/detail-booking/detail-booking.component';
 import { ViewRoomsComponent } from './rooms/view-rooms/view-rooms.component';
 import { HotelComponent } from './hotel/hotel.component';
+import { AddHotelComponent } from './hotel/add-hotel/add-hotel.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { HotelComponent } from './hotel/hotel.component';
     SidebarComponent,
     HeaderComponent,
     DataGridComponent,
+    AddHotelComponent,
    
    
   ],

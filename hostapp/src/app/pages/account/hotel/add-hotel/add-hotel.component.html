@@ -1,0 +1,185 @@
+<div class="row w-100">
+    <div class="col-12  border-lighter br-11px p-3">
+        <div class="border-lighter br-8px p-3">
+            <div class="form-section mb-4">
+                <!-- <h5 class="mb-0">Add Hotel</h5> -->
+                <form [formGroup]="AddForm" (ngSubmit)="onSubmit()">
+
+                    <div class="row mt-4">
+                        <div class="col-7">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5>Hotel Details</h5>
+                                </div>
+                                <div class="col-12 col-md-6 mt-3 ">
+                                    <div class="form-group">
+                                        <label>Hotel Name</label>
+                                        <input type="text" placeholder="Hotel Name" class="form-control p-12px br-8px mt-2" formControlName="HotelName">
+
+                                        <small class="text-danger" *ngIf="AddForm.get('HotelName')!.invalid && (AddForm.get('HotelName')!.dirty || AddForm.get('HotelName')!.touched)">HotelName is required</small>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-12 col-md-6 mt-3 ">
+                                    <div class="form-group">
+                                        <label>Title</label>
+                                        <input type="text" placeholder="Hotel Title" class="form-control p-12px br-8px mt-2" formControlName="HotelTitle">
+
+                                        <small class="text-danger" *ngIf="AddForm.get('HotelTitle')!.invalid && (AddForm.get('HotelTitle')!.dirty || AddForm.get('HotelTitle')!.touched)">Title is required</small>
+                                    </div>
+                                </div> -->
+                                <div class="col-12 col-md-6 mt-3 ">
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <input type="text" placeholder="Description" class="form-control p-12px br-8px mt-2" formControlName="Description">
+
+                                        <small class="text-danger" *ngIf="AddForm.get('Description')!.invalid && (AddForm.get('Description')!.dirty || AddForm.get('Description')!.touched)">Description is required</small>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mt-3 ">
+                                    <div class="form-group">
+                                        <label>Hotel Address</label>
+                                        <input type="text" placeholder="Hotel Address" class="form-control p-12px br-8px mt-2" formControlName="HotelAddress">
+
+                                        <small class="text-danger" *ngIf="AddForm.get('HotelAddress')!.invalid && (AddForm.get('HotelAddress')!.dirty || AddForm.get('HotelAddress')!.touched)">Hotel Address is required</small>
+                                    </div>
+                                </div>
+                                <div class="col-6 mt-3">
+                                    <div class="form-group position-relative">
+                                        <p class="mb-2">Price Per Guest</p>
+                                        <span type='button' class="minus-price left-30px" (click)="decrement1()">$5 -</span>
+                                        <p-inputNumber class="text-center" formControlName="PriceGuest" inputId="horizontal" mode="currency" currency="USD">
+
+                                        </p-inputNumber>
+                                        <span type='button' class="plus-price right-30px" (click)="increment1()">+$5</span>
+                                        <small class="text-danger" *ngIf="AddForm.get('PriceGuest')!.invalid && (AddForm.get('PriceGuest')!.dirty || AddForm.get('PriceGuest')!.touched)">Price per guest is required</small>
+                                    </div>
+                                </div>
+                                <div class="col-6 mt-3">
+                                    <div class="form-group position-relative">
+                                        <p class="mb-2">Price Per Room</p>
+                                        <span type='button' class="minus-price left-30px" (click)="decrement()">$5 -</span>
+                                        <p-inputNumber class="text-center" formControlName="PriceRoom" inputId="horizontal" mode="currency" currency="USD">
+
+                                        </p-inputNumber>
+                                        <span type='button' class="plus-price right-30px" (click)="increment()">+$5</span>
+                                        <small class="text-danger" *ngIf="AddForm.get('PriceRoom')!.invalid && (AddForm.get('PriceRoom')!.dirty || AddForm.get('PriceRoom')!.touched)">Price per room is required</small>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <h5>User Details</h5>
+                                </div>
+                                <div class="col-6 col-md-6 mt-3 mt-sm-3 mt-md-0">
+                                    <div class="form-group">
+                                        <label>User Name</label>
+                                        <input type="text" placeholder="Farooq" class="form-control p-12px br-8px mt-2" formControlName="username">
+
+                                        <small class="text-danger" *ngIf="AddForm.get('username')!.invalid && (AddForm.get('username')!.dirty || AddForm.get('username')!.touched)">User Name is required</small>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6  mt-3 mt-sm-3 mt-md-0">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" placeholder="anumfarooq@gmail.com" class="form-control p-12px br-8px  mt-2" formControlName="Email">
+
+                                        <small class="text-danger" *ngIf="AddForm.get('email')!.invalid && (AddForm.get('email')!.dirty || AddForm.get('email')!.touched)">Email is required</small>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6  mt-3">
+                                    <div class="form-group">
+                                        <h6 class="mb-2">Password</h6>
+                                        <span class="p-input-icon-right w-100">
+                                                    <input [type]="_showpass?'text':'password'"  formControlName="password" pInputText placeholder="Enter password" class="w-100 form-control p-12px br-8px mt-2" />
+                                                    
+                                                       <i class="material-icons cursor-pointer" (click)="showPass()" *ngIf="!_showpass"> visibility </i>
+                                                     <i class="material-icons  cursor-pointer" (click)="hidePass()" *ngIf="_showpass"> visibility_off </i>
+                            
+                                                        <!-- <i class="pi pi-eye-slash"></i> -->
+                                                    </span>
+                                        <small *ngIf="AddForm.get('password')?.invalid &&  (AddForm.get('password')?.touched  ||AddForm.get('password')?.dirty)" class="text-danger">
+                                                        Please enter password
+                                                    </small>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-3 mt-3 ">
+                                        <p class="mb-2">Profile Image</p>
+                                        <div class="image-upload-wrapper-items">
+                                            <div class=" d-flex align-items-center justify-content-center flex-column " multiple>
+                                                <input type="file" (change)="onProfilePicSelected($event)" accept="image/jpeg, image/png, image/jpg" id=" input-file-now " formControlName="profile_pic" class="file-upload" />
+                                                <div class="d-inline-flex align-content-center">
+                                                    <span class="material-symbols-rounded fs-3 text-dark-500">image</span>
+                                                    <p class="fs-6 my-auto ms-2 text-dark-800">Uplad Image</p>
+                                                </div>
+                
+                
+                                            </div>
+                                        </div>
+                                        <!-- <small class="text-danger" *ngIf="AddForm.get('image')!.invalid && (AddForm.get('image')!.dirty || AddForm.get('image')!.touched)">Image is required</small> -->
+                
+                                    </div>
+                                <!-- <div class="col-12 col-md-6 mt-3">
+                                    <div class="form-group">
+                                        <p class="mb-2">Facilities</p>
+                                        <p-multiSelect id="select-items" defaultLabel="Choose Facilities" [options]="facilityList" formControlName="Facilities" optionLabel="name"></p-multiSelect>
+                                        <small class="text-danger" *ngIf="AddForm.get('Facilities')!.invalid && (AddForm.get('Facilities')!.dirty || AddForm.get('Facilities')!.touched)">Select Facilities</small>
+                                    </div>
+                                </div> -->
+
+                                <div class="row mt-3 p-0">
+                                    <div class="col-9">
+
+                                    </div>
+
+                                    <div class="col-3 pe-0">
+                                        <div class="d-flex justify-content-end w-100">
+                                            <button href="#" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 w-100 br-8px mx-2">Cancel</button>
+                                            <button href="#" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px" [disabled]="!AddForm.valid" type="submit">Add</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="row  px-2">
+                                <div class="d-flex justify-content-between">
+                                    <h5>Upload Room Images</h5>
+
+                                </div>
+
+                            </div>
+                            <div class="row px-2" *ngIf="imageSrcs.length > 0">
+                                <div *ngFor="let src of imageSrcs;let index=index" class="col-6 p-2 m-0 text-center position-relative">
+                                    <!-- <img [src]="src" alt="" class="br-15px "> -->
+                                    <p-image [src]="src" alt="Image" class="br-15px object-fit-cover" [preview]="true" width="178px" height="149px">
+                                        <ng-template pTemplate="indicator">
+                                            <div class=" d-flex justify-content-center flex-column align-items-center">
+                                                <span class="material-symbols-rounded">search</span>
+                                                <p class="mt-2">View Full Screen</p>
+                                            </div>
+
+                                        </ng-template>
+                                    </p-image>
+                                    <span class="material-symbols-rounded position-absolute  remove-icon" (click)="removeImage(index)">remove</span>
+                                </div>
+                            </div>
+                            <div class="row px-2">
+                                <div class="col-6 p-2">
+                                    <div class="file-upload-wrapper">
+                                        <div class=" d-flex align-items-center justify-content-center flex-column " multiple>
+                                            <input type="file" (change)="onFileSelected($event)" accept="image/jpeg, image/png, image/jpg" id=" input-file-now " formControlName="Image" class="file-upload" multiple />
+                                            <span class="material-symbols-rounded fs-1 text-dark-500 mt-3">image</span>
+                                            <p class="fs-6 mt-2">Uplad Image</p>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
