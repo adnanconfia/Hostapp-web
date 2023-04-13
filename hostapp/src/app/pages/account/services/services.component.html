@@ -2,16 +2,39 @@
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter bg-white  br-8px p-3">
             <div class="form-section mb-4" *ngIf="serviceFormShow">
-                <h5>Add Details</h5>
+                <h5 class="mb-0">Add Service Item</h5>
                 <form class="row" [formGroup]="AddForm" (ngSubmit)="onSubmit()">
-                    <div class="col-6 col-md-3 mt-3 mt-sm-3 mt-md-0">
-                        <div class="form-group">
-                            <p class="mb-2">Select Items</p>
+                    <div class="col-6 col-md-4 mt-3">
+                        <!-- <div class="form-group">
+                            <p class="mb-2">Services</p>
                             <p-multiSelect id="select-items" defaultLabel="Select items" [options]="itemsList" formControlName="items" optionLabel="name"></p-multiSelect>
                             <small class="text-danger" *ngIf="AddForm.get('items')!.invalid && (AddForm.get('items')!.dirty || AddForm.get('items')!.touched)">Select items</small>
+                        </div> -->
+                        <div class="form-group">
+                            <p class="mb-2">Services</p>
+                            <p-dropdown [options]="servicesList" formControlName="services" placeholder="Services" optionLabel="name"></p-dropdown>
+                            <small class="text-danger" *ngIf="AddForm.get('services')!.invalid && (AddForm.get('services')!.dirty || AddForm.get('services')!.touched)">Booking Staus is requied</small>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3 mt-3 mt-sm-3 mt-md-0">
+                    <div class="col-6 col-md-4 mt-3" *ngIf="AddForm.controls['services'].value">
+                        <div class="form-group">
+                            <label>Item Name</label>
+                            <input type="text" placeholder="Item Name" class="form-control p-12px br-8px mt-2" formControlName="itemName">
+
+                            <small class="text-danger" *ngIf="AddForm.get('itemName')!.invalid && (AddForm.get('itemName')!.dirty || AddForm.get('itemName')!.touched)">Item Name is required</small>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 mt-3" *ngIf="AddForm.controls['services'].value">
+                        <div class="form-group">
+                            <p class="mb-2">Price item</p>
+                            <p-inputNumber class="w-100 text-start  br-8px" formControlName="priceItem" inputId="horizontal" mode="currency" currency="USD">
+
+                            </p-inputNumber>
+                            <small class="text-danger" *ngIf="AddForm.get('priceItem')!.invalid && (AddForm.get('priceItem')!.dirty || AddForm.get('priceItem')!.touched)">Price  is required</small>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-4 mt-3 ">
                         <p class="mb-2">Upload Image</p>
                         <div class="image-upload-wrapper-items">
                             <div class=" d-flex align-items-center justify-content-center flex-column " multiple>
@@ -27,7 +50,7 @@
                         <small class="text-danger" *ngIf="AddForm.get('image')!.invalid && (AddForm.get('image')!.dirty || AddForm.get('image')!.touched)">Image is required</small>
 
                     </div>
-                    <div class="col-6 col-md-4 mt-3 mt-sm-3 mt-md-0" *ngIf="imagePreview">
+                    <div class="col-6 col-md-4 mt-3" *ngIf="imagePreview">
                         <img [src]="imagePreview" alt="" class="br-8px" width="120px" height="100px">
                     </div>
                     <div class="row mt-3">

@@ -8,14 +8,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class ServicesComponent implements OnInit {
   AddForm!: FormGroup;
-  public itemsList: any;
+  public servicesList: any;
   public selectedImage: any;
   public imagePreview: any;
   public cols: any;
   public itemsDetails: any;
   public serviceFormShow: boolean = false;
   constructor(private fb: FormBuilder) {
-    this.itemsList = [
+    this.servicesList = [
       { name: 'Towels', code: 'Towels' },
       { name: 'Pillow', code: 'Pillow' },
       { name: 'Covers', code: 'Covers' },
@@ -26,8 +26,10 @@ export class ServicesComponent implements OnInit {
 
   ngOnInit(): void {
     this.AddForm = this.fb.group({
-      items: ['', Validators.required],
-      image: ['', Validators.required],
+      services: ['', Validators.required],
+      image: [''],
+      itemName: ['', Validators.required],
+      priceItem: ['', Validators.required],
       imageSource: []
     });
     this.cols = [
