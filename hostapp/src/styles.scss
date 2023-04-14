@@ -192,7 +192,8 @@ body {
 .br-11px {
     border-radius: 11px !important;
 }
-.br-8px{
+
+.br-8px {
     border-radius: 8px !important;
 }
 
@@ -332,7 +333,6 @@ body {
     background: $light;
     color: $black-500;
     border: none !important;
-   
 }
 
 .form-control:focus,
@@ -372,13 +372,14 @@ p-checkbox {
 .text-white {
     color: $white;
 }
+
 .file-bg {
     background: #F0F0F0;
     display: flex;
     justify-content: center;
     line-height: 1.5;
-    // width: 178px !important;
-    // height: 149px !important;
+    // width: 100%;
+    // height: 100%;
     border: 1px dashed #A2A2A2;
     border-radius: 15px !important;
     -webkit-border-radius: 15px !important;
@@ -387,6 +388,7 @@ p-checkbox {
     -o-border-radius: 15px !important;
     text-align: center !important;
 }
+
 // .p-paginator {
 //     justify-content: end !important;
 //     position: absolute;

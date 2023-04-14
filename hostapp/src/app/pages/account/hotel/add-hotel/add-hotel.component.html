@@ -54,8 +54,8 @@
                                         <small class="text-danger" *ngIf="AddForm.get('PriceGuest')!.invalid && (AddForm.get('PriceGuest')!.dirty || AddForm.get('PriceGuest')!.touched)">Price per guest is required</small>
                                     </div>
                                 </div>
-                                
-                              
+
+
                                 <div class="col-6 mt-3">
                                     <div class="form-group position-relative">
                                         <p class="mb-2">Price Per Room</p>
@@ -67,7 +67,7 @@
                                         <small class="text-danger" *ngIf="AddForm.get('PriceRoom')!.invalid && (AddForm.get('PriceRoom')!.dirty || AddForm.get('PriceRoom')!.touched)">Price per room is required</small>
                                     </div>
                                 </div>
-                                  <div class="col-6 mt-3">
+                                <div class="col-6 mt-3">
                                     <div class="form-group position-relative">
                                         <p class="mb-2">VAT</p>
                                         <span type='button' class="minus-price left-30px" (click)="varDecrement()">$5 -</span>
@@ -114,37 +114,37 @@
                                     </div>
                                 </div>
                                 <div class="col-6 col-md-3 mt-3 ">
-                                        <p class="mb-2">Profile Image</p>
-                                        {{AddForm.get('Image')!.value}}
-                                        <div class="w-100 file-bg p-2 m-2 br-11px file-bg text-center position-relative" *ngIf="AddForm.get('Image')!.value">
+                                    <p class="mb-2">Profile Image</p>
+                                    {{AddForm.get('profile_pic')!.value}}
+                                    <div class="w-100 file-bg p-2 m-2 br-11px file-bg text-center position-relative" *ngIf="AddForm.get('profile_pic')!.value">
 
-                                    <!-- <img [src]="src" alt="" class="br-15px "> -->
-                                    <p-image [src]="AddForm.get('Image')!.value" alt="Image" class="br-15px object-fit-cover" [preview]="true" width="178px" height="149px">
-                                        <ng-template pTemplate="indicator">
-                                            <div class=" d-flex justify-content-center flex-column align-items-center">
-                                                <span class="material-symbols-rounded">search</span>
-                                                <p class="mt-2">View Full Screen</p>
-                                            </div>
-
-                                        </ng-template>
-                                    </p-image>
-                                    <span class="material-symbols-rounded position-absolute  remove-icon" (click)="removeProfilePic()">remove</span>
-                                </div>
-                                        
-                                        <div class="image-upload-wrapper-items" *ngIf="!AddForm.get('Image')!.value">
-                                            <div class=" d-flex align-items-center justify-content-center flex-column " >
-                                                <input type="file" (change)="onProfilePicSelected($event)" accept="image/jpeg, image/png, image/jpg" id=" input-file-now " formControlName="profile_pic" class="file-upload" />
-                                                <div class="d-inline-flex align-content-center">
-                                                    <span class="material-symbols-rounded fs-3 text-dark-500">image</span>
-                                                    <p class="fs-6 my-auto ms-2 text-dark-800">Upload  Image</p>
+                                        <!-- <img [src]="src" alt="" class="br-15px "> -->
+                                        <p-image [src]="AddForm.get('profile_pic')!.value" alt="Image" class="br-15px object-fit-cover" [preview]="true" width="178px" height="149px">
+                                            <ng-template pTemplate="indicator">
+                                                <div class=" d-flex justify-content-center flex-column align-items-center">
+                                                    <span class="material-symbols-rounded">search</span>
+                                                    <p class="mt-2">View Full Screen</p>
                                                 </div>
-                
-                
-                                            </div>
-                                        </div>
-                                        <!-- <small class="text-danger" *ngIf="AddForm.get('image')!.invalid && (AddForm.get('image')!.dirty || AddForm.get('image')!.touched)">Image is required</small> -->
-                
+
+                                            </ng-template>
+                                        </p-image>
+                                        <span class="material-symbols-rounded position-absolute  remove-icon" (click)="removeProfilePic()">remove</span>
                                     </div>
+
+                                    <div class="image-upload-wrapper-items" *ngIf="!AddForm.get('profile_pic')!.value">
+                                        <div class=" d-flex align-items-center justify-content-center flex-column ">
+                                            <input type="file" (change)="onProfilePicSelected($event)" accept="image/jpeg, image/png, image/jpg" id=" input-file-now " formControlName="profile_pic" class="file-upload" />
+                                            <div class="d-inline-flex align-content-center">
+                                                <span class="material-symbols-rounded fs-3 text-dark-500">image</span>
+                                                <p class="fs-6 my-auto ms-2 text-dark-800">Upload Image</p>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <!-- <small class="text-danger" *ngIf="AddForm.get('image')!.invalid && (AddForm.get('image')!.dirty || AddForm.get('image')!.touched)">Image is required</small> -->
+
+                                </div>
                                 <!-- <div class="col-12 col-md-6 mt-3">
                                     <div class="form-group">
                                         <p class="mb-2">Facilities</p>
@@ -178,7 +178,7 @@
                             <div class="row px-2" *ngIf="imageSrcs.length > 0">
                                 <div *ngFor="let src of imageSrcs;let index=index" class="col-12 col-lg-5 p-2 m-2 br-11px file-bg text-center position-relative">
                                     <!-- <img [src]="src" alt="" class="br-15px "> -->
-                                    <p-image [src]="src" alt="Image" class="br-15px object-fit-cover" [preview]="true" width="178px" height="149px">
+                                    <p-image [src]="src" alt="Image" class="br-15px object-fit-cover" [preview]="true" width='90%' height='90%'>
                                         <ng-template pTemplate="indicator">
                                             <div class=" d-flex justify-content-center flex-column align-items-center">
                                                 <span class="material-symbols-rounded">search</span>
@@ -193,10 +193,10 @@
                             <div class="row px-2">
                                 <div class="col-12 col-lg-5 p-2 m-2 file-upload-wrapper">
                                     <div class=" w-100">
-                                        <div class=" d-flex align-items-center justify-content-center flex-column " >
-                                            <input type="file" (change)="onFileSelected($event)" accept="image/jpeg, image/png, image/jpg" id=" input-file-now "  formControlName="Image" class="file-upload" multiple="multiple" />
+                                        <div class=" d-flex align-items-center justify-content-center flex-column ">
+                                            <input type="file" (change)="onFileSelected($event)" accept="image/jpeg, image/png, image/jpg" id=" input-file-now " formControlName="Image" class="file-upload" multiple="multiple" />
                                             <span class="material-symbols-rounded fs-1 text-dark-500 mt-3">image</span>
-                                            <p class="fs-6 mt-2">Upload  Image</p>
+                                            <p class="fs-6 mt-2">Upload Image</p>
 
                                         </div>
                                     </div>
@@ -208,6 +208,7 @@
                     </div>
 
                 </form>
+
             </div>
         </div>
     </div>
