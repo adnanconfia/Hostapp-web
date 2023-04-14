@@ -67,10 +67,7 @@ export class AddHotelComponent implements OnInit {
       vat: [0, Validators.required],
       // Facilities: ['', Validators.required],
       Image: [null],
-      username: ['', Validators.required],
-      profile_pic: [''],
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+    
     });
 
     this.facilityList = [
@@ -104,7 +101,8 @@ export class AddHotelComponent implements OnInit {
         pricePerGuest: formData['PriceGuest'],
         pricePerRoom: formData['PriceRoom'],
         rating: 5,
-        vat: formData['vat']
+        vat: formData['vat'],
+        isDeleted:false
       };
       var hotelId: any = 0;
       await addDoc(hotelRef, hotelPayload).then(resp => {
@@ -204,7 +202,7 @@ export class AddHotelComponent implements OnInit {
 
       // Find all the prefixes and items.
 
-      setTimeout(async () => {
+    
         //  await listAll(listRef).then((resp: any) => {
         //    var photos = resp.items;
         //  })
@@ -221,88 +219,15 @@ export class AddHotelComponent implements OnInit {
           photos: photos
         });
 
-        console.log(formData);
-        createUserWithEmailAndPassword(
-          this.afAuth,
-          formData['email'],
-          formData['password']
-        )
-          .then(async (resp: any) => {
-            const adminRef = collection(this.firestore, 'administrators');
-            var storageRef = ref(
-              storage,
-              'users/' + resp.user.uid + '/' + new Date().getTime() + '.png'
-            );
-            var url = '';
-            if (formData['Image']) {
-              await uploadString(storageRef, formData['Image'], 'data_url')
-                .then(snapshot => {
-                  // console.log('Uploaded a data_url string!',snapshot);
-                  getDownloadURL(storageRef).then((resp: any) => {
-                    url = resp;
-                  });
-                })
-                .catch((err: any) => {
-                  Loader.isLoading = false;
-                  console.log(err);
-                });
-            }
-            setTimeout(async () => {
-              Loader.isLoading = true;
-              var user = {
-                id: resp.user.uid,
-                email: formData['email'],
-                isActive: true,
-                name: formData['username'],
-                serviceId: '',
-                hotelId: hotelId,
-                imageUrl: url,
-                roleId: 'NAER11fuLRi6jloPEJTo'
-              };
-              await addDoc(adminRef, user)
-                .then((res: any) => {
-                  Swal.fire(
-                    'Congratulations',
-                    'Hotel Created Successfully',
-                    'success'
-                  );
-                  // this.router.navigateByUrl("/trainers");
-                })
-                .catch((err: any) => {
-                  Loader.isLoading = false;
-                  const hotelDeleteIns = doc(this.firestore, 'hotels', hotelId);
-                  deleteDoc(hotelDeleteIns)
-                    .then(() => {
-                      console.log('success');
-                    })
-                    .catch((err: any) => {
-                      console.log(err);
-                    });
-                  var storage = getStorage();
-                  const storageRefDel = ref(storage, 'hotels/' + hotelId);
-
-                  listAll(storageRefDel)
-                    .then((list: any) => {
-                      list.items.forEach((fileRef: any) => {
-                        deleteObject(fileRef)
-                          .then(() => {
-                            console.log('success');
-                          })
-                          .catch((err: any) => {
-                            console.log(err);
-                          });
-                      });
-                    })
-                    .catch((err: any) => {
-                      console.log(err);
-                    });
-                });
-            }, 1000);
-          })
-          .catch((err: any) => {
-            console.log(err);
-          });
-      }, 2500);
+        
+        Swal.fire({
+          title:"Success",
+          text:"Hotel created successfully",
+          icon:"success",
+        
+        })
+        this.AddForm.reset();
+        this.imageSrcs = [];
       Loader.isLoading = false;
     } else {
       Swal.fire({

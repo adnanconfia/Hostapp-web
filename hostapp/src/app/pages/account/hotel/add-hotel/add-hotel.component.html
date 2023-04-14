@@ -1,4 +1,8 @@
 <div class="row w-100">
+  <div class="col-12">
+          <h4 ><a href="/account/hotels" class="text-decoration-none text-dark">Hotels</a> / <span class="text-primary">Create Hotel</span></h4>
+  
+  </div>
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter bg-white br-8px p-3">
             <div class="form-section mb-4">
@@ -78,94 +82,18 @@
                                         <small class="text-danger" *ngIf="AddForm.get('vat')!.invalid && (AddForm.get('vat')!.dirty || AddForm.get('vat')!.touched)">Price per guest is required</small>
                                     </div>
                                 </div>
-                                <div class="col-12 mt-4">
-                                    <h5>User Details</h5>
-                                </div>
-                                <div class="col-6 col-md-6 mt-3 mt-sm-3 mt-md-0">
-                                    <div class="form-group">
-                                        <label>User Name</label>
-                                        <input type="text" placeholder="Farooq" class="form-control p-12px br-8px mt-2" formControlName="username">
+                              
 
-                                        <small class="text-danger" *ngIf="AddForm.get('username')!.invalid && (AddForm.get('username')!.dirty || AddForm.get('username')!.touched)">User Name is required</small>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-6  mt-3 mt-sm-3 mt-md-0">
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input type="email" placeholder="example@example.com" class="form-control p-12px br-8px  mt-2" formControlName="email">
+                             
 
-                                        <small class="text-danger" *ngIf="AddForm.get('email')!.invalid && (AddForm.get('email')!.dirty || AddForm.get('email')!.touched)">Email is required</small>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-6  mt-3">
-                                    <div class="form-group">
-                                        <h6 class="mb-2">Password</h6>
-                                        <span class="p-input-icon-right w-100">
-                                                    <input [type]="_showpass?'text':'password'"  formControlName="password" pInputText placeholder="Enter password" class="w-100 form-control p-12px br-8px mt-2" />
-                                                    
-                                                       <i class="material-icons cursor-pointer" (click)="showPass()" *ngIf="!_showpass"> visibility </i>
-                                                     <i class="material-icons  cursor-pointer" (click)="hidePass()" *ngIf="_showpass"> visibility_off </i>
-                            
-                                                        <!-- <i class="pi pi-eye-slash"></i> -->
-                                                    </span>
-                                        <small *ngIf="AddForm.get('password')?.invalid &&  (AddForm.get('password')?.touched  ||AddForm.get('password')?.dirty)" class="text-danger">
-                                                        Please enter password
-                                                    </small>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-md-3 mt-3 ">
-                                    <p class="mb-2">Profile Image</p>
-                                    {{AddForm.get('profile_pic')!.value}}
-                                    <div class="w-100 file-bg p-2 m-2 br-11px file-bg text-center position-relative" *ngIf="AddForm.get('profile_pic')!.value">
-
-                                        <!-- <img [src]="src" alt="" class="br-15px "> -->
-                                        <p-image [src]="AddForm.get('profile_pic')!.value" alt="Image" class="br-15px object-fit-cover" [preview]="true" width="178px" height="149px">
-                                            <ng-template pTemplate="indicator">
-                                                <div class=" d-flex justify-content-center flex-column align-items-center">
-                                                    <span class="material-symbols-rounded">search</span>
-                                                    <p class="mt-2">View Full Screen</p>
-                                                </div>
-
-                                            </ng-template>
-                                        </p-image>
-                                        <span class="material-symbols-rounded position-absolute  remove-icon" (click)="removeProfilePic()">remove</span>
-                                    </div>
-
-                                    <div class="image-upload-wrapper-items" *ngIf="!AddForm.get('profile_pic')!.value">
-                                        <div class=" d-flex align-items-center justify-content-center flex-column ">
-                                            <input type="file" (change)="onProfilePicSelected($event)" accept="image/jpeg, image/png, image/jpg" id=" input-file-now " formControlName="profile_pic" class="file-upload" />
-                                            <div class="d-inline-flex align-content-center">
-                                                <span class="material-symbols-rounded fs-3 text-dark-500">image</span>
-                                                <p class="fs-6 my-auto ms-2 text-dark-800">Upload Image</p>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                    <!-- <small class="text-danger" *ngIf="AddForm.get('image')!.invalid && (AddForm.get('image')!.dirty || AddForm.get('image')!.touched)">Image is required</small> -->
-
-                                </div>
-                                <!-- <div class="col-12 col-md-6 mt-3">
-                                    <div class="form-group">
-                                        <p class="mb-2">Facilities</p>
-                                        <p-multiSelect id="select-items" defaultLabel="Choose Facilities" [options]="facilityList" formControlName="Facilities" optionLabel="name"></p-multiSelect>
-                                        <small class="text-danger" *ngIf="AddForm.get('Facilities')!.invalid && (AddForm.get('Facilities')!.dirty || AddForm.get('Facilities')!.touched)">Select Facilities</small>
-                                    </div>
-                                </div> -->
-
-                                <div class="row mt-3 p-0">
-                                    <div class="col-9">
-
-                                    </div>
-
-                                    <div class="col-3 pe-0">
+                                    <div class="col-12 text-end mt-3">
                                         <div class="d-flex justify-content-end w-100">
-                                            <button href="#" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 w-100 br-8px mx-2">Cancel</button>
-                                            <button href="#" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px" [disabled]="AddForm.invalid" type="submit">Add</button>
+                                            <a href="/account/hotels" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 br-8px mx-2">Cancel</a>
+                                            <button  class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 br-8px" [disabled]="AddForm.invalid" type="submit">Add</button>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                              
+                          </div>
                         </div>
                         <div class="col-5">
                             <div class="row  px-2">
@@ -178,7 +106,7 @@
                             <div class="row px-2" *ngIf="imageSrcs.length > 0">
                                 <div *ngFor="let src of imageSrcs;let index=index" class="col-12 col-lg-5 p-2 m-2 br-11px file-bg text-center position-relative">
                                     <!-- <img [src]="src" alt="" class="br-15px "> -->
-                                    <p-image [src]="src" alt="Image" class="br-15px object-fit-cover" [preview]="true" width='90%' height='90%'>
+                                    <p-image [src]="src" alt="Image" class="br-15px object-fit-cover d-flex flex-column justify-content-center" [preview]="true" width='90%' height='90%'>
                                         <ng-template pTemplate="indicator">
                                             <div class=" d-flex justify-content-center flex-column align-items-center">
                                                 <span class="material-symbols-rounded">search</span>

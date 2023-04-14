@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectorRef } from '@angular/core';
 import { faTrashCan, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 @Component({
   selector: 'app-data-grid',
@@ -14,7 +14,7 @@ export class DataGridComponent implements OnInit {
 
   @Output() deletetEmitter: EventEmitter<any>;
   @Output() rowClickEmitter: EventEmitter<any>;
-  @Output() showFormEmitter: EventEmitter<any>;
+  @Output() CreateEmitter: EventEmitter<any>;
   @Output() showRoomTypeFormEmitter: EventEmitter<any>;
   @Output() showServicesFormEmitter: EventEmitter<any>;
   @Input() cols: any;
@@ -29,10 +29,12 @@ export class DataGridComponent implements OnInit {
   @Input() get selectedColumns(): any[] {
     return this._selectedColumns;
   }
-  constructor() {
+  constructor(
+    private cdr:ChangeDetectorRef
+  ) {
     this.deletetEmitter = new EventEmitter();
     this.rowClickEmitter = new EventEmitter();
-    this.showFormEmitter = new EventEmitter();
+    this.CreateEmitter = new EventEmitter();
     this.showRoomTypeFormEmitter = new EventEmitter();
     this.showServicesFormEmitter = new EventEmitter();
   }
@@ -40,7 +42,10 @@ export class DataGridComponent implements OnInit {
     //restore original order
     this._selectedColumns = this.cols.filter((col: any) => val.includes(col));
   }
-
+  // ngAfterViewChecked(){
+  //   this.cdr.detectChanges();
+  //   console.log(this.respFiles,"resp");
+  // }
   ngOnInit(): void {
     this._selectedColumns = this.cols;
   }
@@ -56,7 +61,10 @@ export class DataGridComponent implements OnInit {
     this.first = event.first;
   }
   showForm() {
-    this.showFormEmitter.emit();
+    this.CreateEmitter.emit();
+  }
+  create(){
+    this.CreateEmitter.emit();
   }
   showRoomTypeForm() {
     this.showRoomTypeFormEmitter.emit();

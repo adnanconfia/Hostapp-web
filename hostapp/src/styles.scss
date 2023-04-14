@@ -334,7 +334,12 @@ body {
     color: $black-500;
     border: none !important;
 }
-
+.p-paginator .p-dropdown .p-dropdown-label {
+    padding: 0px !important;
+}
+.max-w-234px{
+    max-width: 234px !important;
+}
 .form-control:focus,
 .form-control:hover,
 .form-select:focus,

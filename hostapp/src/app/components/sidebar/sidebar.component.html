@@ -57,6 +57,14 @@
                     </span> Hotels
                 </a>
             </li>
+            
+            <li *ngIf="user.roleName=='Super Admin' " [ngClass]="urlComplete!.indexOf('admins')>0?'active':' '">
+                <a href="/account/admins" class="d-flex align-items-center me-2">
+                    <span class="material-symbols-rounded">
+                            group
+                    </span> Admins
+                </a>
+            </li>
             <li>
                 <a href="javascript:void(0)" (click)="logout()" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">

@@ -1,4 +1,8 @@
-<p-table [columns]="selectedColumns" [value]="respFiles">
+<p-table [columns]="selectedColumns"   [value]="respFiles"  
+[totalRecords]="respFiles.length"
+      [responsiveLayout]="'stack'"
+       [paginator]="true" [rows]="10" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10,25,50]"
+   >
     <ng-template pTemplate="header" let-columns>
 
         <tr>
@@ -13,7 +17,8 @@
 
             <!-- <th>Select</th> -->
             <th>
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                <!-- <p-tableHeaderCheckbox></p-tableHeaderCheckbox> -->
+                #
             </th>
 
             <th *ngFor="let col of columns">
@@ -22,106 +27,49 @@
             </th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-data let-columns>
+  
+    <ng-template pTemplate="body" let-product let-columns let-rowIndex="rowIndex">
+        
         <tr>
             <td>
-                <p-tableCheckbox [value]="data"></p-tableCheckbox>
+                <!-- <p-tableCheckbox [value]="data"></p-tableCheckbox> -->
+                {{rowIndex+1}}
             </td>
-            <!-- for booking -->
-            <td *ngIf="data.BookingId">
-                {{data.BookingId}}
-            </td>
-            <!-- for users -->
-            <td *ngIf="data.UserName ">{{data.UserName}}</td>
+                 <ng-container *ngFor="let col of cols">
+             
+                       <td *ngIf="col.type=='text' && product[col.field]">
+                    
+                           {{ (product[col.field].length>6)? (product[col.field] | slice:0:50)+'...':(product[col.field]) }}
+                       </td>
+                       <td *ngIf="col.type=='text' && !product[col.field]">
+                    
+                           
+                       </td>
+                       <td *ngIf="col.type=='date'">
+                        {{product[col.field] | date:'dd/MM/yyyy'}}
+                       </td>
+                       <td *ngIf="col.type=='profilePic'">
+                           <p-avatar *ngIf="!product[col.field]" [label]="product['name'].charAt(0).toString().toUpperCase()" styleClass="mr-2" size="large"  [style]="{'background-color':'#1DB9A1', 'color': '#ffffff'}" shape="circle"></p-avatar>
+                  <p-avatar [image]="product[col.field]" styleClass="mr-2" size="large" *ngIf="product[col.field]" [style]="{'background-color':'#1DB9A1 ', 'color': '#ffffff'}" shape="circle"></p-avatar>
 
-            <td *ngIf="data.Role">{{data.Role}}</td>
-
-            <td *ngIf="data.Email">{{data.Email}}</td>
-
-            <td *ngIf="data.Role">
-                <!-- <p-checkbox *ngIf="data.isActive==true" class="me-2"></p-checkbox> -->
-                <mat-checkbox [checked]="data.isActive" [disabled]="true" class="me-2">
-                </mat-checkbox>
-                <!-- <p-checkbox *ngIf="data.isActive==false" class="me-2"></p-checkbox> -->
-                Is Active
-            </td>
-            <td *ngIf="data.UserName && data.Role">
-                <img src="../../../../assets/Images/user_pic.png" alt="" width="31px" height="31px">
-            </td>
-            <!-- for rooms -->
-            <td *ngIf="data.roomNumber ">{{data.roomNumber}}</td>
-            <td *ngIf="columns.roomNumber" class="text-center">
-                <img src="../../../../assets/Images/room_pic.png" alt="" width="50px" height="41px">
-            </td>
-            <td *ngIf="data.roomType ">{{data.roomType}}</td>
-            <td *ngIf="data.bedType ">{{data.bedType}}</td>
-            <td *ngIf="data.facilities ">{{data.facilities}}</td>
-            <td *ngIf="data.price ">{{data.price}}</td>
-            <!-- for room type -->
-            <td *ngIf="data.isAvailable==true || data.isAvailable==false">
+                       </td>
+                       <td *ngIf="col.type=='status'">
                 <!-- <p-checkbox [checked]=" data.isAvailable " [binary]="true " class="me-2 "></p-checkbox> -->
-                <mat-checkbox [checked]="data.isAvailable " [disabled]="true" class="me-2">
+                <mat-checkbox [checked]="product[col.field]" [disabled]="true" class="me-2">
                 </mat-checkbox>
 
                 Is Available
             </td>
-
-
-            <!-- For Services -->
-            <td *ngIf="data.list ">
-                <img src="../../../../assets/Images/room_pic.png " alt=" " width="50px " height="41px ">
-            </td>
-            <td *ngIf="data.list ">
-                {{data.list}}
-            </td>
-
-            <!-- for booking -->
-
-            <td *ngIf="data.HotelTitle">
-                {{data.HotelTitle}}
-            </td>
-            <td *ngIf="data.CheckIn">
-                {{data.CheckIn}}
-            </td>
-            <td *ngIf="data.CheckOut">
-                {{data.CheckOut}}
-            </td>
-            <td *ngIf="data.BookingStatus">
-                <div class="inprogress p-1 text-center br-6px" *ngIf="data.BookingStatus==2">
-                    In Progress
-                </div>
-                <div class="confirm p-1 text-center br-6px" *ngIf="data.BookingStatus==1">
-                    Confirmed
-                </div>
-
-            </td>
-            <!-- for booking page User details -->
-
-            <td *ngIf="data.Country">
-                {{data.Country}}
-            </td>
-            <td *ngIf="data.PostelCode">
-                {{data.PostelCode}}
-            </td>
-            <td *ngIf="data.City">
-                {{data.City}}
-            </td>
-            <td *ngIf="data.UserAddress">
-                {{data.UserAddress}}
-            </td>
-            <td *ngIf="data.Phone">
-                {{data.Phone}}
-            </td>
-
-            <td>
+               <td *ngIf="col.type=='action'">
                 <div class="d-inline-flex ">
                     <fa-icon [icon]="editIcon " class="mx-2 "></fa-icon>
-                    <a href="/account/booking/detailbooking" *ngIf="data.BookingId" class="text-decoration-none text-primary cursor-pointer me-2">View</a>
-                    <a href="/account/rooms/viewroom" *ngIf="data.roomNumber" class="text-decoration-none text-primary cursor-pointer me-2">View</a>
-                    <fa-icon [icon]="trash " class="text-danger "></fa-icon>
+                    <fa-icon [icon]="trash " class="text-danger cursor-pointer " (click)="delete(product)"></fa-icon>
                 </div>
 
             </td>
+                 </ng-container>
+           
+         
 
 
 
@@ -148,6 +96,13 @@
 
         </tr>
     </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+  <tr>
+    <td [attr.colspan]="columns.length" class="text-center text-danger">
+       No records found
+    </td>
+  </tr>
+</ng-template>
     <!-- <ng-template pTemplate="footer " class="text-end ">
         <div class="w-100 d-flex justify-content-end ">
             
@@ -157,13 +112,9 @@
 
 </p-table>
 <div class="d-flex justify-content-end align-items-center mt-2 ">
-    <p-paginator [rows]="10 " [totalRecords]="respFiles.length " [first]="first " (onPageChange)="onPageChange($event) "></p-paginator>
+    <!-- <p-paginator [rows]="10 " [totalRecords]="respFiles.length " [first]="first " (onPageChange)="onPageChange($event) "></p-paginator> -->
     <div>
-        <button *ngIf="addUserbtn " class="btn btn-primary text-white d-inline-flex " (click)="showForm() "> <span class="material-symbols-rounded me-2 ">add</span>Add New User</button>
-        <a href="account/rooms/addroom " *ngIf="addRoombtn " class="btn btn-primary text-white d-inline-flex "> <span class="material-symbols-rounded me-2 ">add</span>Add New Room</a>
-        <a href="account/booking/addbooking " *ngIf="addBookingbtn " class="btn btn-primary text-white d-inline-flex "> <span class="material-symbols-rounded me-2 ">add</span>Add Booking</a>
-        <button *ngIf="roomTypebtn " class="btn btn-primary text-white d-inline-flex " (click)="showRoomTypeForm() "> <span class="material-symbols-rounded me-2 ">add</span>Add New Type</button>
-        <button *ngIf="servicesAddbtn " class="btn btn-primary text-white d-inline-flex " (click)="shwoServiceForm() "> <span class="material-symbols-rounded me-2 ">add</span>Add New Item</button>
+        <button class="btn btn-primary text-white d-inline-flex " (click)="create() "> <span class="material-symbols-rounded me-2 ">add</span>Create</button>
     </div>
 
 </div>

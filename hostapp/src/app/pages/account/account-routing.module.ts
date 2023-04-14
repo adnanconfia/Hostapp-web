@@ -13,6 +13,9 @@ import { RoomTypesComponent } from './rooms/room-types/room-types.component';
 import { ServicesComponent } from './services/services.component';
 import { ViewRoomsComponent } from './rooms/view-rooms/view-rooms.component';
 import { HotelComponent } from './hotel/hotel.component';
+import { AdminsComponent } from './users/admins/admins.component';
+import { CreateAdminComponent } from './users/admins/create-admin/create-admin.component';
+import { UpdateAdminComponent } from './users/admins/update-admin/update-admin.component';
 
 const routes: Routes = [
   {
@@ -41,6 +44,20 @@ const routes: Routes = [
         path: 'users',
         component: UsersComponent
       },
+      
+      {
+        path: 'admins',
+        component: AdminsComponent
+      },
+      {
+        path: 'admins/create',
+        component: CreateAdminComponent
+      },
+      {
+        path: 'admins/update',
+        component: UpdateAdminComponent
+      },
+      
       {
         path: 'booking',
         component: BookingsComponent
@@ -93,5 +110,9 @@ export const RoutingComps = [
   BookingsComponent,
   AddBookingComponent,
   DetailBookingComponent,
-  ViewRoomsComponent
+  ViewRoomsComponent,
+  AdminsComponent,
+  UpdateAdminComponent,
+  CreateAdminComponent,
+  AddHotelComponent
 ];

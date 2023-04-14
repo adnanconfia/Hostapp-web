@@ -46,6 +46,7 @@ import { MenubarModule } from 'primeng/menubar';
     AppRoutingModule,
     SidebarModule,
     MenubarModule,
+    
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

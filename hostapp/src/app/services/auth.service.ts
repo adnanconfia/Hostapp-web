@@ -76,13 +76,13 @@ export class AuthService {
         })
       
           var ref = collection(this.firestore, "administrators");
-          console.log(ref)
+          // console.log(ref)
           var q = query(ref, where("id", "==", id));
-          console.log(q)
+          // console.log(q)
           var qSnap = await getDocs(q);
           var roleId = "";
-          qSnap.forEach((doc) => {
-            var data = doc.data();
+          // qSnap.forEach((doc) => {
+            var data = qSnap.docs[0].data();
             roleId = data["roleId"];
             User.roleId = roleId;
             User.name = data['name']
@@ -97,17 +97,17 @@ export class AuthService {
             //   this.logout();
             // }
 
-          })
+          // })
           ref = collection(this.firestore, "roles");
 
           q = query(ref, where("roleId", "==", roleId));
 
           qSnap = await getDocs(q);
           var roleName = "";
-          qSnap.forEach((doc) => {
-            roleName = doc.data()["name"];
+          // qSnap.forEach((doc) => {
+            roleName = qSnap.docs[0].data()["name"];
             User.roleName = roleName;
-          })
+          // })
         if(roleName.toLowerCase()!="admin" && roleName.toLowerCase()!="super admin"  && roleName.toLowerCase()!="manager"){
           this.logout();
         }else{
