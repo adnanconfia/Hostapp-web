@@ -26,6 +26,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SidebarModule } from 'primeng/sidebar';
 import { MenubarModule } from 'primeng/menubar';
+import { AngularFireModule } from '@angular/fire/compat';
 
 @NgModule({
   declarations: [
@@ -46,8 +47,11 @@ import { MenubarModule } from 'primeng/menubar';
     AppRoutingModule,
     SidebarModule,
     MenubarModule,
+    AngularFireModule.initializeApp(environment.firebase),
     
+
     provideFirebaseApp(() => initializeApp(environment.firebase)),
+  
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideFunctions(() => getFunctions()),

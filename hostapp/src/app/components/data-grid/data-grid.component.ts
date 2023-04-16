@@ -15,6 +15,7 @@ export class DataGridComponent implements OnInit {
   @Output() deletetEmitter: EventEmitter<any>;
   @Output() rowClickEmitter: EventEmitter<any>;
   @Output() CreateEmitter: EventEmitter<any>;
+  @Output() Update: EventEmitter<any>;
   @Output() showRoomTypeFormEmitter: EventEmitter<any>;
   @Output() showServicesFormEmitter: EventEmitter<any>;
   @Input() cols: any;
@@ -37,6 +38,7 @@ export class DataGridComponent implements OnInit {
     this.CreateEmitter = new EventEmitter();
     this.showRoomTypeFormEmitter = new EventEmitter();
     this.showServicesFormEmitter = new EventEmitter();
+    this.Update = new EventEmitter();
   }
   set selectedColumns(val: any[]) {
     //restore original order
@@ -71,5 +73,8 @@ export class DataGridComponent implements OnInit {
   }
   shwoServiceForm() {
     this.showServicesFormEmitter.emit();
+  }
+  update(data:any){
+    this.Update.emit(data);
   }
 }

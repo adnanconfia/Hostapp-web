@@ -108,5 +108,8 @@ export class AdminsComponent implements OnInit {
       }
     });
   }
+  update(e:any){
+    this.router.navigateByUrl("/account/admins/update?id="+e.id);
+  }
 
 }
