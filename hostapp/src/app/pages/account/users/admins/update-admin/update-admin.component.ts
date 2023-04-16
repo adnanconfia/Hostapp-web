@@ -243,6 +243,7 @@ export class UpdateAdminComponent implements OnInit {
             imageUrl: ""
 
           });
+          this.getData(this.data.id);
         }).catch((error) => {
           // Uh-oh, an error occurred!
         });

@@ -16,6 +16,7 @@ import { HotelComponent } from './hotel/hotel.component';
 import { AdminsComponent } from './users/admins/admins.component';
 import { CreateAdminComponent } from './users/admins/create-admin/create-admin.component';
 import { UpdateAdminComponent } from './users/admins/update-admin/update-admin.component';
+import { UpdateHotelComponent } from './hotel/update-hotel/update-hotel.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,12 @@ const routes: Routes = [
       {
         path: 'hotels/create',
         component: AddHotelComponent
+      },
+      {
+        path: 'hotels/update',
+        component:
+          UpdateHotelComponent,
+
       },
       {
         path: 'users',
@@ -114,5 +121,6 @@ export const RoutingComps = [
   AdminsComponent,
   UpdateAdminComponent,
   CreateAdminComponent,
-  AddHotelComponent
+  AddHotelComponent,
+  UpdateHotelComponent
 ];

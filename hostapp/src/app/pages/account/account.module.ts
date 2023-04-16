@@ -24,14 +24,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
 
 import { AvatarModule } from 'primeng/avatar';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { provideFunctions, getFunctions } from '@angular/fire/functions';
-import { provideMessaging, getMessaging } from '@angular/fire/messaging';
-import { provideRemoteConfig, getRemoteConfig } from '@angular/fire/remote-config';
-import { provideStorage, getStorage } from '@angular/fire/storage';
-import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [
     AccountComponent,
@@ -39,7 +31,6 @@ import { environment } from 'src/environments/environment';
     SidebarComponent,
     HeaderComponent,
     DataGridComponent,
-   
    
   ],
   imports: [

@@ -31,7 +31,7 @@ export class HotelComponent implements OnInit {
     this.data.sort((a:any,b:any)=>{
       return b.createdAt - a.createdAt
     })
-    console.log(this.data);
+    // console.log(this.data);
     Loader.isLoading=false;
   }
   ngOnInit(): void {
@@ -108,6 +108,9 @@ export class HotelComponent implements OnInit {
   }
   create(){
     this.router.navigateByUrl("/account/hotels/create");
+  }
+  update(e:any){
+    this.router.navigateByUrl("/account/hotels/update?id="+e.id);
   }
 
 }

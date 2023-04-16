@@ -1,0 +1,143 @@
+<div class="row w-100">
+  <div class="col-12">
+          <h4 ><a href="/account/hotels" class="text-decoration-none text-dark">Hotels</a> / <span class="text-primary">Update Hotel</span></h4>
+  
+  </div>
+    <div class="col-12  border-lighter br-11px p-3">
+        <div class="border-lighter bg-white br-8px p-3">
+            <div class="form-section mb-4">
+                <!-- <h5 class="mb-0">Add Hotel</h5> -->
+                <form [formGroup]="AddForm" (ngSubmit)="submit()">
+
+                    <div class="row mt-4">
+                        <div class="col-7">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5>Hotel Details</h5>
+                                </div>
+                                <div class="col-12 col-md-6 mt-3 ">
+                                    <div class="form-group">
+                                        <label>Hotel Name</label>
+                                        <input type="text" placeholder="Hotel Name" class="form-control p-12px br-8px mt-2" formControlName="HotelName">
+
+                                        <small class="text-danger" *ngIf="AddForm.get('HotelName')!.invalid && (AddForm.get('HotelName')!.dirty || AddForm.get('HotelName')!.touched)">HotelName is required</small>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-12 col-md-6 mt-3 ">
+                                    <div class="form-group">
+                                        <label>Title</label>
+                                        <input type="text" placeholder="Hotel Title" class="form-control p-12px br-8px mt-2" formControlName="HotelTitle">
+
+                                        <small class="text-danger" *ngIf="AddForm.get('HotelTitle')!.invalid && (AddForm.get('HotelTitle')!.dirty || AddForm.get('HotelTitle')!.touched)">Title is required</small>
+                                    </div>
+                                </div> -->
+                                <div class="col-12 col-md-6 mt-3 ">
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <input type="text" placeholder="Description" class="form-control p-12px br-8px mt-2" formControlName="Description">
+
+                                        <small class="text-danger" *ngIf="AddForm.get('Description')!.invalid && (AddForm.get('Description')!.dirty || AddForm.get('Description')!.touched)">Description is required</small>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6 mt-3 ">
+                                    <div class="form-group">
+                                        <label>Location</label>
+                                        <input type="text" placeholder="Hotel Address" class="form-control p-12px br-8px mt-2" formControlName="HotelAddress">
+
+                                        <small class="text-danger" *ngIf="AddForm.get('HotelAddress')!.invalid && (AddForm.get('HotelAddress')!.dirty || AddForm.get('HotelAddress')!.touched)">Hotel Address is required</small>
+                                    </div>
+                                </div>
+                                <div class="col-6 mt-3">
+                                    <div class="form-group position-relative">
+                                        <p class="mb-2">Price Per Guest</p>
+                                        <span type='button' class="minus-price left-30px" (click)="decrement1()">$5 -</span>
+                                        <p-inputNumber class="text-center" formControlName="PriceGuest" inputId="horizontal" mode="currency" currency="USD">
+
+                                        </p-inputNumber>
+                                        <span type='button' class="plus-price right-30px" (click)="increment1()">+$5</span>
+                                        <small class="text-danger" *ngIf="AddForm.get('PriceGuest')!.invalid && (AddForm.get('PriceGuest')!.dirty || AddForm.get('PriceGuest')!.touched)">Price per guest is required</small>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-6 mt-3">
+                                    <div class="form-group position-relative">
+                                        <p class="mb-2">Price Per Room</p>
+                                        <span type='button' class="minus-price left-30px" (click)="decrement()">$5 -</span>
+                                        <p-inputNumber class="text-center" formControlName="PriceRoom" inputId="horizontal" mode="currency" currency="USD">
+
+                                        </p-inputNumber>
+                                        <span type='button' class="plus-price right-30px" (click)="increment()">+$5</span>
+                                        <small class="text-danger" *ngIf="AddForm.get('PriceRoom')!.invalid && (AddForm.get('PriceRoom')!.dirty || AddForm.get('PriceRoom')!.touched)">Price per room is required</small>
+                                    </div>
+                                </div>
+                                <div class="col-6 mt-3">
+                                    <div class="form-group position-relative">
+                                        <p class="mb-2">VAT</p>
+                                        <span type='button' class="minus-price left-30px" (click)="varDecrement()">$5 -</span>
+                                        <p-inputNumber class="text-center" formControlName="vat" inputId="horizontal" mode="currency" currency="USD">
+
+                                        </p-inputNumber>
+                                        <span type='button' class="plus-price right-30px" (click)="vatIncrement()">+$5</span>
+                                        <small class="text-danger" *ngIf="AddForm.get('vat')!.invalid && (AddForm.get('vat')!.dirty || AddForm.get('vat')!.touched)">Price per guest is required</small>
+                                    </div>
+                                </div>
+                              
+
+                             
+
+                                    <div class="col-12 text-end mt-3">
+                                        <div class="d-flex justify-content-end w-100">
+                                            <a href="/account/hotels" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 br-8px mx-2">Cancel</a>
+                                            <button  class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 br-8px" [disabled]="AddForm.invalid" type="submit">Update</button>
+                                        </div>
+                                    </div>
+                              
+                          </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="row  px-2">
+                                <div class="d-flex justify-content-between">
+                                    <h5>Upload Room Images</h5>
+
+                                </div>
+
+                            </div>
+                            <div class="row px-2" *ngIf="imageSrcs.length > 0">
+                                <div *ngFor="let src of imageSrcs;let index=index" class="col-12 col-lg-5 p-2 m-2 br-11px file-bg text-center position-relative">
+                                    <!-- <img [src]="src" alt="" class="br-15px "> -->
+                                    <p-image [src]="src.src?src.src:src.filePath" alt="Image" class="br-15px object-fit-cover d-flex flex-column justify-content-center" [preview]="true" width='90%' height='90%'>
+                                        <ng-template pTemplate="indicator">
+                                            <div class=" d-flex justify-content-center flex-column align-items-center">
+                                                <span class="material-symbols-rounded">search</span>
+                                                <p class="mt-2">View Full Screen</p>
+                                            </div>
+
+                                        </ng-template>
+                                    </p-image>
+                                    <span class="material-symbols-rounded position-absolute  remove-icon" (click)="removeImage(index)">remove</span>
+                                </div>
+                            </div>
+                            <div class="row px-2">
+                                <div class="col-12 col-lg-5 p-2 m-2 file-upload-wrapper">
+                                    <div class=" w-100">
+                                        <div class=" d-flex align-items-center justify-content-center flex-column ">
+                                            <input type="file" (change)="onFileSelected($event)" accept="image/jpeg, image/png, image/jpg" id=" input-file-now "  class="file-upload" multiple="multiple" />
+                                            <span class="material-symbols-rounded fs-1 text-dark-500 mt-3">image</span>
+                                            <p class="fs-6 mt-2">Upload Image</p>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

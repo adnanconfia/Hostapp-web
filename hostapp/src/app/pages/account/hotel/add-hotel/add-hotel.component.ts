@@ -191,7 +191,7 @@ export class AddHotelComponent implements OnInit {
             // console.log('Uploaded a data_url string!',snapshot);
             getDownloadURL(storageRef).then((resp: any) => {
               photos.push(resp);
-              console.log(photos);
+            
             });
           })
           .catch((err: any) => {
