@@ -49,7 +49,7 @@
                         {{product[col.field] | date:'dd/MM/yyyy'}}
                        </td>
                        <td *ngIf="col.type=='profilePic'">
-                           <p-avatar *ngIf="!product[col.field]" [label]="product['name'].charAt(0).toString().toUpperCase()" styleClass="mr-2" size="large"  [style]="{'background-color':'#1DB9A1', 'color': '#ffffff'}" shape="circle"></p-avatar>
+                           <p-avatar *ngIf="!product[col.field]"  styleClass="mr-2" size="large"  [style]="{'background-color':'#1DB9A1', 'color': '#ffffff'}" shape="circle"></p-avatar>
                   <p-avatar [image]="product[col.field]" styleClass="mr-2" size="large" *ngIf="product[col.field]" [style]="{'background-color':'#1DB9A1 ', 'color': '#ffffff'}" shape="circle"></p-avatar>
 
                        </td>
