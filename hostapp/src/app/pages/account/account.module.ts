@@ -22,7 +22,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ImageModule } from 'primeng/image';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
-
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { AvatarModule } from 'primeng/avatar';
 @NgModule({
   declarations: [
@@ -48,12 +48,12 @@ import { AvatarModule } from 'primeng/avatar';
     PaginatorModule,
     MatSlideToggleModule,
     MultiSelectModule,
-    
     MatCheckboxModule,
     DropdownModule,
     ImageModule,
     InputNumberModule,
     CalendarModule,
+    RadioButtonModule
 
 
   ]
