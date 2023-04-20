@@ -17,6 +17,7 @@ import { AdminsComponent } from './users/admins/admins.component';
 import { CreateAdminComponent } from './users/admins/create-admin/create-admin.component';
 import { UpdateAdminComponent } from './users/admins/update-admin/update-admin.component';
 import { UpdateHotelComponent } from './hotel/update-hotel/update-hotel.component';
+import { EditUserComponent } from './users/edit-user/edit-user.component';
 
 const routes: Routes = [
   {
@@ -51,7 +52,10 @@ const routes: Routes = [
         path: 'users',
         component: UsersComponent
       },
-      
+      {
+        path: 'users/edit',
+        component: EditUserComponent
+      },
       {
         path: 'admins',
         component: AdminsComponent

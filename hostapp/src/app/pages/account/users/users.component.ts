@@ -9,7 +9,8 @@ import {
   getDocs,
   query,
   where,
-  setDoc
+  setDoc,
+  getDoc
 } from '@angular/fire/firestore';
 import { Loader } from './../../../helpers/loader';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,9 +18,10 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/helpers/user';
 import { getAll } from '@angular/fire/remote-config';
 import Swal from 'sweetalert2';
-import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, user } from '@angular/fire/auth';
 import { getDownloadURL, getStorage, ref, uploadString } from '@angular/fire/storage';
 import { type } from 'os';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -37,7 +39,7 @@ export class UsersComponent implements OnInit {
   public roleIdAdmin: any;
   services: any = []
 
-  constructor(private fb: FormBuilder, private firestore: Firestore,private auth:Auth) { }
+  constructor(private fb: FormBuilder, private firestore: Firestore, private auth: Auth, private router: Router) { }
   ngOnInit(): void {
     this.AddUserForm = this.fb.group({
       username: ['', Validators.required],
@@ -45,7 +47,7 @@ export class UsersComponent implements OnInit {
       userrole: ['', Validators.required],
       serviceId: ['', Validators.required],
       profile_pic: [''],
-      password:['',Validators.required]
+      password: ['', Validators.required]
     });
     this.cols = [
       { header: 'User Name', field: 'name', type: 'text' },
@@ -81,13 +83,84 @@ export class UsersComponent implements OnInit {
         isActive: true
       }
     ];
-    
 
   }
 
 
-  async getAllUsers() {
 
+  async selectedRole(role: string, event: any) {
+    Loader.isLoading=true
+    //---- Fetching Services ---- //
+    let servicesList:any[]=[]
+        // Hotel ID
+        let hotelId = User.hotel;
+        const hotelRef = doc(this.firestore, 'hotels', hotelId);
+        // Getting subcollection of hotel
+        const subCollectionRef = collection(hotelRef, 'services');
+        const subcollectionDocs = await getDocs(subCollectionRef);
+        // List of services
+        subcollectionDocs.forEach((doc) => {
+          var data = doc.data()
+          servicesList.push(data)
+        })
+    // --- End fetching services ----//
+    // Fetching Users 
+    let userRef = collection(this.firestore, "administrators");
+    let q = query(userRef, where("hotelId", "==", User.hotel))
+    let data = await getDocs(q);
+    let userList: any[] = []
+    data.docs.map((item) => {
+      var curr = item.data()
+      userList.push(curr);
+    })
+
+    if (role === "Manager") {
+      let SelectedRoleId = this.roleIdManager;
+      let CurrentUserHotelId = User.hotel;
+      // Users with Manager Role
+      let newlist = userList.filter((item) => item.roleId === SelectedRoleId)
+      // Checking if their exist a manager against each service
+      const filteredServices = servicesList.filter((service) => {
+        return !userList.some((user) => user.serviceId === service.id && user.roleId===this.roleIdManager);
+      });
+      this.services=[]
+      filteredServices.map((item)=>{
+        this.services.push(item)
+      })
+      this.AddUserForm.get('serviceId')?.setValue('')
+      // console.log("Value is : ",  this.AddUserForm.get('serviceId')?.value)
+      
+
+      // let userRef = collection(this.firestore, "administrators")
+      // let Qry = query(userRef, where("hotelId", "==", CurrentUserHotelId), where("roleId", "==", SelectedRoleId), where("isDeleted", "==", false))
+      // let res = await getDocs(Qry);
+      // console.log(res.docs.length)
+
+    }
+    if (role === "Worker") {
+      let SelectedRoleId = this.roleIdWorker;
+      let CurrentUserHotelId = User.hotel;
+      // Worker Role Filter
+      this.services=[]
+      servicesList.map((item)=>{
+        this.services.push(item)
+      })
+      this.AddUserForm.get('serviceId')?.setValue('')
+      // console.log("Value is : ",  this.AddUserForm.get('serviceId')?.value)
+
+
+      
+      // let userRef = collection(this.firestore, "administrators")
+      // let Qry = query(userRef, where("hotelId", "==", CurrentUserHotelId), where("roleId", "==", SelectedRoleId), where("isDeleted", "==", false))
+      // let res = await getDocs(Qry);
+      // console.log(res.docs.length)
+
+
+    }
+    Loader.isLoading=false
+  }
+
+  async getAllUsers() {
     Loader.isLoading = true;
     // Getting Roles
     var ref = collection(this.firestore, "roles");
@@ -100,39 +173,28 @@ export class UsersComponent implements OnInit {
     console.log(rolesList)
     // Getting data from Administrator table
     const userIns = collection(this.firestore, 'administrators');
-   
-    var q = query(userIns, where("isDeleted", "==", false), where("hotelId","==", User.hotel));
+
+    var q = query(userIns, where("isDeleted", "==", false), where("hotelId", "==", User.hotel));
     let qSnap = await getDocs(q);
     let userList: any = []
     qSnap.forEach((doc) => {
       var data = doc.data()
       data['role'] = rolesList.find((r) => r.roleId === data['roleId']).name;
-      if(data['role']==="Worker" || data['role']==="Manager"){userList.push(data)}
+      if (data['role'] === "Worker" || data['role'] === "Manager") { userList.push(data) }
     })
 
     this.users = userList
     Loader.isLoading = false;
-
-    // collectionData(userIns, { idField: 'id' }).subscribe(
-    //   (resp: any) => {
-    //     console.log(resp,"users");
-    //   },
-    //   (error: any) => {
-    //     console.log(error);
-    //   }
-    // );
-
-
   }
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     setTimeout(() => {
       this.getDataRoleId();
-    this.getAllUsers();
+      this.getAllUsers();
     }, 3500);
   }
   async onSubmit() {
 
-    var id:any=0;
+    var id: any = 0;
     try {
       if (this.AddUserForm.invalid) {
         Swal.fire({
@@ -145,7 +207,7 @@ export class UsersComponent implements OnInit {
         Loader.isLoading = true;
         var data = this.AddUserForm.value;
         var payLoad = {
-          id:"",
+          id: "",
           isActive: true,
           email: data["email"],
           name: data["username"],
@@ -158,12 +220,12 @@ export class UsersComponent implements OnInit {
           isDeleted: false
         }
         Loader.isLoading = true;
-        let check=false;
+        let check = false;
         // Creating User Account
-        await createUserWithEmailAndPassword(this.auth,data['email'],data['password']).then((resp)=>{
-            id = resp.user.uid
-            check=true
-        }).catch((err:any)=>{
+        await createUserWithEmailAndPassword(this.auth, data['email'], data['password']).then((resp) => {
+          id = resp.user.uid
+          check = true
+        }).catch((err: any) => {
           console.log(err)
           Swal.fire({
             title: "Alert",
@@ -173,55 +235,40 @@ export class UsersComponent implements OnInit {
           Loader.isLoading = false;
           check = false;
         })
-        if(check){
-          payLoad.id=id
+        if (check) {
+          payLoad.id = id
 
           // Uploading Picture
-          if (data['profile_pic']){
+          if (data['profile_pic']) {
             var storage = getStorage()
             var storageRef = ref(storage,
-              'users/'+id+'/'+new Date().getTime()+'.png');
-            await uploadString(storageRef,data['profile_pic'],'data_url')
-            .then(snapshot =>{
-              getDownloadURL(storageRef).then((resp: any) => {
-                data['profile_pic'] = resp
-              });
-            })
-            .catch((err:any)=>{
-              Loader.isLoading=false;
-              console.log(err);
-            })
-            payLoad['imageUrl']=data['profile_pic']
+              'users/' + id + '/' + new Date().getTime() + '.png');
+            await uploadString(storageRef, data['profile_pic'], 'data_url')
+              .then(snapshot => {
+                getDownloadURL(storageRef).then((resp: any) => {
+                  data['profile_pic'] = resp
+                });
+              })
+              .catch((err: any) => {
+                Loader.isLoading = false;
+                console.log(err);
+              })
+            payLoad['imageUrl'] = data['profile_pic']
           }
           var userRef = doc(this.firestore, 'administrators/' + id + "/");
-          await setDoc(userRef,payLoad).then((resp)=>{
+          await setDoc(userRef, payLoad).then((resp) => {
             Swal.fire({
               title: "Success",
               text: "User created successfully",
               icon: "success"
             })
-            Loader.isLoading=false
-            this.showAddUserForm=false
+            Loader.isLoading = false
+            this.showAddUserForm = false
             this.getAllUsers()
           }).catch((err: any) => {
             Loader.isLoading = false;
           });
         }
- 
-
-
-        // const collectionInstance = collection(this.firestore, 'administrators');
-
-        // addDoc(collectionInstance, payLoad)
-        // .then(() => {
-        //   Loader.isLoading = false;
-        //   console.log('Data saved successfully');
-        //   this.getAllUsers()
-        // })
-        // .catch(err => {
-        //   Loader.isLoading = false;
-        //   console.log(err);
-        // });
       }
     }
     catch (err: any) {
@@ -268,17 +315,17 @@ export class UsersComponent implements OnInit {
   }
   async showForm() {
     this.showAddUserForm = !this.showAddUserForm;
-    
+
     // Clearing dropdown and form
-    this.services=[]
+    this.services = []
     this.AddUserForm = this.fb.group({
       username: ['', Validators.required],
-   
+
       email: ['', [Validators.email, Validators.required]],
       userrole: ['', Validators.required],
       serviceId: ['', Validators.required],
       profile_pic: [''],
-      password:['',Validators.required]
+      password: ['', Validators.required]
     });
     // Hotel ID
     let hotelId = User.hotel;
@@ -289,7 +336,7 @@ export class UsersComponent implements OnInit {
     // List of services
     subcollectionDocs.forEach((doc) => {
       var data = doc.data()
-      this.services.push(data)
+      //this.services.push(data)
     })
 
   }
@@ -297,15 +344,15 @@ export class UsersComponent implements OnInit {
     const collectionInstance = collection(this.firestore, 'roles');
     collectionData(collectionInstance).subscribe(
       (resp: any) => {
-       
-        resp.map((role:any)=>{
-          if(role.name==="Worker"){
-         
-            this.roleIdWorker=role.roleId;
+
+        resp.map((role: any) => {
+          if (role.name === "Worker") {
+
+            this.roleIdWorker = role.roleId;
           }
-          if(role.name==="Manager"){
-       
-            this.roleIdManager=role.roleId;
+          if (role.name === "Manager") {
+
+            this.roleIdManager = role.roleId;
           }
         })
         // console.log(roleIdManager);
@@ -315,56 +362,44 @@ export class UsersComponent implements OnInit {
       }
     );
   }
-  Update(id: any) {
-    const updateInstance = doc(this.firestore, 'users', id);
-    let name =
-      this.UpdateForm.controls['firstname'].value +
-      ' ' +
-      this.UpdateForm.controls['lastname'].value;
-    const update = {};
-    updateDoc(updateInstance, update)
-      .then(() => {
-        console.log('User Updated');
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
+  update(e: any) {
+    this.router.navigateByUrl("/account/users/edit?id=" + e.id);
   }
 
   deleteUser(e: any) {
     //alert(e.id)
-            Swal.fire({
-              title: 'Notice',
-              text: 'Do you really want to remove this user?',
-              icon: 'question',
-              showCancelButton: true,
-              showConfirmButton: true,
-              confirmButtonText: 'Yes',
-              cancelButtonText: 'No'
-            }).then(async (Resp: any) => {
-              if (Resp.value) {
-                Loader.isLoading = true;
-                var serviceDocRef = doc(
-                  this.firestore,
-                  'administrators/' + e.id
-                );
-                await updateDoc(serviceDocRef, {
-                  isDeleted: true
-                }).then(() => {
-                  Swal.fire({
-                    title: "Success",
-                    text: "User removed successfully",
-                    icon: "success"
-                  })
-                  this.getAllUsers();
+    Swal.fire({
+      title: 'Notice',
+      text: 'Do you really want to remove this user?',
+      icon: 'question',
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then(async (Resp: any) => {
+      if (Resp.value) {
+        Loader.isLoading = true;
+        var serviceDocRef = doc(
+          this.firestore,
+          'administrators/' + e.id
+        );
+        await updateDoc(serviceDocRef, {
+          isDeleted: true
+        }).then(() => {
+          Swal.fire({
+            title: "Success",
+            text: "User removed successfully",
+            icon: "success"
+          })
+          this.getAllUsers();
 
-                }).catch((err: any) => {
+        }).catch((err: any) => {
 
-                  Loader.isLoading = false;
-                });
+          Loader.isLoading = false;
+        });
 
-              }
-            });
+      }
+    });
     // const userDeleteIns = doc(this.firestore, 'users', id);
     // deleteDoc(userDeleteIns)
     //   .then(() => {
@@ -393,27 +428,28 @@ export class UsersComponent implements OnInit {
   }
 
   onProfilePicSelected(event: any) {
-   
+
     // this.selectedProfilePic = event.target.files[0];
     let files = event.target.files[0];
     // console.log(file);
     if (files) {
-  
-       const reader = new FileReader();
 
-        reader.onload = (e: any) => {
-          var croppedImage = e.target.result;
-          // console.log(croppedImage);
-          this.AddUserForm.patchValue({
-            profile_pic: croppedImage
-          });
-        };
-        // this.previews.push()
+      const reader = new FileReader();
 
-        reader.readAsDataURL(files);
-      
+      reader.onload = (e: any) => {
+        var croppedImage = e.target.result;
+        // console.log(croppedImage);
+        this.AddUserForm.patchValue({
+          profile_pic: croppedImage
+        });
+      };
+      // this.previews.push()
+
+      reader.readAsDataURL(files);
+
     }
-    
+
     // reader.readAsDataURL(this.selectedImage);
   }
+
 }

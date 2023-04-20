@@ -1,0 +1,75 @@
+<div class="row w-100">
+    <div class="col-12">
+        <h4>
+            <a href="/account/users" class="text-decoration-none text-dark">Users</a>
+            / <span class="text-primary">Update User</span>
+        </h4>
+    </div>
+    <div class="col-12 border-lighter br-11px p-3">
+        <div class="border-lighter bg-white br-8px p-3">
+            <form class="row" [formGroup]="EditForm"  (submit)="submit()">
+                <div class="col-12 mt-4">         
+                </div>
+                <div class="col-6 col-md-6 mt-3 mt-sm-3 mt-md-0">
+                    <div class="form-group">
+                        <label>User Name</label>
+                        <input type="text" placeholder="Name" class="form-control p-12px br-8px mt-2" formControlName="username" >
+
+                        <!-- <small class="text-danger" *ngIf="AddForm.get('username')!.invalid && (AddForm.get('username')!.dirty || AddForm.get('username')!.touched)">User Name is required</small> -->
+                    </div>
+                </div>
+                <div class="col-12 col-md-6  mt-3 mt-sm-3 mt-md-0">
+                    <div class="form-group">
+                        <h6 class="mb-2">Select Hotel</h6>
+                       <select formControlName="serviceId" class=" form-select p-12px br-8px mt-3">
+                        <ng-container *ngFor="let item of services">
+                            <option [value]="item.id" >{{item.name}}</option>
+                        </ng-container>
+                       </select>
+                        <!-- <small *ngIf="AddForm.get('hotelId')?.invalid &&  (AddForm.get('hotelId')?.touched  ||AddForm.get('hotelId')?.dirty)" class="text-danger">
+                                        Please Select Hotel
+                                    </small> -->
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 mt-3 ">
+                    <p class="mb-2">Profile Image</p>
+
+                    <div class="w-100 max-w-234px file-bg p-2 m-2 br-11px file-bg text-center position-relative" *ngIf="profilePic.src || newImage">
+
+                        <!-- <img [src]="src" alt="" class="br-15px "> -->
+                        <p-image [src]="!profilePic.src?newImage:profilePic.src" alt="Image" class="br-15px object-fit-cover" [preview]="true" width="90%" height="90%">
+                            <ng-template pTemplate="indicator">
+                                <div class=" d-flex justify-content-center flex-column align-items-center">
+                                    <span class="material-symbols-rounded">search</span>
+                                    <p class="mt-2">View Full Screen</p>
+                                </div>
+
+                            </ng-template>
+                        </p-image>
+                        <span class="material-symbols-rounded position-absolute  remove-icon" (click)="removeProfilePic(profilePic.id?profilePic.id:0)">remove</span>
+                    </div>
+
+                    <div class="image-upload-wrapper-items" *ngIf="!profilePic.src &&  !newImage">
+                        <div class=" d-flex align-items-center justify-content-center flex-column ">
+                            <input type="file" (change)="onProfilePicSelected($event)" accept="image/jpeg, image/png, image/jpg" id=" input-file-now "  class="file-upload" />
+                            <div class="d-inline-flex align-content-center">
+                                <span class="material-symbols-rounded fs-3 text-dark-500">image</span>
+                                <p class="fs-6 my-auto ms-2 text-dark-800">Upload Image</p>
+                            </div>
+
+
+                        </div>  
+                    </div>
+                    <!-- <small class="text-danger" *ngIf="AddForm.get('image')!.invalid && (AddForm.get('image')!.dirty || AddForm.get('image')!.touched)">Image is required</small> -->
+
+                </div>
+                <div class="col-12 ">
+                    <div class="d-flex justify-content-end w-100">
+                        <a href="/account/admins" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0  br-8px mx-2">Cancel</a>
+                        <button href="#" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 br-8px"  type="submit" [disabled]="EditForm.invalid" type="submit">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
