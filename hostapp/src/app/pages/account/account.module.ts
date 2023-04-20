@@ -25,6 +25,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AvatarModule } from 'primeng/avatar';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
+import { FacilitiesComponent } from './facilities/facilities.component';
 @NgModule({
   declarations: [
     AccountComponent,
@@ -33,6 +34,7 @@ import { EditUserComponent } from './users/edit-user/edit-user.component';
     HeaderComponent,
     DataGridComponent,
     EditUserComponent,
+    FacilitiesComponent,
    
   ],
   imports: [

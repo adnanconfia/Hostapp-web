@@ -1,0 +1,79 @@
+<div class="row w-100">
+    <div class="col-12">
+        <h4 >Facilities</h4>
+    </div>
+    <div class="col-12 border-lighter br-11px p-3">
+    <div class="border-lighter bg-white br-8px p-3">
+                    <div class="form-section mb-4" *ngIf="showAddFacility">
+                        <h5>Create Facility</h5>
+                        <form class="row" [formGroup]="AddFacilityForm" (ngSubmit)="onSubmit()" >
+                            <div class="col-12 col-md-3 mt-3 mt-sm-3 mt-md-0">
+                                <div class="form-group">
+                                    <label>Faciltiy</label>
+                                    <input type="text" placeholder="facility" class="form-control p-12px br-8px mt-2" formControlName="facility">
+                                    <small class="text-danger" *ngIf="AddFacilityForm.get('facility')!.invalid && (AddFacilityForm.get('facility')!.dirty || AddFacilityForm.get('facility')!.touched)">Facility is required</small>
+
+                                </div>
+                            </div>
+                
+                            <div class="row mt-3">
+                        
+                        
+                    
+                            
+                                <div class="row d-flex justify-content-end">
+                                    <div class="col-3 pe-0 mt-3 ">
+                                        <div class="d-flex justify-content-end w-100">
+                                            <button href="#" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 w-100 br-8px mx-2" (click)="showAddFacility=false">
+            Cancel</button>
+                                            <button [disabled]="AddFacilityForm.invalid" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px"  type="submit">
+            Add</button>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+            
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- Edit Facility -->
+                    <div class="form-section mb-4" *ngIf="showEditFacility">
+                        <h5>Edit Facility</h5>
+                        <form class="row" [formGroup]="EditFacilityForm" (ngSubmit)="onEditSubmit()" >
+                            <div class="col-12 col-md-3 mt-3 mt-sm-3 mt-md-0">
+                                <div class="form-group">
+                                    <label>Faciltiy</label>
+                                    <input type="text" placeholder="facility" class="form-control p-12px br-8px mt-2" formControlName="facility_edit">
+                                    <small class="text-danger" *ngIf="EditFacilityForm.get('facility_edit')!.invalid && (EditFacilityForm.get('facility_edit')!.dirty || EditFacilityForm.get('facility_edit')!.touched)">Facility is required</small>
+            
+                                </div>
+                            </div>
+                 
+                            <div class="row mt-3">
+                           
+                        
+                    
+                            
+                                <div class="row d-flex justify-content-end">
+                                    <div class="col-3 pe-0 mt-3 ">
+                                        <div class="d-flex justify-content-end w-100">
+                                            <button href="#" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 w-100 br-8px mx-2" (click)="showEditFacility=false">
+            Cancel</button>
+                                            <button [disabled]="EditFacilityForm.invalid" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px"  type="submit">
+            Update</button>
+                                        </div>
+            
+            
+                                    </div>
+                                </div>
+             
+                            </div>
+            
+                        </form>
+                    </div>
+        <app-data-grid [respFiles]="facilitiesList" [cols]="cols" (CreateEmitter)="createFacility()" (deletetEmitter)="delete($event)" (Update)="ShowEditFacilityForm($event)"></app-data-grid>
+    </div>
+  </div>
+</div>

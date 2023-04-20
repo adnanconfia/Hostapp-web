@@ -18,6 +18,7 @@ import { CreateAdminComponent } from './users/admins/create-admin/create-admin.c
 import { UpdateAdminComponent } from './users/admins/update-admin/update-admin.component';
 import { UpdateHotelComponent } from './hotel/update-hotel/update-hotel.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
+import { FacilitiesComponent } from './facilities/facilities.component';
 
 const routes: Routes = [
   {
@@ -68,7 +69,10 @@ const routes: Routes = [
         path: 'admins/update',
         component: UpdateAdminComponent
       },
-      
+      {
+        path: 'facilities',
+        component: FacilitiesComponent
+      },
       {
         path: 'booking',
         component: BookingsComponent
