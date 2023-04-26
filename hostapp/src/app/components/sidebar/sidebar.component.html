@@ -35,6 +35,13 @@
           </span> Facilities
                 </a>
             </li>
+            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('users')>0?'active':' '">
+                <a href="/account/facilities" class="d-flex align-items-center me-2">
+                    <span class="material-symbols-rounded">
+            group
+          </span> Bed Types
+                </a>
+            </li>
             <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('rooms')>0?'active':' '">
                 <a href="/account/rooms" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">

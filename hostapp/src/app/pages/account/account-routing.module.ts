@@ -19,6 +19,7 @@ import { UpdateAdminComponent } from './users/admins/update-admin/update-admin.c
 import { UpdateHotelComponent } from './hotel/update-hotel/update-hotel.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { FacilitiesComponent } from './facilities/facilities.component';
+import { BedtypesComponent } from './bedtypes/bedtypes.component';
 
 const routes: Routes = [
   {
@@ -72,6 +73,10 @@ const routes: Routes = [
       {
         path: 'facilities',
         component: FacilitiesComponent
+      },
+      {
+        path: 'bedtypes',
+        component: BedtypesComponent
       },
       {
         path: 'booking',
