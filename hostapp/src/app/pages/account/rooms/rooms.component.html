@@ -2,7 +2,7 @@
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter br-8px p-3">
             <h5>All Rooms</h5>
-            <app-data-grid [cols]="cols" [respFiles]="rooms" [addRoombtn]="true"></app-data-grid>
+            <app-data-grid [cols]="cols" [respFiles]="rooms" (CreateEmitter)="create()" [addRoombtn]="true"></app-data-grid>
         </div>
     </div>
 </div>

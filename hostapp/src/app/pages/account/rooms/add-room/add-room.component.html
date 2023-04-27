@@ -20,7 +20,7 @@
                                     <div class="form-group">
 
                                         <p class="mb-2">Room Type</p>
-                                        <p-dropdown [options]="roomTypeList" formControlName="RoomType" placeholder="Room Type" optionLabel="name"></p-dropdown>
+                                        <p-dropdown [options]="roomTypeList" formControlName="RoomType" placeholder="Room Type" optionLabel="name" optionValue="id"></p-dropdown>
                                         <small class="text-danger" *ngIf="AddForm.get('RoomType')!.invalid && (AddForm.get('RoomType')!.dirty || AddForm.get('RoomType')!.touched)">Select Room Type</small>
                                     </div>
 
