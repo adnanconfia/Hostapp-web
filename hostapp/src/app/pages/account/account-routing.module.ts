@@ -20,6 +20,7 @@ import { UpdateHotelComponent } from './hotel/update-hotel/update-hotel.componen
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { FacilitiesComponent } from './facilities/facilities.component';
 import { BedtypesComponent } from './bedtypes/bedtypes.component';
+import { ServiceitemsComponent } from './serviceitems/serviceitems.component';
 
 const routes: Routes = [
   {
@@ -109,6 +110,10 @@ const routes: Routes = [
       {
         path: 'services',
         component: ServicesComponent
+      },
+      {
+        path: 'serviceitems',
+        component: ServiceitemsComponent
       }
     ]
   }

@@ -27,6 +27,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { FacilitiesComponent } from './facilities/facilities.component';
 import { BedtypesComponent } from './bedtypes/bedtypes.component';
+import { ServiceitemsComponent } from './serviceitems/serviceitems.component';
 @NgModule({
   declarations: [
     AccountComponent,
@@ -37,6 +38,7 @@ import { BedtypesComponent } from './bedtypes/bedtypes.component';
     EditUserComponent,
     FacilitiesComponent,
     BedtypesComponent,
+    ServiceitemsComponent,
    
   ],
   imports: [

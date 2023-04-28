@@ -63,6 +63,13 @@
                     </span> Services
                 </a>
             </li>
+            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('serviceitems')>0?'active':' '">
+                <a href="/account/serviceitems" class="d-flex align-items-center me-2">
+                    <span class="material-symbols-rounded">
+                            room_service
+                    </span> Service Items
+                </a>
+            </li>
             
             <li *ngIf="user.roleName=='Super Admin' " [ngClass]="urlComplete!.indexOf('hotels')>0?'active':' '">
                 <a href="/account/hotels" class="d-flex align-items-center me-2">
