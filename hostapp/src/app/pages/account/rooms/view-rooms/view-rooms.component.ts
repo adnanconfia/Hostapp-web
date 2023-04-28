@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Auth } from '@angular/fire/auth';
+import { Firestore, collection, doc, getDoc, getDocs, query, where } from '@angular/fire/firestore';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Loader } from 'src/app/helpers/loader';
+import { User } from 'src/app/helpers/user';
 
 @Component({
   selector: 'app-view-rooms',
@@ -7,12 +13,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./view-rooms.component.scss']
 })
 export class ViewRoomsComponent implements OnInit {
+  roomId:any;
   AddForm!: FormGroup;
-
   imageSrcs: string[] = [];
   facilityList: any;
   roomTypeList: any;
-  constructor(private fb: FormBuilder) {
+  room:any;
+  roomPhotos:any[]=[]
+  constructor(private title: Title, private route: ActivatedRoute, private firestore:Firestore,private auth:Auth,private fb:FormBuilder,private router:Router) {
     this.facilityList = [
       { name: 'Free Wifi', code: 'FW' },
       { name: 'Breakfast', code: 'BF' },
@@ -25,16 +33,52 @@ export class ViewRoomsComponent implements OnInit {
       { name: 'Disable Guest', code: 'DG' },
       { name: 'Luxury Marqu', code: 'LM' }
     ];
+    this.route.queryParams.subscribe((params:any)=>{
+      if(params['id']){
+        this.roomId=params['id'];
+        //
+      }
+    })
   }
-
+ 
+  ngAfterViewInit() {
+    setTimeout(() => {
+        this.getRoomDetails(this.roomId);
+    }, 3000);
+  }
   ngOnInit(): void {
     this.AddForm = this.fb.group({
       Image: ['', Validators.required],
-      RoomNumber: ['', Validators.required],
-      RoomType: [0, Validators.required],
-      Facilities: ['', Validators.required],
-      Price: [20, Validators.required]
+      RoomNumber: [{value: '', disabled: true}, Validators.required],
+      RoomType: [{value: '', disabled: true}, Validators.required],
+      Facilities: [{value: '', disabled: true}, Validators.required],
+      Price: [{value: '', disabled: true}, Validators.required]
     });
+    this.route
+  }
+
+  async getRoomDetails(id:any){
+    Loader.isLoading=true
+    let hotelRef = doc(this.firestore, 'hotels', User.hotel);
+    let roomsRef = collection(hotelRef,'rooms')
+    let q = query(roomsRef, where('id','==',this.roomId))
+    let _data = await getDocs(q)
+    let room = _data.docs[0].data()
+    this.room = room
+    this.room.photos.map((item:any)=> this.roomPhotos.push(item))
+
+    let roomTypeRef = collection(hotelRef,'roomTypes')
+    let roomTypeQ = query(roomTypeRef, where('id','==',this.room.roomtypeid))
+    let roomtypedata= await getDocs(roomTypeQ)
+    let _roomtypedata = roomtypedata.docs[0].data()
+    this.AddForm.patchValue({
+      RoomNumber: this.room.roomNumber,
+      RoomType: _roomtypedata['name'],
+      Price:this.room.price
+    });
+
+    Loader.isLoading=false
+
   }
   onSubmit() {}
   onFileSelected(event: any): void {

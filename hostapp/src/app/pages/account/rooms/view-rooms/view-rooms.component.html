@@ -2,7 +2,7 @@
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter br-8px p-3">
             <div class="form-section mb-4">
-                <h5>Add Room Details</h5>
+                <h5>Room Details</h5>
                 <form [formGroup]="AddForm" (ngSubmit)="onSubmit()">
                     <div class="row">
                         <div class="col-7">
@@ -10,7 +10,7 @@
                                 <div class="col-6 col-md-6 mt-3 mt-sm-3 mt-md-0">
                                     <div class="form-group">
                                         <label>Room Number</label>
-                                        <input type="text" placeholder="102" class="form-control p-12px br-8px mt-2" formControlName="RoomNumber">
+                                        <input type="text" placeholder="" class="form-control p-12px br-8px mt-2" formControlName="RoomNumber" [disabled]="true">
 
                                         <small class="text-danger" *ngIf="AddForm.get('RoomNumber')!.invalid && (AddForm.get('RoomNumber')!.dirty || AddForm.get('RoomNumber')!.touched)">Room Number is required</small>
                                     </div>
@@ -29,26 +29,27 @@
                                                             <option value="3">Friends Room/option>
                                                           </select> -->
                                         <p class="mb-2">Room Type</p>
-                                        <p-dropdown [options]="roomTypeList" formControlName="RoomType" placeholder="Room Type" optionLabel="name"></p-dropdown>
+                                        <input type="text" placeholder="" class="form-control p-12px br-8px mt-2" formControlName="RoomType" [disabled]="true">
+                                        <!-- <p-dropdown [options]="roomTypeList" formControlName="RoomType" placeholder="Room Type" optionLabel="name"></p-dropdown> -->
                                         <small class="text-danger" *ngIf="AddForm.get('RoomType')!.invalid && (AddForm.get('RoomType')!.dirty || AddForm.get('RoomType')!.touched)">Select Room Type</small>
                                     </div>
 
                                 </div>
-                                <div class="col-6 col-md-6 mt-3">
+                                <!-- <div class="col-6 col-md-6 mt-3">
                                     <div class="form-group">
                                         <p class="mb-2">Facilities</p>
                                         <p-multiSelect id="select-items" defaultLabel="Choose Facilities" [options]="facilityList" formControlName="Facilities" optionLabel="name"></p-multiSelect>
                                         <small class="text-danger" *ngIf="AddForm.get('Facilities')!.invalid && (AddForm.get('Facilities')!.dirty || AddForm.get('Facilities')!.touched)">Select Facilities</small>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-6 mt-3">
                                     <div class="form-group position-relative">
-                                        <p class="mb-2">Set Price</p>
-                                        <span type='button' class="minus-price" (click)="decrement()">$5 -</span>
+                                        <p class="mb-2">Price</p>
+                                        <!-- <span type='button' class="minus-price" (click)="decrement()">$5 -</span> -->
                                         <p-inputNumber class="text-center" formControlName="Price" inputId="horizontal" mode="currency" currency="USD">
 
                                         </p-inputNumber>
-                                        <span type='button' class="plus-price" (click)="increment()">+$5</span>
+                                        <!-- <span type='button' class="plus-price" (click)="increment()">+$5</span> -->
                                         <small class="text-danger" *ngIf="AddForm.get('Price')!.invalid && (AddForm.get('Price')!.dirty || AddForm.get('Price')!.touched)">Price is required</small>
                                     </div>
                                 </div>
@@ -57,14 +58,14 @@
                         <div class="col-5">
                             <div class="row  px-2">
                                 <div class="d-flex justify-content-between">
-                                    <h5>Upload Room Images</h5>
+                                    <h5>Room Pictures</h5>
 
                                 </div>
 
                             </div>
 
-                            <div class="row px-2" *ngIf="imageSrcs.length > 0">
-                                <div *ngFor="let src of imageSrcs;let index=index" class="col-6 p-2 m-0 text-center position-relative">
+                            <div class="row px-2" *ngIf="roomPhotos.length > 0">
+                                <div *ngFor="let src of roomPhotos;let index=index" class="col-6 p-2 m-0 text-center position-relative">
                                     <!-- <img [src]="src" alt="" class="br-15px "> -->
                                     <p-image [src]="src" alt="Image" class="br-15px object-fit-cover" [preview]="true" width="178px" height="149px">
                                         <ng-template pTemplate="indicator">
@@ -75,10 +76,10 @@
 
                                         </ng-template>
                                     </p-image>
-                                    <span class="material-symbols-rounded position-absolute  remove-icon" (click)="removeImage(index)">remove</span>
+                                    <!-- <span class="material-symbols-rounded position-absolute  remove-icon" (click)="removeImage(index)">remove</span> -->
                                 </div>
                             </div>
-                            <div class="row px-2">
+                            <!-- <div class="row px-2">
                                 <div class="col-6 p-2">
                                     <div class="file-upload-wrapper">
                                         <div class=" d-flex align-items-center justify-content-center flex-column " multiple>
@@ -91,7 +92,7 @@
 
                                 </div>
 
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </form>

@@ -18,6 +18,7 @@ export class DataGridComponent implements OnInit {
   @Output() Update: EventEmitter<any>;
   @Output() showRoomTypeFormEmitter: EventEmitter<any>;
   @Output() showServicesFormEmitter: EventEmitter<any>;
+  @Output() viewEmitter: EventEmitter<any>;
   @Input() cols: any;
   @Input() respFiles: any;
   @Input() edit: any = false;
@@ -27,6 +28,7 @@ export class DataGridComponent implements OnInit {
   @Input() roomTypebtn: any = false;
   @Input() addBookingbtn: any = false;
   @Input() servicesAddbtn: any = false;
+  @Input() showViewBtn:any = false;
   @Input() get selectedColumns(): any[] {
     return this._selectedColumns;
   }
@@ -39,6 +41,7 @@ export class DataGridComponent implements OnInit {
     this.showRoomTypeFormEmitter = new EventEmitter();
     this.showServicesFormEmitter = new EventEmitter();
     this.Update = new EventEmitter();
+    this.viewEmitter = new EventEmitter();
   }
   set selectedColumns(val: any[]) {
     //restore original order
@@ -77,4 +80,10 @@ export class DataGridComponent implements OnInit {
   update(data:any){
     this.Update.emit(data);
   }
+
+  view(data:any){
+    this.viewEmitter.emit(data);
+  }
+
+
 }

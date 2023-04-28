@@ -58,30 +58,30 @@ export class UsersComponent implements OnInit {
       { header: 'Action', field: 'Action', type: "action" }
     ];
     this.users = [
-      {
-        UserName: 'JohnDoe',
-        Email: 'john.doe@example.com',
-        Role: 'Worker',
-        isActive: true
-      },
-      {
-        UserName: 'JaneSmith',
-        Email: 'jane.smith@example.com',
-        Role: 'Worker',
-        isActive: false
-      },
-      {
-        UserName: 'BobJohnson',
-        Email: 'bob.johnson@example.com',
-        Role: 'Worker',
-        isActive: true
-      },
-      {
-        UserName: 'SaraLee',
-        Email: 'sara.lee@example.com',
-        Role: 'Worker',
-        isActive: true
-      }
+      // {
+      //   UserName: 'JohnDoe',
+      //   Email: 'john.doe@example.com',
+      //   Role: 'Worker',
+      //   isActive: true
+      // },
+      // {
+      //   UserName: 'JaneSmith',
+      //   Email: 'jane.smith@example.com',
+      //   Role: 'Worker',
+      //   isActive: false
+      // },
+      // {
+      //   UserName: 'BobJohnson',
+      //   Email: 'bob.johnson@example.com',
+      //   Role: 'Worker',
+      //   isActive: true
+      // },
+      // {
+      //   UserName: 'SaraLee',
+      //   Email: 'sara.lee@example.com',
+      //   Role: 'Worker',
+      //   isActive: true
+      // }
     ];
 
   }

@@ -3,6 +3,7 @@ import { Auth } from '@angular/fire/auth';
 import { Firestore, collection, doc, getDocs } from '@angular/fire/firestore';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Loader } from 'src/app/helpers/loader';
 import { User } from 'src/app/helpers/user';
 
 @Component({
@@ -63,6 +64,7 @@ export class RoomsComponent implements OnInit {
     }, 3500);
   }
   async getRooms(){
+    Loader.isLoading=true
     let hotelId= User.hotel;
     // Room Types
     let roomtypelist:any=[]
@@ -100,7 +102,7 @@ export class RoomsComponent implements OnInit {
 
 
 
-
+    Loader.isLoading=false
     // let data = await getDocs(roomsRef)
     
 
@@ -110,5 +112,8 @@ export class RoomsComponent implements OnInit {
 
   create(){
     this.router.navigateByUrl("/account/rooms/addroom");
+  }
+  view(e:any){
+    this.router.navigateByUrl("/account/rooms/viewroom?id="+e.id);
   }
 }
