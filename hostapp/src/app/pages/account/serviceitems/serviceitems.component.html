@@ -68,7 +68,38 @@
 
                 </form>
             </div>
-            <app-data-grid [cols]="cols" [respFiles]="itemsDetails" (CreateEmitter)="showForm()" (deletetEmitter)="delete($event)"  [servicesAddbtn]="true"></app-data-grid>
+
+            <div class="form-section mb-4" *ngIf="editForm">
+                <h5 class="mb-0">Add Service Item</h5>
+                <form class="row" [formGroup]="EditForm" (ngSubmit)="onEditSubmit()">
+                    <div class="col-6 col-md-4 mt-3">
+                        <!-- <div class="form-group">
+                            <p class="mb-2">Services</p>
+                            <p-multiSelect id="select-items" defaultLabel="Select items" [options]="itemsList" formControlName="items" optionLabel="name"></p-multiSelect>
+                            <small class="text-danger" *ngIf="AddForm.get('items')!.invalid && (AddForm.get('items')!.dirty || AddForm.get('items')!.touched)">Select items</small>
+                        </div> -->
+                        <div class="form-group">
+                            <p class="mb-2">Edit</p>
+                            <input type="text" placeholder="Item name" class="form-control p-12px br-8px mt-2" formControlName="ServiceItemEdit">
+                            <small class="text-danger" *ngIf="EditForm.get('ServiceItemEdit')!.invalid && (EditForm.get('ServiceItemEdit')!.dirty || EditForm.get('ServiceItemEdit')!.touched)">Service Item is requied</small>
+                        </div>
+                    </div>
+              
+                  
+                    <div class="row mt-3">
+                    
+
+                        <div class="col-3 pe-0">
+                            <div class="d-flex justify-content-end w-100">
+                                <button href="#" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 w-100 br-8px mx-2" (click)="editForm=false">Cancel</button>
+                                <button href="#" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px" [disabled]="!EditForm.valid" type="submit">Update</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <app-data-grid [cols]="cols" [respFiles]="itemsDetails" (Update)="edit($event)" (CreateEmitter)="showForm()" (deletetEmitter)="delete($event)"  [servicesAddbtn]="true"></app-data-grid>
         </div>
     </div>
 </div>

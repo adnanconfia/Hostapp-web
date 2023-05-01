@@ -47,17 +47,21 @@ export class BedtypesComponent implements OnInit {
 
 
   async ShowEditBedTypeForm(event: any){
-    Loader.isLoading=true
+    // this.showEditBedType=true;
+    // let bedTypeRef = doc(
+    //   this.firestore,
+    //   'hotels/' + User.hotel + '/bedtypes/' + event.id
+    // );
+    // let q = await getDoc(bedTypeRef);
+    // this.BedTypeInfoData=q.data()
+    // //let facilityInfo:any = q.data()
+    // this.EditBedTypeForm.get('bedtype_edit')?.setValue(this.BedTypeInfoData['name'])
+    this.BedTypeInfoData=event['id']
+    this.EditBedTypeForm.patchValue({
+      bedtype_edit:event['name']
+    })
     this.showEditBedType=true;
-    let bedTypeRef = doc(
-      this.firestore,
-      'hotels/' + User.hotel + '/bedtypes/' + event.id
-    );
-    let q = await getDoc(bedTypeRef);
-    this.BedTypeInfoData=q.data()
-    //let facilityInfo:any = q.data()
-    this.EditBedTypeForm.get('bedtype_edit')?.setValue(this.BedTypeInfoData['name'])
-    Loader.isLoading=false
+
   }
 
   async getHotelBedTypes(){
@@ -181,7 +185,7 @@ export class BedtypesComponent implements OnInit {
         }
         let facilityRef = doc(
           this.firestore,
-          'hotels/' + User.hotel + '/bedtypes/' + this.BedTypeInfoData.id
+          'hotels/' + User.hotel + '/bedtypes/' + this.BedTypeInfoData
         );
         await updateDoc(facilityRef,payLoad).then((resp: any) => {
           Swal.fire({
@@ -206,6 +210,7 @@ export class BedtypesComponent implements OnInit {
       }
     }
     catch (err: any) {
+      console.log(err)
       Loader.isLoading = false;
       
     }

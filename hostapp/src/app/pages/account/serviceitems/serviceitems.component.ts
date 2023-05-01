@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Firestore, addDoc, collection, doc, getDocs, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDoc, getDocs, updateDoc } from '@angular/fire/firestore';
 import { getDownloadURL, getStorage, ref, uploadString } from '@angular/fire/storage';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Loader } from 'src/app/helpers/loader';
@@ -13,22 +13,21 @@ import Swal from 'sweetalert2';
 })
 export class ServiceitemsComponent implements OnInit {
   AddForm!: FormGroup;
-  public servicesList: any;
+  EditForm!:FormGroup;
+ // public servicesList: any;
   public selectedImage: any;
   public selectedImageConverted: any;
   public imagePreview: any;
   public cols: any;
   public itemsDetails: any;
   public serviceFormShow: boolean = false;
+  public servicesList: any[] = []
 
+  selectedServiceItemId:any;
+  selectedServiceId:any;
+  editForm:boolean=false
   constructor(private fb: FormBuilder, private firestore: Firestore) {
-    this.servicesList = [
-      // { name: 'Towels', code: 'Towels' },
-      // { name: 'Pillow', code: 'Pillow' },
-      // { name: 'Covers', code: 'Covers' },
-      // { name: 'Curtons', code: 'Curtons' },
-      // { name: 'Bedsheets', code: 'Bedsheets' }
-    ];
+
   }
 
   ngOnInit(): void {
@@ -38,6 +37,9 @@ export class ServiceitemsComponent implements OnInit {
       itemName: ['', Validators.required],
       priceItem: ['', Validators.required],
       imageSource: []
+    });
+    this.EditForm = this.fb.group({
+      ServiceItemEdit: ['', Validators.required],
     });
     this.cols = [
       { header: 'Image', field: "photo", type: "profilePic" },
@@ -54,6 +56,7 @@ export class ServiceitemsComponent implements OnInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
+      this.getServices()
         this.getAllServicesItems()
       
     }, 3500); }
@@ -131,6 +134,45 @@ export class ServiceitemsComponent implements OnInit {
     }
 
   }
+
+  async onEditSubmit(){
+        Loader.isLoading=true
+      try{
+        let hotelid = User.hotel;
+        let serviceItemId = this.selectedServiceItemId
+        let serviceId = this.selectedServiceId
+        let formValue = this.EditForm.value
+        let ref = doc(
+          this.firestore,
+          'hotels/' + hotelid + '/services/' + serviceId+ "/items/"+serviceItemId 
+        );
+        
+       
+        let payload = {
+          name: formValue['ServiceItemEdit']
+        }
+        await updateDoc(ref, payload).then((resp)=>{
+          Swal.fire({
+            title: "Success",
+            text: "Service Item updated successfully",
+            icon: "success"
+          })
+          this.getAllServicesItems()
+          this.editForm=false
+          Loader.isLoading=false
+        })
+
+      }
+      catch(err:any){
+        Loader.isLoading=false
+        console.log(err)
+        Swal.fire({
+          title: "Alert",
+          text: "Something is not right",
+          icon: "error"
+        }) 
+      }
+  }
   onFileSelected(event: any) {
     if (event.target.files) {
     }
@@ -151,7 +193,6 @@ export class ServiceitemsComponent implements OnInit {
     // reader.readAsDataURL(this.selectedImage);
   }
   showForm() {
-    this.getServices()
     this.serviceFormShow = !this.serviceFormShow;
 
   }
@@ -258,6 +299,15 @@ export class ServiceitemsComponent implements OnInit {
 
       }
     });
+  }
+
+  async edit(event:any){
+    this.EditForm.patchValue({
+      ServiceItemEdit: event.serviceItems
+    })
+    this.selectedServiceItemId = event.serviceItemId
+    this.selectedServiceId = event.id;
+      this.editForm=true
   }
 
 

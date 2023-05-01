@@ -27,7 +27,7 @@ export class FacilitiesComponent implements OnInit {
       facility: ['', Validators.required],
     });
     this.EditFacilityForm = this.fb.group({
-      facility_edit: ['hbhbh', Validators.required],
+      facility_edit: ['', Validators.required],
     });
     this.cols = [
       { header: 'Facility',field: 'name', type:'text' },
@@ -159,18 +159,22 @@ export class FacilitiesComponent implements OnInit {
 
 
   async ShowEditFacilityForm(event:any){
-    Loader.isLoading=true
+    // Loader.isLoading=true
+    
+    // let facilityRef = doc(
+    //   this.firestore,
+    //   'hotels/' + User.hotel + '/facilities/' + event.id
+    // );
+    // let q = await getDoc(facilityRef);
+    // this.FacilityInfoData=q.data()
+    // let facilityInfo:any = q.data()
+    // this.EditFacilityForm.get('facility_edit')?.setValue(facilityInfo['name'])
+    // Loader.isLoading=false
+    this.FacilityInfoData= event['id']
+    this.EditFacilityForm.patchValue({
+      facility_edit:event['name']
+    })
     this.showEditFacility=true;
-    let facilityRef = doc(
-      this.firestore,
-      'hotels/' + User.hotel + '/facilities/' + event.id
-    );
-    let q = await getDoc(facilityRef);
-    this.FacilityInfoData=q.data()
-    let facilityInfo:any = q.data()
-    this.EditFacilityForm.get('facility_edit')?.setValue(facilityInfo['name'])
-    Loader.isLoading=false
-
 
   }
   async onEditSubmit(){
@@ -191,7 +195,7 @@ export class FacilitiesComponent implements OnInit {
         }
         let facilityRef = doc(
           this.firestore,
-          'hotels/' + User.hotel + '/facilities/' + this.FacilityInfoData.id
+          'hotels/' + User.hotel + '/facilities/' + this.FacilityInfoData
         );
         await updateDoc(facilityRef,payLoad).then((resp: any) => {
           Swal.fire({

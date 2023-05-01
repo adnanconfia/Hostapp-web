@@ -80,6 +80,7 @@ export class RoomTypesComponent implements OnInit {
   }
 
   async getRoomTypes(){
+    Loader.isLoading=true
     let hotelId= User.hotel;
     this.roomTypeList=[]
     this.bedTypeList=[]
@@ -97,10 +98,11 @@ export class RoomTypesComponent implements OnInit {
             this.roomTypeList.push(data)
       }
     })
-    console.log(this.bedTypeList)
+    Loader.isLoading=false
 
   }
   async onSubmit() {
+    Loader.isLoading=true
     try{
       if (this.AddForm.valid) {
         var data = this.AddForm.value;
@@ -126,6 +128,7 @@ export class RoomTypesComponent implements OnInit {
         await updateDoc(addedRoomTypeRef, {
           id: roomtypedocid
         });
+        Loader.isLoading=false
           this.getRoomTypes()
    
       } else {
@@ -134,6 +137,7 @@ export class RoomTypesComponent implements OnInit {
           text: "Please fill all fields",
           icon: "warning"
         })
+        Loader.isLoading=false
         this.AddForm.markAllAsTouched();
       }
     }
@@ -186,24 +190,28 @@ export class RoomTypesComponent implements OnInit {
     });
   }
   async showEditForm(event:any){
-    Loader.isLoading=true
-    this.showeditform=true;
-    let roomTypeRef = doc(
-      this.firestore,
-      'hotels/' + User.hotel + '/roomTypes/' + event.id
-    );
-    let q = await getDoc(roomTypeRef);
-    let roomtypeinfo:any = q.data()
-    this.roomtypeeditid=roomtypeinfo['id']
-    this.EditForm.patchValue({
-      RoomTypeEdit:roomtypeinfo['name'],
-      BedTypeEdit: roomtypeinfo['bedtypeid']
+    console.log(event)
+    //Loader.isLoading=true
+    // this.showeditform=true;
+    // let roomTypeRef = doc(
+    //   this.firestore,
+    //   'hotels/' + User.hotel + '/roomTypes/' + event.id
+    // );
+    // let q = await getDoc(roomTypeRef);
+    // let roomtypeinfo:any = q.data()
+    // this.roomtypeeditid=roomtypeinfo['id']
+    // this.EditForm.patchValue({
+    //   RoomTypeEdit:roomtypeinfo['name'],
+    //   BedTypeEdit: roomtypeinfo['bedtypeid']
+    // })
+    this.roomtypeeditid=event['id']
+        this.EditForm.patchValue({
+      RoomTypeEdit:event['name'],
+      BedTypeEdit: event['bedtypeid'],
+      isAvailableEdit: event['isActive']
     })
     
-    
-
-    Loader.isLoading=false
-
+     this.showeditform=true;
   }
 
  async onEditSubmit(){
@@ -238,6 +246,7 @@ export class RoomTypesComponent implements OnInit {
           this.showeditform=false
           Loader.isLoading=false
         }).catch((err:any)=>{
+          console.log(err)
           Swal.fire({
             title: "Alert",
             text: "Something is not right",

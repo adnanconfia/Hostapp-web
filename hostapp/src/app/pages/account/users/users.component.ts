@@ -127,14 +127,8 @@ export class UsersComponent implements OnInit {
       filteredServices.map((item)=>{
         this.services.push(item)
       })
-      this.AddUserForm.get('serviceId')?.setValue('')
-      // console.log("Value is : ",  this.AddUserForm.get('serviceId')?.value)
-      
-
-      // let userRef = collection(this.firestore, "administrators")
-      // let Qry = query(userRef, where("hotelId", "==", CurrentUserHotelId), where("roleId", "==", SelectedRoleId), where("isDeleted", "==", false))
-      // let res = await getDocs(Qry);
-      // console.log(res.docs.length)
+     this.AddUserForm.get('serviceId')?.setValue('')
+ 
 
     }
     if (role === "Worker") {
@@ -146,14 +140,7 @@ export class UsersComponent implements OnInit {
         this.services.push(item)
       })
       this.AddUserForm.get('serviceId')?.setValue('')
-      // console.log("Value is : ",  this.AddUserForm.get('serviceId')?.value)
 
-
-      
-      // let userRef = collection(this.firestore, "administrators")
-      // let Qry = query(userRef, where("hotelId", "==", CurrentUserHotelId), where("roleId", "==", SelectedRoleId), where("isDeleted", "==", false))
-      // let res = await getDocs(Qry);
-      // console.log(res.docs.length)
 
 
     }
