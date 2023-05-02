@@ -5,36 +5,36 @@
                 <div class="col-4">
                     <img src="../../../../../assets/Images/hotel_pic.png" class="br-11px object-fit-cover" alt="hotel picture" width="300px">
                     <div class="py-2 w-300px text-white bg-primary text-primary text-center mt-2 br-8px">
-                        Price / Per night: $100
+                        Price / Per night: ${{hotelData?.pricePerRoom}}
                     </div>
                 </div>
                 <div class="col-4">
-                    <h5 class="fw-bold">Sareena Hotel Sydney, Australia</h5>
-                    <p class="m-0">City in new south wales, australia...</p>
+                    <h5 class="fw-bold">{{hotelData?.name}}</h5>
+                    <p class="m-0">{{hotelData?.location}}</p>
                     <div class="d-inline-flex py-3">
                         <span class="material-symbols-rounded me-1">star_border</span>
-                        <p class="m-0">5.0</p>
+                        <p class="m-0">{{hotelData?.rating}}.0</p>
                     </div>
                     <p>Booking Status: <span class="inprogress px-2 py-1 text-center br-6px">
                             In Progress
                         </span></p>
                     <h6 class="fw-semibold">Description</h6>
                     <p>
-                        Sareena Hotel, Alice Springs NT 0870, Australia is a modern hotel. elegant 5 star hotel overlooking <br> <a class="text-decoration-none text-primary cursor-pointer">Read More...</a>
+                        {{hotelData?.description}}
                     </p>
                 </div>
                 <div class="col-4">
                     <div class="verticalLine px-3">
                         <h6 class="fw-bold">Facilities</h6>
-                        <p>Free Wifi, Free Breakfast, Single Bed, Double Bed, , Ensuit Bath...</p>
+                        <p>{{hotelFacilities != "" ? hotelFacilities:"" }}</p>
                         <div class="hl-y">
-                            <p class="py-3 m-0">Booking Id: 567895</p>
+                            <p class="py-3 m-0">Booking Id: {{bookingId}}</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row mt-3">
-                <h5>All Ussers</h5>
+                <h5>User Details</h5>
                 <app-data-grid [cols]="cols" [respFiles]="userDetailsList"></app-data-grid>
             </div>
         </div>

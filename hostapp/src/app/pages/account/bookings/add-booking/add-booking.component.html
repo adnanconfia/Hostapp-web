@@ -5,6 +5,13 @@
                 <h5 class="mb-0">User Details</h5>
                 <form [formGroup]="AddForm" (ngSubmit)="onSubmit()">
                     <div class="row">
+                        <div class="col-6 col-md-3 mt-3">
+                            <div class="form-group">
+                                <p class="mb-2">Users</p>
+                                <p-dropdown [options]="usersList" formControlName="user" placeholder="Users" optionLabel="name" optionValue="id" (onChange)="userSelected($event)" ></p-dropdown>
+                                <small class="text-danger" *ngIf="AddForm.get('user')!.invalid && (AddForm.get('user')!.dirty || AddForm.get('user')!.touched)">User is requied</small>
+                            </div>
+                        </div>
                         <div class="col-6 col-md-3 mt-3 ">
                             <div class="form-group">
                                 <label>First Name</label>
@@ -70,6 +77,7 @@
                                 <small class="text-danger" *ngIf="AddForm.get('PhoneNuber')!.invalid && (AddForm.get('PhoneNuber')!.dirty || AddForm.get('PhoneNuber')!.touched)">Phone Number is required</small>
                             </div>
                         </div>
+ 
                     </div>
                     <div class="row mt-4">
                         <div class="col-12">
@@ -83,14 +91,14 @@
                                 <small class="text-danger" *ngIf="AddForm.get('HotelName')!.invalid && (AddForm.get('HotelName')!.dirty || AddForm.get('HotelName')!.touched)">HotelName is required</small>
                             </div>
                         </div>
-                        <div class="col-12 col-md-3 mt-3 ">
+                        <!-- <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group">
                                 <label>Title</label>
                                 <input type="text" placeholder="Hotel Title" class="form-control p-12px br-8px mt-2" formControlName="HotelTitle">
 
                                 <small class="text-danger" *ngIf="AddForm.get('HotelTitle')!.invalid && (AddForm.get('HotelTitle')!.dirty || AddForm.get('HotelTitle')!.touched)">Title is required</small>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group">
                                 <label>Description</label>
@@ -109,30 +117,30 @@
                         </div>
                         <div class="col-3 mt-3">
                             <div class="form-group position-relative">
-                                <p class="mb-2">Set Price</p>
-                                <span type='button' class="minus-price left-30px" (click)="decrement()">$5 -</span>
+                                <p class="mb-2">Price Per Room</p>
+                                <!-- <span type='button' class="minus-price left-30px" (click)="decrement()">$5 -</span> -->
                                 <p-inputNumber class="text-center" formControlName="Price" inputId="horizontal" mode="currency" currency="USD">
 
                                 </p-inputNumber>
-                                <span type='button' class="plus-price right-30px" (click)="increment()">+$5</span>
-                                <small class="text-danger" *ngIf="AddForm.get('Price')!.invalid && (AddForm.get('Price')!.dirty || AddForm.get('Price')!.touched)">Price is required</small>
+                                <!-- <span type='button' class="plus-price right-30px" (click)="increment()">+$5</span>
+                                <small class="text-danger" *ngIf="AddForm.get('Price')!.invalid && (AddForm.get('Price')!.dirty || AddForm.get('Price')!.touched)">Price is required</small> -->
                             </div>
                         </div>
                         <div class="col-12 col-md-3 mt-3">
                             <div class="form-group">
-                                <p class="mb-2">Facilities</p>
-                                <p-multiSelect id="select-items" defaultLabel="Choose Facilities" [options]="facilityList" formControlName="Facilities" optionLabel="name"></p-multiSelect>
-                                <small class="text-danger" *ngIf="AddForm.get('Facilities')!.invalid && (AddForm.get('Facilities')!.dirty || AddForm.get('Facilities')!.touched)">Select Facilities</small>
+                                <p class="mb-2">Rooms</p>
+                                <p-multiSelect id="select-items" defaultLabel="Choose Rooms" [options]="roomsList" formControlName="Rooms" optionLabel="roomNumber"></p-multiSelect>
+                                <small class="text-danger" *ngIf="AddForm.get('Rooms')!.invalid && (AddForm.get('Rooms')!.dirty || AddForm.get('Rooms')!.touched)">Select Rooms</small>
                             </div>
                         </div>
                         <div class="col-12 col-md-3 mt-3">
                             <div class="form-group">
                                 <p class="mb-2">Booking Stauts</p>
-                                <p-dropdown [options]="bookingStatusList" formControlName="BookingStatus" placeholder="Booking Status" optionLabel="name"></p-dropdown>
+                                <p-dropdown [options]="bookingStatusList" formControlName="BookingStatus" placeholder="Booking Status" optionLabel="name" optionValue="code"></p-dropdown>
                                 <small class="text-danger" *ngIf="AddForm.get('BookingStatus')!.invalid && (AddForm.get('BookingStatus')!.dirty || AddForm.get('BookingStatus')!.touched)">Booking Staus is requied</small>
                             </div>
                         </div>
-                        <div class="col-12 col-md-3 mt-3">
+                        <!-- <div class="col-12 col-md-3 mt-3">
                             <p class="mb-2">Upload Image</p>
                             <div class="image-upload-wrapper-items w-225px">
                                 <div class=" d-flex align-items-center justify-content-center flex-column " multiple>
@@ -147,7 +155,7 @@
                             </div>
                             <small class="text-danger" *ngIf="AddForm.get('Image')!.invalid && (AddForm.get('Image')!.dirty || AddForm.get('Image')!.touched)">Image is required</small>
 
-                        </div>
+                        </div> -->
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group position-relative">
                                 <label class="mb-2">Check in</label>
