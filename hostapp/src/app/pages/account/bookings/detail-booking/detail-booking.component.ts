@@ -20,13 +20,13 @@ export class DetailBookingComponent implements OnInit {
   userId:any;
   constructor(private fb: FormBuilder,private firestore: Firestore,private router:Router,private route:ActivatedRoute) {
     this.cols = [
-      { header: 'Users Name', field:"name",type:"text" },
+      { header: 'Users Name', field:"firstName",type:"text" },
       { header: 'Email Address',field:"email",type:"text" },
       { header: 'Country',field:"country",type:"text" },
-      { header: 'Postel Code',field:"postalCode",type:"text" },
+      { header: 'Postel Code',field:"zipCode",type:"text" },
       { header: 'City', field:"city",type:"text" },
       { header: 'User Address',field:"address",type:"text"  },
-      { header: 'Phone',field:"phone",type:"text"  },
+      { header: 'Phone',field:"number",type:"text"  },
       { header: 'Actions',fields:"Action",type:"action" }
     ];
     this.userDetailsList = [
@@ -95,12 +95,14 @@ ngAfterViewInit() {
     let bookingRef = doc(this.firestore, "bookings/"+this.bookingId)
     let snap:any = await getDoc(bookingRef)
     // User Details 
-    this.userId= snap.data()['user_id']
-    console.log(this.userId)
-    let userDetail = doc(this.firestore, "users/"+this.userId)
-    let s = await getDoc(userDetail);
-    this.userDetailsList.push(s.data())
-    console.log(s.data())
+        // this.userId= snap.data()['user_id']
+        // console.log(this.userId)
+        // let userDetail = doc(this.firestore, "users/"+this.userId)
+        // let s = await getDoc(userDetail);
+    let rd = snap.data()
+
+    this.userDetailsList.push(rd)
+
     Loader.isLoading=false
   }
 
