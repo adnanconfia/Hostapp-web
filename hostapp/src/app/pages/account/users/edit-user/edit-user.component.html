@@ -15,12 +15,12 @@
                         <label>User Name</label>
                         <input type="text" placeholder="Name" class="form-control p-12px br-8px mt-2" formControlName="username" >
 
-                        <!-- <small class="text-danger" *ngIf="AddForm.get('username')!.invalid && (AddForm.get('username')!.dirty || AddForm.get('username')!.touched)">User Name is required</small> -->
+                        <small class="text-danger" *ngIf="EditForm.get('username')!.invalid && (EditForm.get('username')!.dirty || EditForm.get('username')!.touched)">User Name is required</small>
                     </div>
                 </div>
                 <div class="col-12 col-md-6  mt-3 mt-sm-3 mt-md-0">
                     <div class="form-group">
-                        <h6 class="mb-2">Select Hotel</h6>
+                        <h6 class="mb-2">Select Service</h6>
                        <select formControlName="serviceId" class=" form-select p-12px br-8px mt-3">
                         <ng-container *ngFor="let item of services">
                             <option [value]="item.id" >{{item.name}}</option>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="col-12 ">
                     <div class="d-flex justify-content-end w-100">
-                        <a href="/account/admins" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0  br-8px mx-2">Cancel</a>
+                        <a href="/account/users" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0  br-8px mx-2">Cancel</a>
                         <button href="#" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 br-8px"  type="submit" [disabled]="EditForm.invalid" type="submit">Update</button>
                     </div>
                 </div>
