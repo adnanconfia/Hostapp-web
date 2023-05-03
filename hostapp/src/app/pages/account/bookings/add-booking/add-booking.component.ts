@@ -219,17 +219,19 @@ export class AddBookingComponent implements OnInit {
     // event.stopPropagation();
   }
 
-  userSelected(event:any){
+  async userSelected(event:any){
       let data = event.value
-      
+      let userdata = doc(this.firestore, "users/", data)
+      let snap = await getDoc(userdata)
+      let _data:any = snap.data()
       this.AddForm.patchValue({
 
-        FirstName: data['name'],
-        Email: data['email'],
-        PostelCode: data['postalCode'],
-        PhoneNuber: data['phoneNumber'],
-        City: data['city'],
-        Country: data['country']
+        FirstName: _data['name'],
+        Email: _data['email'],
+        PostelCode: _data['postalCode'],
+        PhoneNuber: _data['phoneNumber'],
+        City: _data['city'],
+        Country: _data['country']
       })
 
   }
