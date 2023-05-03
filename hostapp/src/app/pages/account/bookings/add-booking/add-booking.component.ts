@@ -154,8 +154,8 @@ export class AddBookingComponent implements OnInit {
     var roleId = qSnap.docs[0].data()["roleId"]
     
     let users = collection(this.firestore, "users")
-    let usersq = query(users, where("roleId","==", roleId))
-    let userdata = await getDocs(usersq);
+    //let usersq = query(users, where("roleId","==", roleId))
+    let userdata = await getDocs(users);
     this.usersList=[]
     userdata.docs.map(item=>{
       let data = item.data()
