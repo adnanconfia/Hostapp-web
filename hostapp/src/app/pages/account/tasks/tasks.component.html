@@ -2,12 +2,12 @@
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter br-8px p-3">
             <h5>New Tasks</h5>
-            <app-data-grid [cols]="cols" [respFiles]="requests"   [showEditBtn]="false" [showDetailsBtn]="true"  [addRoombtn]="true" (detailEmitter)="detail($event)"></app-data-grid>
+            <app-data-grid [cols]="cols" [respFiles]="requestsNew"   [showEditBtn]="false" [showDetailsBtn]="true"  [addRoombtn]="true" (detailEmitter)="detail($event)" (deletetEmitter)="delete($event)"></app-data-grid>
         </div>
 
         <div class="border-lighter br-8px p-3 mt-3">
             <h5>All Tasks</h5>
-            <app-data-grid [cols]="cols" [respFiles]="requests"   [showEditBtn]="false" [showDetailsBtn]="true"  [addRoombtn]="true" (detailEmitter)="detail($event)"></app-data-grid>
+            <app-data-grid [cols]="cols" [respFiles]="requestsAll"   [showEditBtn]="false" [showDetailsBtn]="true"  [addRoombtn]="true" (detailEmitter)="detail($event)" (deletetEmitter)="delete($event)"></app-data-grid>
         </div>
     </div>
 </div>
@@ -22,7 +22,9 @@
     <hr>
     <p class="text-blue text-bold"> + Assign To</p>
     <hr>
-    <form [formGroup]="AddForm" (ngSubmit)="onSubmit()">
+
+    <span *ngIf="currentViewingRequest?.request['isAssigned']">Worker is already assigned</span>
+    <form [formGroup]="AddForm" (ngSubmit)="onSubmit()" *ngIf="!currentViewingRequest?.request['isAssigned']">
         <p-dropdown [filter]="true" filterBy="name" [options]="workerList" formControlName="WorkerList" placeholder="Worker" optionLabel="name" ></p-dropdown>
     
         <div class="row mt-3 p-0">
@@ -37,7 +39,6 @@
                 </div>
             </div>
         </div>
-
     </form>
 
 

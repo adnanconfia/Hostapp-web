@@ -15,7 +15,8 @@ import Swal from 'sweetalert2';
 })
 export class TasksComponent implements OnInit {
   AddForm!: FormGroup;
-  public requests: any;
+  public requestsNew: any;
+  public requestsAll: any;
   public cols: any;
   public visible:any=false
   public countries:any;
@@ -35,12 +36,18 @@ export class TasksComponent implements OnInit {
       { header: 'Status',field:"statusName", type:"text"},
       {header:"Actions", field: "actions",type:"action"}
     ];
-    this.requests = [
+    this.requestsNew = [
         // {
         //   roomNumber: '302',
         //   roomType: 'Family Room',
         // }
     ]
+    this.requestsAll = [
+      // {
+      //   roomNumber: '302',
+      //   roomType: 'Family Room',
+      // }
+  ]
 
   
   this.workerList=[
@@ -70,12 +77,12 @@ export class TasksComponent implements OnInit {
   async getRequests(){
     Loader.isLoading=true
     let userServiceId=User.serviceId;
-    console.log("User service id: ", userServiceId)
-    console.log("User hotel id: ", User.hotel)
+
     let requestRef = collection(this.firestore, "requests")
-    let q = query(requestRef, where('hotelId','==',User.hotel),where('serviceId','==', userServiceId))
+    let q = query(requestRef, where('hotelId','==',User.hotel),where('serviceId','==', userServiceId),where("isDeleted","==", false))
     let snapShot= await getDocs(q)
-    this.requests=[]
+    this.requestsNew=[]
+    this.requestsAll=[]
     snapShot.docs.forEach(async element => {
       let d=element.data()
       
@@ -110,8 +117,10 @@ export class TasksComponent implements OnInit {
       d['rooms']=''
 
       
-
-      this.requests.push(d)
+        if(status==0){
+          this.requestsNew.push(d)
+        }
+      this.requestsAll.push(d)
     });
 
     Loader.isLoading=false
@@ -180,7 +189,18 @@ export class TasksComponent implements OnInit {
         isActive:true,
         isAssigned:true,
       }
-      await addDoc(chatRef,chatPayload);
+      let createdDocId:any;
+
+      await addDoc(chatRef,chatPayload).then(resp=>{
+        createdDocId = resp.id;
+      });
+      let _chatRef = doc(
+        this.firestore,
+        'chats/' + createdDocId
+      );
+      await updateDoc(_chatRef, {
+        id: createdDocId
+      });
 
       }
       else{
@@ -195,7 +215,46 @@ export class TasksComponent implements OnInit {
       console.log(err)
 
     }
-  
+    this.getRequests()
+   this.visible=false
+  }
+
+  delete(event:any){
+ 
+    let reqId = event.id;
+    Swal.fire({
+      title: 'Notice',
+      text: 'Do you really want to remove this Request?',
+      icon: 'question',
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
+    }).then(async (Resp: any) => {
+      if (Resp.value) {
+        Loader.isLoading = true;
+        let reqRef = doc(
+          this.firestore,
+          'requests/' + reqId
+        );
+        await updateDoc(reqRef, {
+          isDeleted: true
+        }).then(() => {
+          Swal.fire({
+            title: "Success",
+            text: "Request removed successfully",
+            icon: "success"
+          })
+          this.getRequests();
+
+        }).catch((err: any) => {
+
+          Loader.isLoading = false;
+        });
+
+      }
+    });
+
   }
 }
 
