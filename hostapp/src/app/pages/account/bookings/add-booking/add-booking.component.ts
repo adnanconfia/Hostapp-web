@@ -80,7 +80,7 @@ export class AddBookingComponent implements OnInit {
          isPaid:false,
          vat:"",
          createdAt: (new Date()).getTime(),
-         user_id: formData['user'],
+         user_id: formData['user'] == "#" ? "": formData['user'],
          hotelId: User.hotel,
          isDeleted: false
       }
@@ -157,6 +157,13 @@ export class AddBookingComponent implements OnInit {
     //let usersq = query(users, where("roleId","==", roleId))
     let userdata = await getDocs(users);
     this.usersList=[]
+    this.usersList.push({
+      id: "#",
+      name:"Empty Booking",
+      isDeleted: false,
+      isActive:true,
+      roleId:roleId
+    })
     userdata.docs.map(item=>{
       let data = item.data()
       this.usersList.push(data)
@@ -221,6 +228,19 @@ export class AddBookingComponent implements OnInit {
 
   async userSelected(event:any){
       let data = event.value
+      console.log(data)
+      if(data=="#"){
+        this.AddForm.patchValue({
+
+          FirstName: "",
+          Email: "",
+          PostelCode: "",
+          PhoneNuber: "",
+          City: "",
+          Country:""
+        })
+      }
+      else{
       let userdata = doc(this.firestore, "users/", data)
       let snap = await getDoc(userdata)
       let _data:any = snap.data()
@@ -233,6 +253,7 @@ export class AddBookingComponent implements OnInit {
         City: _data['city'],
         Country: _data['country']
       })
+    }
 
   }
 }
