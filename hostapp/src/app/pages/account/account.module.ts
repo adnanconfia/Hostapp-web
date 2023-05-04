@@ -28,6 +28,9 @@ import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { FacilitiesComponent } from './facilities/facilities.component';
 import { BedtypesComponent } from './bedtypes/bedtypes.component';
 import { ServiceitemsComponent } from './serviceitems/serviceitems.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { DialogModule } from 'primeng/dialog';
+import { QRCodeModule } from 'angularx-qrcode';
 @NgModule({
   declarations: [
     AccountComponent,
@@ -39,6 +42,7 @@ import { ServiceitemsComponent } from './serviceitems/serviceitems.component';
     FacilitiesComponent,
     BedtypesComponent,
     ServiceitemsComponent,
+    TasksComponent,
    
   ],
   imports: [
@@ -61,8 +65,9 @@ import { ServiceitemsComponent } from './serviceitems/serviceitems.component';
     ImageModule,
     InputNumberModule,
     CalendarModule,
-    RadioButtonModule
-
+    RadioButtonModule,
+    DialogModule,
+    QRCodeModule
 
   ]
 })

@@ -27,6 +27,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SidebarModule } from 'primeng/sidebar';
 import { MenubarModule } from 'primeng/menubar';
 import { AngularFireModule } from '@angular/fire/compat';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,8 @@ import { AngularFireModule } from '@angular/fire/compat';
     AppRoutingModule,
     SidebarModule,
     MenubarModule,
+    DialogModule,
+ 
     AngularFireModule.initializeApp(environment.firebase),
     
 

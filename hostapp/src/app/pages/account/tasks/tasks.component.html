@@ -1,0 +1,48 @@
+<div class="row w-100">
+    <div class="col-12  border-lighter br-11px p-3">
+        <div class="border-lighter br-8px p-3">
+            <h5>New Tasks</h5>
+            <app-data-grid [cols]="cols" [respFiles]="requests"   [showEditBtn]="false" [showDetailsBtn]="true"  [addRoombtn]="true" (detailEmitter)="detail($event)"></app-data-grid>
+        </div>
+
+        <div class="border-lighter br-8px p-3 mt-3">
+            <h5>All Tasks</h5>
+            <app-data-grid [cols]="cols" [respFiles]="requests"   [showEditBtn]="false" [showDetailsBtn]="true"  [addRoombtn]="true" (detailEmitter)="detail($event)"></app-data-grid>
+        </div>
+    </div>
+</div>
+<!-- <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button> -->
+<p-dialog  [(visible)]="visible" [style]="{width: '60vw',height:'80vh'}">
+    <h3 class="font-weight-bold">Requested Items</h3>
+    <hr>
+    <p class="text-dark">Details</p>
+    <p>
+         {{requestedItems}}
+    </p>
+    <hr>
+    <p class="text-blue text-bold"> + Assign To</p>
+    <hr>
+    <form [formGroup]="AddForm" (ngSubmit)="onSubmit()">
+        <p-dropdown [filter]="true" filterBy="name" [options]="workerList" formControlName="WorkerList" placeholder="Worker" optionLabel="name" ></p-dropdown>
+    
+        <div class="row mt-3 p-0">
+            <div class="col-9">
+
+            </div>
+
+            <div class="col-3 pe-0 ">
+                <div class="d-flex justify-content-end w-100">
+                    <button href="#" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 w-100 br-8px mx-2" (click)="this.visible=false">Cancel</button>
+                    <button href="#" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px" [disabled]="!AddForm.valid" type="submit">Assign</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+    
+</p-dialog>
+
+
+

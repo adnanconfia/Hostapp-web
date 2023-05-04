@@ -14,56 +14,63 @@
           </span> Dashboard
                 </a>
             </li>
-            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('booking')>0?'active':' '">
+            <li *ngIf="user.roleName=='Admin'" [ngClass]="urlComplete!.indexOf('booking')>0?'active':' '">
                 <a href="/account/booking" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
             calendar_month
           </span> Bookings
                 </a>
             </li>
-            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('users')>0?'active':' '">
+            <li *ngIf="user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('tasks')>0?'active':' '">
+                <a href="/account/tasks" class="d-flex align-items-center me-2">
+                    <span class="material-symbols-rounded">
+            calendar_month
+          </span> Tasks
+                </a>
+            </li>
+            <li *ngIf="user.roleName=='Admin' " [ngClass]="urlComplete!.indexOf('users')>0?'active':' '">
                 <a href="/account/users" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
             group
           </span> Users
                 </a>
             </li>
-            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('facilities')>0?'active':' '">
+            <li *ngIf="user.roleName=='Admin' " [ngClass]="urlComplete!.indexOf('facilities')>0?'active':' '">
                 <a href="/account/facilities" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
             group
           </span> Facilities
                 </a>
             </li>
-            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('bedtypes')>0?'active':' '">
+            <li *ngIf="user.roleName=='Admin' " [ngClass]="urlComplete!.indexOf('bedtypes')>0?'active':' '">
                 <a href="/account/bedtypes" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
             group
           </span> Bed Types
                 </a>
             </li>
-            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('rooms')>0?'active':' '">
+            <li *ngIf="user.roleName=='Admin' " [ngClass]="urlComplete!.indexOf('rooms')>0?'active':' '">
                 <a href="/account/rooms" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
                         event_seat
             </span> Rooms
                 </a>
             </li>
-            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('roomtypes')>0?'active':' '">
+            <li *ngIf="user.roleName=='Admin' " [ngClass]="urlComplete!.indexOf('roomtypes')>0?'active':' '">
                 <a href="/account/roomtypes" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
                             home
                 </span> Room Types
                 </a>
             </li>
-            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('services')>0?'active':' '">
+            <li *ngIf="user.roleName=='Admin' " [ngClass]="urlComplete!.indexOf('services')>0?'active':' '">
                 <a href="/account/services" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
                             room_service
                     </span> Services
                 </a>
             </li>
-            <li *ngIf="user.roleName=='Admin' || user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('serviceitems')>0?'active':' '">
+            <li *ngIf="user.roleName=='Admin'" [ngClass]="urlComplete!.indexOf('serviceitems')>0?'active':' '">
                 <a href="/account/serviceitems" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
                             room_service

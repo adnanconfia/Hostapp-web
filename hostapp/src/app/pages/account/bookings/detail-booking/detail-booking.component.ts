@@ -1,22 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Firestore, collection, doc, getDoc, getDocs, updateDoc } from '@angular/fire/firestore';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Loader } from 'src/app/helpers/loader';
 import { User } from 'src/app/helpers/user';
-
+import html2canvas from 'html2canvas';
+import  jsPDF from 'jspdf';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-detail-booking',
   templateUrl: './detail-booking.component.html',
   styleUrls: ['./detail-booking.component.scss']
 })
 export class DetailBookingComponent implements OnInit {
+  @ViewChild('qrcodeEl', { static: false }) qrcodeEl!: ElementRef;
   cols: any;
   public hotelData:any;
   public hotelFacilities:string=""
   public bookingDetails:any;
   userDetailsList: any;
   public bookingId:any;
+  public qrCodeUrl:any;
   userId:any;
   constructor(private fb: FormBuilder,private firestore: Firestore,private router:Router,private route:ActivatedRoute) {
     this.cols = [
@@ -46,6 +50,7 @@ export class DetailBookingComponent implements OnInit {
     this.route.queryParams.subscribe((params: any) => {
       if (params['id']) {
           this.bookingId=params['id']
+          this.qrCodeUrl = `https://hostappe1c06.page.link/?link=https://hostappe1c06.page.link/?BOOKINGID=${this.bookingId}&apn=com.example.hostapp`
       }
     })
 
@@ -104,6 +109,21 @@ ngAfterViewInit() {
     this.userDetailsList.push(rd)
 
     Loader.isLoading=false
+  }
+
+  downloadQR(){
+    const qrCodeElement:any = document.getElementById('bookingQrCode');
+    html2canvas(qrCodeElement,{scale: 3}).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf:any = new jsPDF();
+      pdf.addImage(imgData, 'PNG', 10, 10);
+      Swal.fire({
+        title: "Success",
+        text: "Qr code downloaded",
+        icon: "success"
+      })
+      pdf.save('qr-code.pdf');
+    });
   }
 
 

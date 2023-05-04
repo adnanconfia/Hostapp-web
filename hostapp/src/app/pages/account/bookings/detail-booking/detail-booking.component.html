@@ -1,3 +1,4 @@
+
 <div class="row w-100">
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter br-8px p-3">
@@ -30,9 +31,37 @@
                         <div class="hl-y">
                             <p class="py-3 m-0">Booking Id: {{bookingId}}</p>
                         </div>
+                        <div class="h1-y">
+                            <div class="d-inline-flex">
+                                <div class="qrcodeImage">
+                                    <qrcode
+                                      [qrdata]="qrCodeUrl"
+                                      [allowEmptyString]="true"
+                                      [cssClass]="'center'"
+                                      [colorDark]="'#000000ff'"
+                                      [colorLight]="'#ffffffff'"
+                                      [elementType]="'svg'"
+                                      [errorCorrectionLevel]="'M'"
+                                      [margin]="4"
+                                      [scale]="1"
+                                      [title]="'qrcode'"
+                                      [width]="100"
+                                      id="bookingQrCode"
+                                    ></qrcode>
+                                  
+                                  </div>
+                                  <div class="mt-3">
+                                    <span (click)="downloadQR()" class="text-white bg-primary text-primary text-center py-1 px-3 br-6px"  [style]="{cursor:'pointer'}">Print</span>
+
+                                  </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                
+                
             </div>
+      
             <div class="row mt-3">
                 <h5>User Details</h5>
                 <app-data-grid [cols]="cols" [respFiles]="userDetailsList"></app-data-grid>
@@ -40,3 +69,4 @@
         </div>
     </div>
 </div>
+

@@ -62,10 +62,12 @@
             </td>
                <td *ngIf="col.type=='action'">
                 <div class="d-inline-flex ">
-                    <fa-icon [icon]="editIcon " class="mx-2 cursor-pointer  " (click)="update(product)"></fa-icon>
+                    <fa-icon [icon]="editIcon " class="mx-2 cursor-pointer  " (click)="update(product)" *ngIf="showEditBtn"></fa-icon>
                     <span *ngIf="showViewBtn" (click)="view(product)">View</span>
-                    <fa-icon [icon]="trash " class="text-danger cursor-pointer " (click)="delete(product)"></fa-icon>
+                    <span *ngIf="showDetailsBtn" class="mx-2 cursor-pointer" (click)="detail(product)">Details</span>
+                    <fa-icon [icon]="trash " class="text-danger cursor-pointer " (click)="delete(product)" *ngIf="showDeleteBtn"></fa-icon>
                 </div>
+
 
             </td>
                  </ng-container>

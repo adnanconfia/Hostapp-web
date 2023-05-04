@@ -21,6 +21,7 @@ import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { FacilitiesComponent } from './facilities/facilities.component';
 import { BedtypesComponent } from './bedtypes/bedtypes.component';
 import { ServiceitemsComponent } from './serviceitems/serviceitems.component';
+import { TasksComponent } from './tasks/tasks.component';
 
 const routes: Routes = [
   {
@@ -114,6 +115,10 @@ const routes: Routes = [
       {
         path: 'serviceitems',
         component: ServiceitemsComponent
+      },
+      {
+        path: 'tasks',
+        component: TasksComponent
       }
     ]
   }
