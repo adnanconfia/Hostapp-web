@@ -131,6 +131,7 @@
                                 <p class="mb-2">Rooms</p>
                                 <p-multiSelect id="select-items" defaultLabel="Choose Rooms" [options]="roomsList" formControlName="Rooms" optionLabel="roomNumber"></p-multiSelect>
                                 <small class="text-danger" *ngIf="AddForm.get('Rooms')!.invalid && (AddForm.get('Rooms')!.dirty || AddForm.get('Rooms')!.touched)">Select Rooms</small>
+                               <br> <span class="text-dark-500">Rooms are available according to checkout and checkin</span>
                             </div>
                         </div>
                         <div class="col-12 col-md-3 mt-3">
@@ -159,7 +160,7 @@
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group position-relative">
                                 <label class="mb-2">Check in</label>
-                                <p-calendar formControlName="CheckIn" inputId="basic"></p-calendar>
+                                <p-calendar formControlName="CheckIn" inputId="basic" (onSelect)="getAvailableRooms()"></p-calendar>
                                 <small class="text-danger" *ngIf="AddForm.get('CheckIn')!.invalid && (AddForm.get('CheckIn')!.dirty || AddForm.get('CheckIn')!.touched)">Check in is required</small>
                                 <span type='button' class="calendar-icon  material-symbols-rounded" (click)='openCalendar($event)'>calendar_today</span>
                             </div>
@@ -167,7 +168,7 @@
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group position-relative">
                                 <label class="mb-2">Check Out</label>
-                                <p-calendar formControlName="CheckOut" inputId="basic"></p-calendar>
+                                <p-calendar (onSelect)="getAvailableRooms()" formControlName="CheckOut" inputId="basic" ></p-calendar>
                                 <small class="text-danger" *ngIf="AddForm.get('CheckOut')!.invalid && (AddForm.get('CheckOut')!.dirty || AddForm.get('CheckOut')!.touched)">Check Out is required</small>
                                 <span type='button' class="calendar-icon  material-symbols-rounded" (click)='openCalendar($event)'>calendar_today</span>
                             </div>

@@ -17,11 +17,14 @@ export class AddBookingComponent implements OnInit {
   calendar: any;
   constructor(private fb: FormBuilder,private firestore: Firestore,private router:Router) {}
   public roomsList: any;
+  public allRooms:any;
   public bookingStatusList: any;
   public usersList:any;
+
   public selectedImage: any;
   public imagePreview: any;
-  currentdate = new Date();
+  currentdate = new Date()
+  
   ngOnInit(): void {
     this.AddForm = this.fb.group({
       user: ['',Validators.required],
@@ -177,11 +180,17 @@ export class AddBookingComponent implements OnInit {
     let rooms = collection(hotelDoc, "rooms")
     let roomsdata = await getDocs(rooms);
     this.roomsList=[]
+    this.allRooms=[]
     roomsdata.docs.map(item=>{
       let data = item.data()
-      this.roomsList.push(data)
+      //this.roomsList.push(data)
+      this.allRooms.push(data)
     })
-    console.log(this.roomsList)
+    // let formValues = this.AddForm.value
+    // let checkInDate= new Date(formValues['CheckIn']).getTime()
+    // let checkOutDate= new Date(formValues['CheckOut']).getTime()
+    this.getAvailableRooms()
+    //console.log(this.roomsList)
     let hoteldata = await getDoc(hotelDoc)
     let _hoteldata:any = hoteldata.data();
     this.AddForm.patchValue({
@@ -190,10 +199,86 @@ export class AddBookingComponent implements OnInit {
       HotelAddress:_hoteldata['location'],
       Price: _hoteldata['pricePerRoom']
     })
-    console.log(hoteldata.data())
+    //console.log(hoteldata.data())
 
     Loader.isLoading=false
   }
+
+  async getAvailableRooms(){
+    Loader.isLoading=true
+    // all bookings
+    let bookings:any=[]
+    let bookingRef = collection(this.firestore, "bookings")
+    let q = query(bookingRef, where ("hotelId","==", User.hotel), where("isDeleted","==",false))
+    let snap = await getDocs(q);
+    snap.docs.forEach((item)=>{
+      let data = item.data()
+      bookings.push(data)
+    })
+    // selected checkout and checkin
+    let formValues = this.AddForm.value
+    let checkInDate= new Date(formValues['CheckIn']).setHours(0,0,0,0);
+    let checkOutDate= new Date(formValues['CheckOut']).setHours(0,0,0,0);
+
+
+    let availableRooms = [...this.allRooms]
+    let notavailble_rooms=[]
+    let count=0
+    let bookedRooms:any=[]
+    bookings.map((booking:any)=>{
+      
+        if(checkInDate <= new Date(booking['checkInDate']).setHours(0,0,0,0) && checkOutDate >=new Date(booking['checkInDate']).setHours(0,0,0,0)){
+          
+          
+          availableRooms.map((room:any,index:number)=>{
+                  if(booking.rooms.includes(room['id'])){
+                      //availableRooms.splice(index,1)
+                      bookedRooms.push(room['id'])
+                  }
+            })
+
+            
+        }
+    })
+    
+    //console.log("Booked Rooms: ", bookedRooms)
+    availableRooms = availableRooms.filter(room => !bookedRooms.includes(room['id']))
+    
+    this.roomsList=[...availableRooms]
+
+
+
+    //console.log(new Date(checkInDate))
+    //  list of bookings in selected dates
+    //  let isPresent=false;
+    //  this.roomsList=[]
+    //  bookings.map((booking:any)=>{
+        
+    //     if(checkInDate <= new Date(booking['checkInDate']) && checkOutDate >=new Date(booking['checkInDate'])){
+    //       console.log(booking)  
+    //       this.allRooms.forEach((item:any,index:number)=>{
+    //         //console.log(item)
+    //             if(!booking.rooms.includes(item['id'])){
+    //               //console.log("the room ",  item['name'], "present in booking")
+    //               this.roomsList.push(item)
+    //               this.allRooms.filter((citem:any)=> item['id']!= item['id'])
+    //               //console.log("Data after splice", this.allRooms)
+    //             }
+                
+    //         })
+    //       isPresent=true
+    //     }
+    // })
+    // if(!isPresent){this.roomsList=this.allRooms}
+    // //console.log("bookings between dates",_bookings)
+
+
+   
+    Loader.isLoading=false
+    //console.log(this.allRooms, checkInDate,checkOutDate)
+  }
+
+
   increment() {
     const price = this.AddForm.controls['Price'].value;
     this.AddForm.controls['Price'].setValue(price + 5);
@@ -228,7 +313,7 @@ export class AddBookingComponent implements OnInit {
 
   async userSelected(event:any){
       let data = event.value
-      console.log(data)
+   
       if(data=="#"){
         this.AddForm.patchValue({
 
@@ -256,4 +341,20 @@ export class AddBookingComponent implements OnInit {
     }
 
   }
+
+  // showcheckout(){
+    
+  //   let todayDate= new Date().getTime()
+  //   let selectedDate = new Date(this.AddForm.value['CheckOut']).getTime()
+  //   if(todayDate < selectedDate ){
+  //     console.log("Today date:", todayDate)
+  //     console.log("Selected Date:", selectedDate)
+  //     console.log("Today is less than selected")
+  //   }
+  //     if(todayDate > selectedDate){
+  //       console.log("Today date:", todayDate)
+  //       console.log("Selected Date:", selectedDate)
+  //       console.log("Date selected is greater than today")
+  //     }
+  // }
 }
