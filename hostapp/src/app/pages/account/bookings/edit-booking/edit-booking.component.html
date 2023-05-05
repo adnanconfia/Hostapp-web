@@ -2,10 +2,10 @@
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter br-8px p-3">
             <div class="form-section mb-4">
-                <h5 class="mb-0">User Details</h5>
-                <form [formGroup]="AddForm" (ngSubmit)="onSubmit()">
+                <h5 class="mb-0">Edit Booking</h5>
+                <form [formGroup]="EditForm" (ngSubmit)="onSubmit()">
                     <div class="row">
-                        <div class="col-6 col-md-3 mt-3">
+                        <!-- <div class="col-6 col-md-3 mt-3">
                             <div class="form-group">
                                 <p class="mb-2">Users</p>
                                 <p-dropdown [options]="usersList" formControlName="user" placeholder="Users" optionLabel="name" optionValue="id" (onChange)="userSelected($event)" >
@@ -13,15 +13,15 @@
                                         <div>{{user.name && user.user !== '' ? user.name : user.phoneNumber}}</div>
                                       </ng-template>
                                 </p-dropdown>
-                                <small class="text-danger" *ngIf="AddForm.get('user')!.invalid && (AddForm.get('user')!.dirty || AddForm.get('user')!.touched)">User is requied</small>
+                                <small class="text-danger" *ngIf="EditForm.get('user')!.invalid && (EditForm.get('user')!.dirty || EditForm.get('user')!.touched)">User is requied</small>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-6 col-md-3 mt-3 ">
                             <div class="form-group">
                                 <label>First Name</label>
                                 <input type="text" placeholder="First name" class="form-control p-12px br-8px mt-2" formControlName="FirstName">
 
-                                <small class="text-danger" *ngIf="AddForm.get('FirstName')!.invalid && (AddForm.get('FirstName')!.dirty || AddForm.get('FirstName')!.touched)">First Name is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('FirstName')!.invalid && (EditForm.get('FirstName')!.dirty || EditForm.get('FirstName')!.touched)">First Name is required</small>
                             </div>
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
@@ -29,7 +29,7 @@
                                 <label>Last Name</label>
                                 <input type="text" placeholder="Last name" class="form-control p-12px br-8px mt-2" formControlName="LastName">
 
-                                <small class="text-danger" *ngIf="AddForm.get('LastName')!.invalid && (AddForm.get('LastName')!.dirty || AddForm.get('LastName')!.touched)">Last Name is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('LastName')!.invalid && (EditForm.get('LastName')!.dirty || EditForm.get('LastName')!.touched)">Last Name is required</small>
                             </div>
                         </div>
 
@@ -38,7 +38,7 @@
                                 <label>Email</label>
                                 <input type="email" placeholder="email" class="form-control p-12px br-8px  mt-2" formControlName="Email">
 
-                                <small class="text-danger" *ngIf="AddForm.get('Email')!.invalid && (AddForm.get('Email')!.dirty || AddForm.get('Email')!.touched)">Email is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('Email')!.invalid && (EditForm.get('Email')!.dirty || EditForm.get('Email')!.touched)">Email is required</small>
                             </div>
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
@@ -46,7 +46,7 @@
                                 <label>Country</label>
                                 <input type="text" placeholder="Country" class="form-control p-12px br-8px mt-2" formControlName="Country">
 
-                                <small class="text-danger" *ngIf="AddForm.get('Country')!.invalid && (AddForm.get('Country')!.dirty || AddForm.get('Country')!.touched)">Country is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('Country')!.invalid && (EditForm.get('Country')!.dirty || EditForm.get('Country')!.touched)">Country is required</small>
                             </div>
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
@@ -54,7 +54,7 @@
                                 <label>Zip/Postel Code</label>
                                 <input type="text" placeholder="Postal Code" class="form-control p-12px br-8px mt-2" formControlName="PostelCode">
 
-                                <small class="text-danger" *ngIf="AddForm.get('PostelCode')!.invalid && (AddForm.get('PostelCode')!.dirty || AddForm.get('PostelCode')!.touched)">Postel Code is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('PostelCode')!.invalid && (EditForm.get('PostelCode')!.dirty || EditForm.get('PostelCode')!.touched)">Postel Code is required</small>
                             </div>
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
@@ -62,7 +62,7 @@
                                 <label>City</label>
                                 <input type="text" placeholder="City" class="form-control p-12px br-8px mt-2" formControlName="City">
 
-                                <small class="text-danger" *ngIf="AddForm.get('City')!.invalid && (AddForm.get('City')!.dirty || AddForm.get('City')!.touched)">City is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('City')!.invalid && (EditForm.get('City')!.dirty || EditForm.get('City')!.touched)">City is required</small>
                             </div>
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
@@ -70,7 +70,7 @@
                                 <label>User Address</label>
                                 <input type="text" placeholder="User Address" class="form-control p-12px br-8px mt-2" formControlName="UserAddress">
 
-                                <small class="text-danger" *ngIf="AddForm.get('UserAddress')!.invalid && (AddForm.get('UserAddress')!.dirty || AddForm.get('UserAddress')!.touched)">User Address is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('UserAddress')!.invalid && (EditForm.get('UserAddress')!.dirty || EditForm.get('UserAddress')!.touched)">User Address is required</small>
                             </div>
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
@@ -78,7 +78,7 @@
                                 <label>Phone Number</label>
                                 <input type="text" placeholder="Phone number" class="form-control p-12px br-8px mt-2" formControlName="PhoneNuber">
 
-                                <small class="text-danger" *ngIf="AddForm.get('PhoneNuber')!.invalid && (AddForm.get('PhoneNuber')!.dirty || AddForm.get('PhoneNuber')!.touched)">Phone Number is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('PhoneNuber')!.invalid && (EditForm.get('PhoneNuber')!.dirty || EditForm.get('PhoneNuber')!.touched)">Phone Number is required</small>
                             </div>
                         </div>
  
@@ -92,7 +92,7 @@
                                 <label>Hotel Name</label>
                                 <input type="text" placeholder="Hotel Name" class="form-control p-12px br-8px mt-2" formControlName="HotelName">
 
-                                <small class="text-danger" *ngIf="AddForm.get('HotelName')!.invalid && (AddForm.get('HotelName')!.dirty || AddForm.get('HotelName')!.touched)">HotelName is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('HotelName')!.invalid && (EditForm.get('HotelName')!.dirty || EditForm.get('HotelName')!.touched)">HotelName is required</small>
                             </div>
                         </div>
                         <!-- <div class="col-12 col-md-3 mt-3 ">
@@ -100,7 +100,7 @@
                                 <label>Title</label>
                                 <input type="text" placeholder="Hotel Title" class="form-control p-12px br-8px mt-2" formControlName="HotelTitle">
 
-                                <small class="text-danger" *ngIf="AddForm.get('HotelTitle')!.invalid && (AddForm.get('HotelTitle')!.dirty || AddForm.get('HotelTitle')!.touched)">Title is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('HotelTitle')!.invalid && (EditForm.get('HotelTitle')!.dirty || EditForm.get('HotelTitle')!.touched)">Title is required</small>
                             </div>
                         </div> -->
                         <div class="col-12 col-md-3 mt-3 ">
@@ -108,7 +108,7 @@
                                 <label>Description</label>
                                 <input type="text" placeholder="Description" class="form-control p-12px br-8px mt-2" formControlName="Description">
 
-                                <small class="text-danger" *ngIf="AddForm.get('Description')!.invalid && (AddForm.get('Description')!.dirty || AddForm.get('Description')!.touched)">Description is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('Description')!.invalid && (EditForm.get('Description')!.dirty || EditForm.get('Description')!.touched)">Description is required</small>
                             </div>
                         </div>
                         <div class="col-12 col-md-3 mt-3 ">
@@ -116,7 +116,7 @@
                                 <label>Hotel Address</label>
                                 <input type="text" placeholder="Hotel Address" class="form-control p-12px br-8px mt-2" formControlName="HotelAddress">
 
-                                <small class="text-danger" *ngIf="AddForm.get('HotelAddress')!.invalid && (AddForm.get('HotelAddress')!.dirty || AddForm.get('HotelAddress')!.touched)">Hotel Address is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('HotelAddress')!.invalid && (EditForm.get('HotelAddress')!.dirty || EditForm.get('HotelAddress')!.touched)">Hotel Address is required</small>
                             </div>
                         </div>
                         <div class="col-3 mt-3">
@@ -127,14 +127,14 @@
 
                                 </p-inputNumber>
                                 <!-- <span type='button' class="plus-price right-30px" (click)="increment()">+$5</span>
-                                <small class="text-danger" *ngIf="AddForm.get('Price')!.invalid && (AddForm.get('Price')!.dirty || AddForm.get('Price')!.touched)">Price is required</small> -->
+                                <small class="text-danger" *ngIf="EditForm.get('Price')!.invalid && (EditForm.get('Price')!.dirty || EditForm.get('Price')!.touched)">Price is required</small> -->
                             </div>
                         </div>
                         <div class="col-12 col-md-3 mt-3">
                             <div class="form-group">
                                 <p class="mb-2">Rooms</p>
                                 <p-multiSelect id="select-items" defaultLabel="Choose Rooms" [options]="roomsList" formControlName="Rooms" optionLabel="roomNumber"></p-multiSelect>
-                                <small class="text-danger" *ngIf="AddForm.get('Rooms')!.invalid && (AddForm.get('Rooms')!.dirty || AddForm.get('Rooms')!.touched)">Select Rooms</small>
+                                <small class="text-danger" *ngIf="EditForm.get('Rooms')!.invalid && (EditForm.get('Rooms')!.dirty || EditForm.get('Rooms')!.touched)">Select Rooms</small>
                                <br> <span class="text-dark-500">Rooms are available according to checkout and checkin</span>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                             <div class="form-group">
                                 <p class="mb-2">Booking Stauts</p>
                                 <p-dropdown [options]="bookingStatusList" formControlName="BookingStatus" placeholder="Booking Status" optionLabel="name" optionValue="code"></p-dropdown>
-                                <small class="text-danger" *ngIf="AddForm.get('BookingStatus')!.invalid && (AddForm.get('BookingStatus')!.dirty || AddForm.get('BookingStatus')!.touched)">Booking Staus is requied</small>
+                                <small class="text-danger" *ngIf="EditForm.get('BookingStatus')!.invalid && (EditForm.get('BookingStatus')!.dirty || EditForm.get('BookingStatus')!.touched)">Booking Staus is requied</small>
                             </div>
                         </div>
                         <!-- <div class="col-12 col-md-3 mt-3">
@@ -158,14 +158,14 @@
 
                                 </div>
                             </div>
-                            <small class="text-danger" *ngIf="AddForm.get('Image')!.invalid && (AddForm.get('Image')!.dirty || AddForm.get('Image')!.touched)">Image is required</small>
+                            <small class="text-danger" *ngIf="EditForm.get('Image')!.invalid && (EditForm.get('Image')!.dirty || EditForm.get('Image')!.touched)">Image is required</small>
 
                         </div> -->
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group position-relative">
                                 <label class="mb-2">Check in</label>
                                 <p-calendar formControlName="CheckIn" inputId="basic" (onSelect)="getAvailableRooms()"></p-calendar>
-                                <small class="text-danger" *ngIf="AddForm.get('CheckIn')!.invalid && (AddForm.get('CheckIn')!.dirty || AddForm.get('CheckIn')!.touched)">Check in is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('CheckIn')!.invalid && (EditForm.get('CheckIn')!.dirty || EditForm.get('CheckIn')!.touched)">Check in is required</small>
                                 <span type='button' class="calendar-icon  material-symbols-rounded" (click)='openCalendar($event)'>calendar_today</span>
                             </div>
                         </div>
@@ -173,7 +173,7 @@
                             <div class="form-group position-relative">
                                 <label class="mb-2">Check Out</label>
                                 <p-calendar (onSelect)="getAvailableRooms()" formControlName="CheckOut" inputId="basic" ></p-calendar>
-                                <small class="text-danger" *ngIf="AddForm.get('CheckOut')!.invalid && (AddForm.get('CheckOut')!.dirty || AddForm.get('CheckOut')!.touched)">Check Out is required</small>
+                                <small class="text-danger" *ngIf="EditForm.get('CheckOut')!.invalid && (EditForm.get('CheckOut')!.dirty || EditForm.get('CheckOut')!.touched)">Check Out is required</small>
                                 <span type='button' class="calendar-icon  material-symbols-rounded" (click)='openCalendar($event)'>calendar_today</span>
                             </div>
                         </div>
@@ -185,7 +185,7 @@
                             <div class="col-3 pe-0">
                                 <div class="d-flex justify-content-end w-100">
                                     <button (click)="cancel()" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 w-100 br-8px mx-2">Cancel</button>
-                                    <button href="#" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px" [disabled]="!AddForm.valid" type="submit">Add</button>
+                                    <button type="submit" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px" [disabled]="!EditForm.valid" type="submit">Edit</button>
                                 </div>
                             </div>
                         </div>

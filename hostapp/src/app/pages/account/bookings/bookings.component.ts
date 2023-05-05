@@ -23,7 +23,7 @@ export class BookingsComponent implements OnInit {
       // { header: 'Hotel Title',field:"HotelTitle",type:"text" },
       { header: 'Check In',field:"checkInDate",type:"date" },
       { header: 'Check Out',field: "checkOutDate",type:"date" },
-      { header: 'Booking',field:"status",type:"text" },
+      { header: 'Booking',field:"statusName",type:"text" },
       { header: 'Actions',field:"Actions",type:'action' }
     ];
     this.bookingList = [
@@ -62,7 +62,9 @@ export class BookingsComponent implements OnInit {
 
 
 
-
+  update(event:any){
+      this.router.navigateByUrl("/account/booking/editbooking?id="+event.id);
+  }
   async getBookings(){
     let userHotel = User.hotel;
     let bookingRef = collection(this.firestore, "bookings")
@@ -71,6 +73,19 @@ export class BookingsComponent implements OnInit {
 
     snap.docs.forEach((item)=>{
       let data = item.data()
+      let bookingStatus = data['status']
+      if(bookingStatus == 1){
+        data['statusName']="Pending"
+      }
+      else if(bookingStatus ==2){
+        data['statusName']="Alloted"
+      }
+      else if(bookingStatus==3){
+        data['statusName']="In Reviewed"
+      }
+      else if(bookingStatus==4){
+        data['statusName']="Completed"
+      }
       this.bookingList.push(data)
     })
 

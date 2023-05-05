@@ -2,7 +2,7 @@
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter br-8px p-3">
             <h5>All Bookings</h5>
-            <app-data-grid [cols]="cols" [respFiles]="bookingList" [addBookingbtn]="true" [showViewBtn]="true" (viewEmitter)="view($event)"  (CreateEmitter)="create()" (deletetEmitter)="delete($event)"></app-data-grid>
+            <app-data-grid [cols]="cols" [respFiles]="bookingList" [addBookingbtn]="true" [showViewBtn]="true" (viewEmitter)="view($event)"  (CreateEmitter)="create()" (deletetEmitter)="delete($event)" (Update)="update($event)"></app-data-grid>
         </div>
     </div>
 </div>

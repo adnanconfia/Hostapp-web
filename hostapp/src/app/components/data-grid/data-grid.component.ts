@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectorRef } from '@angular/core';
-import { faTrashCan, faPenToSquare } from '@fortawesome/free-regular-svg-icons';
+import { faTrashCan, faPenToSquare, faEye } from '@fortawesome/free-regular-svg-icons';
 @Component({
   selector: 'app-data-grid',
   templateUrl: './data-grid.component.html',
@@ -10,6 +10,7 @@ export class DataGridComponent implements OnInit {
   _selectedColumns: any = [];
   trash = faTrashCan;
   editIcon = faPenToSquare;
+  viewIcon = faEye;
   first = 0;
 
   @Output() deletetEmitter: EventEmitter<any>;

@@ -34,7 +34,7 @@ import { DialogModule } from 'primeng/dialog';
     AppComponent,
     LoginViewComponent,
     RoutingComponents,
-    LoaderComponent
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,

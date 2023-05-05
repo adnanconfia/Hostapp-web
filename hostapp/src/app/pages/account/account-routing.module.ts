@@ -22,6 +22,8 @@ import { FacilitiesComponent } from './facilities/facilities.component';
 import { BedtypesComponent } from './bedtypes/bedtypes.component';
 import { ServiceitemsComponent } from './serviceitems/serviceitems.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { EditBookingComponent } from './bookings/edit-booking/edit-booking.component';
+
 
 const routes: Routes = [
   {
@@ -50,7 +52,6 @@ const routes: Routes = [
         path: 'hotels/update',
         component:
           UpdateHotelComponent,
-
       },
       {
         path: 'users',
@@ -91,6 +92,10 @@ const routes: Routes = [
       {
         path: 'booking/detailbooking',
         component: DetailBookingComponent
+      },
+      {
+        path: 'booking/editbooking',
+        component: EditBookingComponent
       },
       {
         path: 'rooms',

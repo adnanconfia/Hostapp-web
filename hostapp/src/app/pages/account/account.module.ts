@@ -31,6 +31,8 @@ import { ServiceitemsComponent } from './serviceitems/serviceitems.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { DialogModule } from 'primeng/dialog';
 import { QRCodeModule } from 'angularx-qrcode';
+import { EditBookingComponent } from './bookings/edit-booking/edit-booking.component';
+
 @NgModule({
   declarations: [
     AccountComponent,
@@ -43,6 +45,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     BedtypesComponent,
     ServiceitemsComponent,
     TasksComponent,
+    EditBookingComponent,
    
   ],
   imports: [
