@@ -112,7 +112,7 @@ export class RoomTypesComponent implements OnInit {
           createdAt: (new Date()).getTime(),
           isDeleted: false,
           isActive: data['isAvailable'],
-          bedtypeid: data['BedType']
+          bedTypeId: data['BedType']
         }
   
         var hotelRef = doc(this.firestore, "hotels",User.hotel)     

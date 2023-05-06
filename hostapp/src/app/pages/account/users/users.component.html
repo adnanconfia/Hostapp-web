@@ -19,7 +19,7 @@
                     <div class="col-12 col-md-3 mt-3 mt-sm-3 mt-md-0">
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text" placeholder="Anum" class="form-control p-12px br-8px mt-2" formControlName="username">
+                            <input type="text" placeholder="UserName" class="form-control p-12px br-8px mt-2" formControlName="username">
                             <small class="text-danger" *ngIf="AddUserForm.get('username')!.invalid && (AddUserForm.get('username')!.dirty || AddUserForm.get('username')!.touched)">Username is required</small>
 
                         </div>
@@ -29,7 +29,7 @@
                     <div class="col-12 col-md-6  mt-3 mt-sm-3 mt-md-0">
                         <div class="form-group">
                             <label>email</label>
-                            <input type="email" placeholder="anumfarooq@gmail.com" class="form-control p-12px br-8px  mt-2" formControlName="email">
+                            <input type="email" placeholder="example@example.com" class="form-control p-12px br-8px  mt-2" formControlName="email">
 
                             <small class="text-danger" *ngIf="AddUserForm.get('email')!.invalid && (AddUserForm.get('email')!.dirty || AddUserForm.get('email')!.touched)">Email is required</small>
                         </div>

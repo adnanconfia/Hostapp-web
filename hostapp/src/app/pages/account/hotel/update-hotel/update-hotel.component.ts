@@ -127,6 +127,8 @@ export class UpdateHotelComponent implements OnInit {
       }
     })
      setTimeout(async () => {
+      var photo =imgs[0]
+      console.log(photo)
        var hotelDocref = doc(this.firestore, 'hotels/' + this.data.id);
        await updateDoc(hotelDocref, {
          id: this.data.id,
@@ -138,7 +140,7 @@ export class UpdateHotelComponent implements OnInit {
          rating: 5,
          vat: formData['vat'],
          photos: imgs,
-         photo: imgs[0]
+         photo: photo
        }).then(() => {
          Swal.fire({
            title: "Success",

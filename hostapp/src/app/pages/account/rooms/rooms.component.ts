@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { Firestore, collection, doc, getDocs } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDocs, query, where } from '@angular/fire/firestore';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Loader } from 'src/app/helpers/loader';
@@ -19,7 +19,7 @@ export class RoomsComponent implements OnInit {
 
   ngOnInit(): void {
     this.cols = [
-      { header: 'Room #',field:"roomNumber",type:"text" },
+      { header: 'Room #',field:"number",type:"text" },
       { header: 'Room Picture',field:"profilePic", type:"profilePic" },
      { header: 'Room Type',field:"roomtypename", type:"text"},
     //  { header: 'Bed Type', field:"bedType", type:"text"},
@@ -68,7 +68,7 @@ export class RoomsComponent implements OnInit {
     let hotelId= User.hotel;
     // Room Types
     let roomtypelist:any=[]
-    let hotelRef = doc(this.firestore, "hotels",hotelId)
+    let hotelRef = doc(this.firestore, "hotels/"+hotelId)
     let roomTypeRef = collection(hotelRef, "roomTypes")
     let data = await getDocs(roomTypeRef)
     data.forEach((roomtype)=> roomtypelist.push(roomtype.data()))
@@ -76,17 +76,20 @@ export class RoomsComponent implements OnInit {
     let roomsRef = collection(hotelRef, "rooms")
     data= await getDocs(roomsRef)
 
-    data.forEach((room:any)=>{
+    data.forEach(async (room:any)=>{
         var data= room.data()
         if(data['isDeleted']==false){
         
-            roomtypelist.map((roomtype:any)=>{
-                if(roomtype['id']===data['roomtypeid']){
-                  data['roomtypename']=roomtype['name']
+            // roomtypelist.forEach((roomtype:any)=>{
+            //     if(roomtype['id']===data['roomtypeid']){
+            //       data['roomtypename']=roomtype['name']
                  
-                }
-            })
-
+            //     }
+            // })
+          
+            var q = query(roomTypeRef,where("id","==",data['typeId']));
+            var qSnap :any= await getDocs(q);
+            data['roomtypename']  = qSnap.docs[0].data()['name'];
             if(data['photos'] && data['photos'].length >0)
             {
                 data['profilePic']=data['photos'][0]

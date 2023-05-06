@@ -32,7 +32,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { DialogModule } from 'primeng/dialog';
 import { QRCodeModule } from 'angularx-qrcode';
 import { EditBookingComponent } from './bookings/edit-booking/edit-booking.component';
-
+import { TagModule } from 'primeng/tag';
 @NgModule({
   declarations: [
     AccountComponent,
@@ -53,6 +53,7 @@ import { EditBookingComponent } from './bookings/edit-booking/edit-booking.compo
     NgScrollbarModule,
     AvatarModule,
     AccountRoutingModule,
+    TagModule,
     SidebarModule,
     ReactiveFormsModule,
     FormsModule,

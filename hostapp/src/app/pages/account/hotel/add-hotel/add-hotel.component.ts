@@ -179,8 +179,9 @@ export class AddHotelComponent implements OnInit {
       await updateDoc(serviceDocRef, {
         id: serviceId
       });
-      var storage = getStorage();
       var photos: any = [];
+      var storage = getStorage();
+  
       this.imageSrcs.forEach(async (item: any) => {
         var storageRef = ref(
           storage,
@@ -199,19 +200,13 @@ export class AddHotelComponent implements OnInit {
             console.log(err);
           });
       });
-
-      // Find all the prefixes and items.
-
-    
-        //  await listAll(listRef).then((resp: any) => {
-        //    var photos = resp.items;
-        //  })
-        Loader.isLoading = true;
+      setTimeout(async () => {
+      
         var photo = '';
         if (photos.length > 0) {
           photo = photos[0];
         }
-
+        console.log(photo)
         var hotelDocref = doc(this.firestore, 'hotels/' + hotelId);
         await updateDoc(hotelDocref, {
           id: hotelId,
@@ -219,16 +214,26 @@ export class AddHotelComponent implements OnInit {
           photos: photos
         });
 
-        
-        Swal.fire({
-          title:"Success",
-          text:"Hotel created successfully",
-          icon:"success",
-        
-        })
-        this.AddForm.reset();
-        this.imageSrcs = [];
-      Loader.isLoading = false;
+      }, 1500);
+        // Find all the prefixes and items.
+  
+      
+          //  await listAll(listRef).then((resp: any) => {
+          //    var photos = resp.items;
+          //  })
+      
+          
+          Swal.fire({
+            title:"Success",
+            text:"Hotel created successfully",
+            icon:"success",
+          
+          })
+          this.AddForm.reset();
+          this.imageSrcs = [];
+        Loader.isLoading = false;
+    
+    
     } else {
       Swal.fire({
         title: 'Alert',

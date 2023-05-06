@@ -17,6 +17,7 @@ export class BookingsComponent implements OnInit {
   constructor(private fb: FormBuilder,private firestore: Firestore,private router:Router) {}
 
   ngOnInit(): void {
+    
     this.cols = [
       { header: 'Booking Id',field:"id",type:"text" },
       { header: 'User Name',field:"firstName",type:"text" },

@@ -22,7 +22,7 @@ export class ServiceitemsComponent implements OnInit {
   public itemsDetails: any;
   public serviceFormShow: boolean = false;
   public servicesList: any[] = []
-
+  serviceDic:any={};
   selectedServiceItemId:any;
   selectedServiceId:any;
   editForm:boolean=false
@@ -35,7 +35,7 @@ export class ServiceitemsComponent implements OnInit {
       services: ['', Validators.required],
       image: [''],
       itemName: ['', Validators.required],
-      priceItem: ['', Validators.required],
+      priceItem: [0.00],
       imageSource: []
     });
     this.EditForm = this.fb.group({
@@ -63,20 +63,30 @@ export class ServiceitemsComponent implements OnInit {
   async onSubmit() {
     try {
       let formdata = this.AddForm.value;
+      var serviceName = this.servicesList.filter((x:any)=>x.id===formdata['services']);
+      var isRoomService=false;
+      if(serviceName.length>0 ){
+        if(serviceName[0].name.toLowerCase()==="room services")
+        isRoomService=true;
+      }
+   
             // Payload
             let payLoad = {
               id: '',
               name: formdata['itemName'],
-              price: formdata['priceItem'],
+              price: formdata['priceItem']?formdata['priceItem']:0.00,
               createdAt: new Date().getTime(),
               isDeleted: false,
-              photo: ""
+              photo: "",
+              isRoomService:isRoomService
             }
+             
+        let serviceid = formdata['services']
       if(formdata['imageSource']){
         var storage = getStorage();
             let storageRef = ref(
           storage,
-          "hotels/" + User.hotel + "/" + new Date().getTime() + "png"
+          "hotels/" + User.hotel + "/"+serviceid+"/" + new Date().getTime() + "png"
         );
         let snapshot = await uploadString(storageRef, this.selectedImageConverted, "data_url");
         let resp = await getDownloadURL(storageRef);
@@ -87,8 +97,7 @@ export class ServiceitemsComponent implements OnInit {
         let hotelId = User.hotel;
   
         // selected service id
-  
-        let serviceid = formdata['services']
+ 
         // Service Ref
         let serviceDocRef = doc(
           this.firestore,
@@ -255,6 +264,7 @@ export class ServiceitemsComponent implements OnInit {
     this.servicesList = []
     services.docs.map((item) => {
       let d = item.data()
+      this.serviceDic[d['id']]=d;
       this.servicesList.push(d)
     })
     this.AddForm.patchValue({

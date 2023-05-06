@@ -51,10 +51,10 @@
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
                             <div class="form-group">
-                                <label>Zip/Postel Code</label>
-                                <input type="text" placeholder="Postal Code" class="form-control p-12px br-8px mt-2" formControlName="PostelCode">
+                                <label>Zip/Postal Code</label>
+                                <input type="text" placeholder="Postal Code" class="form-control p-12px br-8px mt-2" formControlName="PostalCode">
 
-                                <small class="text-danger" *ngIf="AddForm.get('PostelCode')!.invalid && (AddForm.get('PostelCode')!.dirty || AddForm.get('PostelCode')!.touched)">Postel Code is required</small>
+                                <small class="text-danger" *ngIf="AddForm.get('PostelCode')!.invalid && (AddForm.get('PostelCode')!.dirty || AddForm.get('PostelCode')!.touched)">Postal Code is required</small>
                             </div>
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
@@ -133,14 +133,14 @@
                         <div class="col-12 col-md-3 mt-3">
                             <div class="form-group">
                                 <p class="mb-2">Rooms</p>
-                                <p-multiSelect id="select-items" defaultLabel="Choose Rooms" [options]="roomsList" formControlName="Rooms" optionLabel="roomNumber"></p-multiSelect>
+                                <p-multiSelect id="select-items" defaultLabel="Choose Rooms" [options]="roomsList" formControlName="Rooms" optionLabel="number"></p-multiSelect>
                                 <small class="text-danger" *ngIf="AddForm.get('Rooms')!.invalid && (AddForm.get('Rooms')!.dirty || AddForm.get('Rooms')!.touched)">Select Rooms</small>
                                <br> <span class="text-dark-500">Rooms are available according to checkout and checkin</span>
                             </div>
                         </div>
                         <div class="col-12 col-md-3 mt-3">
                             <div class="form-group">
-                                <p class="mb-2">Booking Stauts</p>
+                                <p class="mb-2">Booking Status</p>
                                 <p-dropdown [options]="bookingStatusList" formControlName="BookingStatus" placeholder="Booking Status" optionLabel="name" optionValue="code"></p-dropdown>
                                 <small class="text-danger" *ngIf="AddForm.get('BookingStatus')!.invalid && (AddForm.get('BookingStatus')!.dirty || AddForm.get('BookingStatus')!.touched)">Booking Staus is requied</small>
                             </div>
@@ -176,6 +176,12 @@
                                 <small class="text-danger" *ngIf="AddForm.get('CheckOut')!.invalid && (AddForm.get('CheckOut')!.dirty || AddForm.get('CheckOut')!.touched)">Check Out is required</small>
                                 <span type='button' class="calendar-icon  material-symbols-rounded" (click)='openCalendar($event)'>calendar_today</span>
                             </div>
+                        </div>
+                        <div class="col-12 col-md-3 mt-3">
+                            <mat-slide-toggle
+                            formControlName="isPaid">
+     IsPaid?
+      </mat-slide-toggle>
                         </div>
                         <div class="row mt-3 p-0">
                             <div class="col-9">

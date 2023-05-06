@@ -20,22 +20,23 @@ export class AddBookingComponent implements OnInit {
   public allRooms:any;
   public bookingStatusList: any;
   public usersList:any;
-
+  hotel:any;
   public selectedImage: any;
   public imagePreview: any;
   currentdate = new Date()
   
   ngOnInit(): void {
+    Loader.isLoading=true;
     this.AddForm = this.fb.group({
       user: ['',Validators.required],
-      FirstName: ['', Validators.required],
-      LastName: ['', Validators.required],
-      Email: ['', Validators.required],
-      PostelCode: ['', Validators.required],
-      UserAddress: ['', Validators.required],
-      PhoneNuber: ['', Validators.required],
-      City: ['', Validators.required],
-      Country: ['', Validators.required],
+      FirstName: [''],
+      LastName: [''],
+      Email: [''],
+      PostelCode: [""],
+      UserAddress: [''],
+      PhoneNuber: [''],
+      City: [''],
+      Country: [''],
       HotelName: [{value:'',disabled: true}],
       // HotelTitle: ['', Validators.required],
       HotelAddress: [{value:'',disabled: true}],
@@ -46,7 +47,9 @@ export class AddBookingComponent implements OnInit {
       // Image: ['', Validators.required],
       imageSource: [],
       CheckIn: [this.currentdate, Validators.required],
-      CheckOut: [this.currentdate, Validators.required]
+      CheckOut: [this.currentdate, Validators.required],
+      
+      isPaid: [false, Validators.required]
     });
     this.roomsList = [
       // { name: 'Free Wifi', code: 'FW' },
@@ -70,20 +73,21 @@ export class AddBookingComponent implements OnInit {
          id: "",
          checkInDate: new Date(formData['CheckIn']).getTime(),
          checkOutDate: new Date(formData['CheckOut']).getTime(),
-         city: formData['City'],
-         country:formData['Country'],
-         email: formData['Email'],
-         firstName:formData['FirstName'],
-         lastName:formData['LastName'],
-         zipCode:formData['PostelCode'],
-         address: formData['UserAddress'] ,
-         number: formData['PhoneNuber'],
-         status: formData['BookingStatus'],
+         city: formData['City']?formData['City']:" ",
+         country:formData['Country']?formData['Country']:" ",
+         email: formData['Email']?formData['Email']:"",
+         firstName:formData['FirstName']?formData['FirstName']:" ",
+         lastName:formData['LastName']?formData['LastName']:" ",
+         zipCode:formData['PostelCode']?formData['PostelCode']:" ",
+         address: formData['UserAddress'] ?formData['UserAddress'] :" ",
+         number: formData['PhoneNuber']?formData['PhoneNuber']:" ",
+         status: parseInt(formData['BookingStatus']),
+        
          rooms:formData['Rooms'].map((item:any)=> {return item['id']}),
-         isPaid:false,
-         vat:"",
+         isPaid:formData['isPaid'],
+         vat:parseInt(this.hotel.vat),
          createdAt: (new Date()).getTime(),
-         user_id: formData['user'] == "#" ? "": formData['user'],
+         userId: formData['user'] == "#" ? "": formData['user'],
          hotelId: User.hotel,
          isDeleted: false
       }
@@ -193,12 +197,12 @@ export class AddBookingComponent implements OnInit {
     this.getAvailableRooms()
     //console.log(this.roomsList)
     let hoteldata = await getDoc(hotelDoc)
-    let _hoteldata:any = hoteldata.data();
+    this.hotel = hoteldata.data();
     this.AddForm.patchValue({
-      HotelName: _hoteldata['name'],
-      Description: _hoteldata['description'],
-      HotelAddress:_hoteldata['location'],
-      Price: _hoteldata['pricePerRoom']
+      HotelName: this.hotel['name'],
+      Description: this.hotel['description'],
+      HotelAddress:this.hotel['location'],
+      Price: this.hotel['pricePerRoom']
     })
     //console.log(hoteldata.data())
 

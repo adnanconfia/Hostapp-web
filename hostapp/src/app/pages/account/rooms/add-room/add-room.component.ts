@@ -33,8 +33,10 @@ export class AddRoomComponent implements OnInit {
       Image: ['', Validators.required],
       RoomNumber: ['', Validators.required],
       RoomType: ['', Validators.required],
-      Facilities: ['', Validators.required],
+      // Facilities: ['', Validators.required],
       Price: [20, Validators.required],
+      
+      isSingle: [false, Validators.required],
       imageSrcs: this.imageSrcs,
     });
   }
@@ -68,17 +70,20 @@ export class AddRoomComponent implements OnInit {
       let data = this.AddForm.value;
       let payLoad: any = {
         id: "",
-        roomNumber: data['RoomNumber'],
-        roomtypeid: data['RoomType'],
-        facilities: "",
+        number: data['RoomNumber'],
+        typeId: data['RoomType'],
+        // facilities: "",
         price: data['Price'],
         isDeleted: false,
         isActive: true,
         createdAt: new Date().getTime(),
-        photos: []
+        photos: [],
+        photo:"",
+        isSingle:data['isSingle']
       }
       var storage = getStorage();
       this.photos = []
+     
       // this.imageSrcs.forEach( (item:any)=>{
       //    let storageRef = ref(storage,
       //     'hotels/'+User.hotel+"/"+new Date().getTime()+'png')
@@ -97,22 +102,9 @@ export class AddRoomComponent implements OnInit {
       // })
 
 
-      for (let item of this.imageSrcs) {
-        let storageRef = ref(
-          storage,
-          "hotels/" + User.hotel + "/" + new Date().getTime() + "png"
-        );
-        let snapshot = await uploadString(storageRef, item, "data_url");
-        console.log("Creating download Link and pushing to photos array");
-        let resp = await getDownloadURL(storageRef);
-        this.photos.push(resp);
-      }
+     
 
-      for(let item of this.photos){
-        console.log("Pushing photoes to payload")
-         payLoad.photos.push(item)
-      }
-      console.log(payLoad)
+
 
 
       console.log("ROoom creation forwared")
@@ -122,13 +114,32 @@ export class AddRoomComponent implements OnInit {
       await addDoc(roomsRef, payLoad).then(resp => {
         roomdocid = resp.id;
       });
+
+      for (let item of this.imageSrcs) {
+        let storageRef = ref(
+          storage,
+          "hotels/" + User.hotel + "/"+roomdocid+"/" + new Date().getTime() + "png"
+        );
+        let snapshot = await uploadString(storageRef, item, "data_url");
+        console.log("Creating download Link and pushing to photos array");
+        let resp = await getDownloadURL(storageRef);
+        this.photos.push(resp);
+      }
       let addroomref = doc(
         this.firestore,
         'hotels/' + User.hotel + '/rooms/' + roomdocid
       );
-      await updateDoc(addroomref, {
-        id: roomdocid
-      });
+      setTimeout(async () => {
+        var photo="";
+        if(this.photos.length>0){
+          photo=this.photos[0]
+        }
+        await updateDoc(addroomref, {
+          id: roomdocid,
+          photos:this.photos,
+          photo:photo
+        });
+      }, 1500);
       this.AddForm.reset();
       this.imageSrcs = []
 

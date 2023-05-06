@@ -25,13 +25,7 @@
                                     </div>
 
                                 </div>
-                                <div class="col-6 col-md-6 mt-3">
-                                    <div class="form-group">
-                                        <p class="mb-2">Facilities</p>
-                                        <p-multiSelect id="select-items" defaultLabel="Choose Facilities" [options]="facilityList" formControlName="Facilities" optionLabel="name"></p-multiSelect>
-                                        <small class="text-danger" *ngIf="AddForm.get('Facilities')!.invalid && (AddForm.get('Facilities')!.dirty || AddForm.get('Facilities')!.touched)">Select Facilities</small>
-                                    </div>
-                                </div>
+                              
                                 <div class="col-6 mt-3">
                                     <div class="form-group position-relative">
                                         <p class="mb-2">Set Price</p>
@@ -43,7 +37,17 @@
                                         <small class="text-danger" *ngIf="AddForm.get('Price')!.invalid && (AddForm.get('Price')!.dirty || AddForm.get('Price')!.touched)">Price is required</small>
                                     </div>
                                 </div>
-
+                                <div class="col-6 col-md-6 mt-3 d-flex flex-column justify-content-end ">
+                                    <mat-slide-toggle
+                                    formControlName="isSingle">
+                                    IsSingle?
+              </mat-slide-toggle>
+                                    <!-- <div class="form-group">
+                                        <p class="mb-2">Facilities</p>
+                                        <p-multiSelect id="select-items" defaultLabel="Choose Facilities" [options]="facilityList" formControlName="Facilities" optionLabel="name"></p-multiSelect>
+                                        <small class="text-danger" *ngIf="AddForm.get('Facilities')!.invalid && (AddForm.get('Facilities')!.dirty || AddForm.get('Facilities')!.touched)">Select Facilities</small>
+                                    </div> -->
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-4 pe-0 mt-3">

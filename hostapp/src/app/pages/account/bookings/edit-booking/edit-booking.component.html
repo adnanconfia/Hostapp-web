@@ -133,15 +133,19 @@
                         <div class="col-12 col-md-3 mt-3">
                             <div class="form-group">
                                 <p class="mb-2">Rooms</p>
-                                <p-multiSelect id="select-items" defaultLabel="Choose Rooms" [options]="roomsList" formControlName="Rooms" optionLabel="roomNumber"></p-multiSelect>
+                               
+                                <p-tag *ngFor="let item of allRooms" styleClass="mr-2" [value]="item.number" [rounded]="true"></p-tag>
+                                <!-- <p-multiSelect id="select-items" defaultLabel="Choose Rooms" [options]="roomsList" formControlName="Rooms" optionLabel="roomNumber"></p-multiSelect>
                                 <small class="text-danger" *ngIf="EditForm.get('Rooms')!.invalid && (EditForm.get('Rooms')!.dirty || EditForm.get('Rooms')!.touched)">Select Rooms</small>
-                               <br> <span class="text-dark-500">Rooms are available according to checkout and checkin</span>
+                               <br> <span class="text-dark-500">Rooms are available according to checkout and checkin</span> -->
                             </div>
                         </div>
                         <div class="col-12 col-md-3 mt-3">
                             <div class="form-group">
-                                <p class="mb-2">Booking Stauts</p>
-                                <p-dropdown [options]="bookingStatusList" formControlName="BookingStatus" placeholder="Booking Status" optionLabel="name" optionValue="code"></p-dropdown>
+                                <p class="mb-2">Booking Status</p>
+                                <p-dropdown [options]="bookingStatusList" formControlName="BookingStatus" placeholder="Booking Status" dataKey="code" optionLabel="name" optionValue="code">
+                               
+                                </p-dropdown>
                                 <small class="text-danger" *ngIf="EditForm.get('BookingStatus')!.invalid && (EditForm.get('BookingStatus')!.dirty || EditForm.get('BookingStatus')!.touched)">Booking Staus is requied</small>
                             </div>
                         </div>
@@ -177,6 +181,12 @@
                                 <span type='button' class="calendar-icon  material-symbols-rounded" (click)='openCalendar($event)'>calendar_today</span>
                             </div>
                         </div>
+                        <div class="col-12 col-md-3 mt-3">
+                            <mat-slide-toggle
+                            formControlName="isPaid">
+     IsPaid?
+      </mat-slide-toggle>
+                        </div>
                         <div class="row mt-3 p-0">
                             <div class="col-9">
 
@@ -185,7 +195,7 @@
                             <div class="col-3 pe-0">
                                 <div class="d-flex justify-content-end w-100">
                                     <button (click)="cancel()" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 w-100 br-8px mx-2">Cancel</button>
-                                    <button type="submit" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px" [disabled]="!EditForm.valid" type="submit">Edit</button>
+                                    <button type="submit" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px" [disabled]="!EditForm.valid" type="submit">Update</button>
                                 </div>
                             </div>
                         </div>

@@ -13,7 +13,7 @@
                         <div class="form-group">
                             <p class="mb-2">Services</p>
                             <p-dropdown [options]="servicesList" formControlName="services" placeholder="Services" optionLabel="name" optionValue="id"></p-dropdown>
-                            <small class="text-danger" *ngIf="AddForm.get('services')!.invalid && (AddForm.get('services')!.dirty || AddForm.get('services')!.touched)">Booking Staus is requied</small>
+                            <small class="text-danger" *ngIf="AddForm.get('services')!.invalid && (AddForm.get('services')!.dirty || AddForm.get('services')!.touched)">Service is requied</small>
                         </div>
                     </div>
                     <div class="col-6 col-md-4 mt-3" *ngIf="AddForm.controls['services'].value">
@@ -24,7 +24,7 @@
                             <small class="text-danger" *ngIf="AddForm.get('itemName')!.invalid && (AddForm.get('itemName')!.dirty || AddForm.get('itemName')!.touched)">Item Name is required</small>
                         </div>
                     </div>
-                    <div class="col-6 col-md-4 mt-3" *ngIf="AddForm.controls['services'].value">
+                    <div class="col-6 col-md-4 mt-3" *ngIf="serviceDic[AddForm.controls['services'].value]?.name.toLowerCase()=='room service'">
                         <div class="form-group">
                             <p class="mb-2">Price item</p>
                             <p-inputNumber class="w-100 text-start  br-8px" formControlName="priceItem" inputId="horizontal" mode="currency" currency="USD">
@@ -34,14 +34,14 @@
                         </div>
                     </div>
 
-                    <div class="col-6 col-md-4 mt-3 ">
+                    <div class="col-6 col-md-4 mt-3 " *ngIf="serviceDic[AddForm.controls['services'].value]?.name.toLowerCase()=='room service'">
                         <p class="mb-2">Upload Image</p>
                         <div class="image-upload-wrapper-items">
                             <div class=" d-flex align-items-center justify-content-center flex-column " multiple>
                                 <input type="file" (change)="onFileSelected($event)" accept="image/jpeg, image/png, image/jpg" id=" input-file-now " formControlName="image" class="file-upload" />
                                 <div class="d-inline-flex align-content-center">
                                     <span class="material-symbols-rounded fs-3 text-dark-500">image</span>
-                                    <p class="fs-6 my-auto ms-2 text-dark-800">Uplad Image</p>
+                                    <p class="fs-6 my-auto ms-2 text-dark-800">Upload Image</p>
                                 </div>
 
 

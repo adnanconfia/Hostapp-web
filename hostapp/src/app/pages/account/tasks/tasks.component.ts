@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { Firestore, addDoc, collection, doc, getDoc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -93,16 +93,16 @@ export class TasksComponent implements OnInit {
       let _data:any = await snap.data()
       d['name']= _data['name']
       let status = d['status']
-      if(status==0){
+      if(status==1){
           d['statusName']="Pending"
       }
-      else if(status==1){
-        d['statusName']="Allotted"
-      }
       else if(status==2){
-        d['statusName']="Reviewed"
+        d['statusName']="Assigned to Manager"
       }
       else if(status==3){
+        d['statusName']="Assigned to Worker"
+      }
+      else if(status==4){
         d['statusName']="Completed"
       }
       // Room #'s
@@ -136,11 +136,20 @@ export class TasksComponent implements OnInit {
     this.requestedItems=""
     for(let item of requestedItems){
 
-     let itemRef=  doc(this.firestore, "hotels/"+User.hotel+"/services/"+event.serviceId+"/items/"+item)
+     let itemRef=  doc(this.firestore, "hotels/"+User.hotel+"/services/"+event.serviceId+"/items/"+item.id)
 
      let snap:any = await getDoc(itemRef)
-     let data = snap.data()
-        this.requestedItems+=data['name']+","
+     
+if (snap.exists()) {
+  console.log("Document data:", snap.data());
+  let data = snap.data()
+  this.requestedItems+=data['name']+","
+} else {
+  // docSnap.data() will be undefined in this case
+
+}
+   
+    // 
     }
 
     // Get Worker Role
@@ -167,7 +176,7 @@ export class TasksComponent implements OnInit {
         let workerid = formData.WorkerList['id']
         let payload = {
           "assignedTo": workerid,
-          "status":1,
+          "status":3,
           "isAssigned": true
         }
       let reqRef = doc(this.firestore, "requests/"+this.currentViewingRequest.request['id'])
@@ -180,27 +189,29 @@ export class TasksComponent implements OnInit {
         })
       })
       // Chat Object
-      let chatRef = collection(this.firestore, "chats")
+
+
+      let chatRef = doc(this.firestore, "chats",workerid+"_"+this.currentViewingRequest.request['requesterId'])
       let chatPayload={
-        id:"",
+        id:workerid+"_"+this.currentViewingRequest.request['requesterId'],
         workerId: workerid,
         guestId: this.currentViewingRequest.request['requesterId'],
         bookingId:this.currentViewingRequest.request['bookingId'],
         isActive:true,
         isAssigned:true,
       }
-      let createdDocId:any;
-
-      await addDoc(chatRef,chatPayload).then(resp=>{
-        createdDocId = resp.id;
-      });
-      let _chatRef = doc(
-        this.firestore,
-        'chats/' + createdDocId
-      );
-      await updateDoc(_chatRef, {
-        id: createdDocId
-      });
+      // let createdDocId:any;
+      await setDoc(chatRef, chatPayload);
+      // await addDoc(chatRef,chatPayload).then(resp=>{
+      //   createdDocId = resp.id;
+      // });
+      // let _chatRef = doc(
+      //   this.firestore,
+      //   'chats/' + createdDocId
+      // );
+      // await updateDoc(_chatRef, {
+      //   id: createdDocId
+      // });
 
       }
       else{

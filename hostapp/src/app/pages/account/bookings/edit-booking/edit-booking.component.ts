@@ -23,8 +23,9 @@ export class EditBookingComponent implements OnInit {
   public selectedImage: any;
   public imagePreview: any;
   currentdate = new Date()
+  selectedBooking:any;
   ngOnInit(): void {
-
+    Loader.isLoading=true;
     this.route.queryParams.subscribe((params:any)=>{
       if(params['id']){
         this.bookingId=params['id'];
@@ -33,25 +34,27 @@ export class EditBookingComponent implements OnInit {
 
     this.EditForm = this.fb.group({
       // user: ['', Validators.required],
-      FirstName: ['', Validators.required],
-      LastName: ['', Validators.required],
-      Email: ['', Validators.required],
-      PostelCode: ['', Validators.required],
-      UserAddress: ['', Validators.required],
-      PhoneNuber: ['', Validators.required],
-      City: ['', Validators.required],
-      Country: ['', Validators.required],
+      FirstName: [''],
+      LastName: [''],
+      Email: [''],
+      PostelCode: ['', ],
+      UserAddress: [''],
+      PhoneNuber: [''],
+      City: [''] ,
+      Country: [''],
       HotelName: [{ value: '', disabled: true }],
       // HotelTitle: ['', Validators.required],
       HotelAddress: [{ value: '', disabled: true }],
       Description: [{ value: '', disabled: true }],
       Price: [{ value: '', disabled: true }],
-      Rooms: ['', Validators.required],
+      // Rooms: ['', Validators.required],
       BookingStatus: ['', Validators.required],
       // Image: ['', Validators.required],
       imageSource: [],
-      CheckIn: [this.currentdate, Validators.required],
-      CheckOut: [this.currentdate, Validators.required]
+      CheckIn: [{value:this.currentdate,disabled:true}],
+      CheckOut: [this.currentdate, Validators.required],
+      
+      isPaid: [false, Validators.required]
     });
     this.roomsList = [
       // { name: 'Free Wifi', code: 'FW' },
@@ -74,12 +77,25 @@ export class EditBookingComponent implements OnInit {
         this.getHotelDetails()
     }, 3000);
   }
-
   async getBookingDetails(id:any){
       let bookingRef = doc(this.firestore, "bookings/"+id)
       let snap = await getDoc(bookingRef)
       let data:any = snap.data()
-      console.log(data)
+      var roomIds =data.rooms
+      let hotelDoc = doc(this.firestore, "hotels",User.hotel)
+      let rooms = collection(hotelDoc, "rooms")
+      let roomsdata = await getDocs(rooms);
+      this.roomsList=[]
+      this.allRooms=[]
+      roomsdata.docs.forEach(item=>{
+        
+        let data = item.data()
+        //this.roomsList.push(data)
+        if(roomIds.indexOf(data['id'])>-1)
+        {this.allRooms.push(data)}
+      })
+      console.log(data,this.allRooms)
+      this.selectedBooking = this.bookingStatusList.filter((x:any)=>x.code==data['status']);
       this.EditForm.patchValue({
         FirstName: data['firstName'],
         LastName: data['lastName'],
@@ -92,6 +108,7 @@ export class EditBookingComponent implements OnInit {
         CheckIn: new Date(data['checkInDate']),
         CheckOut: new Date(data['checkOutDate']),
         BookingStatus: data['status'],
+        isPaid:data['isPaid']
        
       })
   }
@@ -99,19 +116,19 @@ export class EditBookingComponent implements OnInit {
     Loader.isLoading=true
     let hotel = User.hotel
     let hotelDoc = doc(this.firestore, "hotels",hotel)
-    let rooms = collection(hotelDoc, "rooms")
-    let roomsdata = await getDocs(rooms);
-    this.roomsList=[]
-    this.allRooms=[]
-    roomsdata.docs.map(item=>{
-      let data = item.data()
-      //this.roomsList.push(data)
-      this.allRooms.push(data)
-    })
+    // let rooms = collection(hotelDoc, "rooms")
+    // let roomsdata = await getDocs(rooms);
+    // this.roomsList=[]
+    // this.allRooms=[]
+    // roomsdata.docs.map(item=>{
+    //   let data = item.data()
+    //   //this.roomsList.push(data)
+    //   this.allRooms.push(data)
+    // })
     // let formValues = this.AddForm.value
     // let checkInDate= new Date(formValues['CheckIn']).getTime()
     // let checkOutDate= new Date(formValues['CheckOut']).getTime()
-    this.getAvailableRooms()
+    // this.getAvailableRooms()
     //console.log(this.roomsList)
     let hoteldata = await getDoc(hotelDoc)
     let _hoteldata:any = hoteldata.data();
@@ -130,7 +147,7 @@ export class EditBookingComponent implements OnInit {
     try{
       let formData = this.EditForm.value
       let payLoad = {
-         checkInDate: new Date(formData['CheckIn']).getTime(),
+        //  checkInDate: new Date(formData['CheckIn']).getTime(),
          checkOutDate: new Date(formData['CheckOut']).getTime(),
          city: formData['City'],
          country:formData['Country'],
@@ -140,8 +157,10 @@ export class EditBookingComponent implements OnInit {
          zipCode:formData['PostelCode'],
          address: formData['UserAddress'] ,
          number: formData['PhoneNuber'],
-         status: formData['BookingStatus'],
-         rooms:formData['Rooms'].map((item:any)=> {return item['id']}),
+         status: parseInt(formData['BookingStatus']),
+         
+         isPaid: formData['isPaid'],
+        //  rooms:formData['Rooms'].map((item:any)=> {return item['id']}),
       }
       let bookingRef = doc(this.firestore, "bookings/"+this.bookingId)
       await updateDoc(bookingRef, payLoad).then((resp)=>{

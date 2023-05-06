@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Firestore, addDoc, collection, doc, getDoc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDoc, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Loader } from 'src/app/helpers/loader';
 import { User } from 'src/app/helpers/user';
@@ -31,7 +31,7 @@ export class FacilitiesComponent implements OnInit {
     });
     this.cols = [
       { header: 'Facility',field: 'name', type:'text' },
-      { header: 'Action',field: 'Action', type:'action' },
+      // { header: 'Action',field: 'Action', type:'action' },
       { showchekbox: true },
       { showtablecheckbox: true }
     ];
@@ -68,21 +68,40 @@ export class FacilitiesComponent implements OnInit {
           createdAt: (new Date()).getTime(),
           isDeleted: false
         }
-        console.log(payLoad)
         Loader.isLoading = true;
-        let hotelRef = doc(this.firestore, "hotels",User.hotel)
-        const  facilityRef= collection(hotelRef, 'facilities');
+        let facilityRef = collection(this.firestore, "facilities")
+        // const  facilityRef= collection(hotelRef, 'facilities');
         let facilityDocId:any=0;
         await addDoc(facilityRef, payLoad).then(resp => {
           facilityDocId=resp.id;
         });
-        let addedFacilityRef = doc(
+        let FacilityRef = doc(
           this.firestore,
-          'hotels/' + User.hotel + '/facilities/' + facilityDocId
+           'facilities/' + facilityDocId
         );
-        await updateDoc(addedFacilityRef, {
+        await updateDoc(FacilityRef, {
           id: facilityDocId
         });
+
+       var  _payLoad = {
+          id: User.hotel+"_"+facilityDocId,
+          facilityId: facilityDocId,
+          hotelId:User.hotel,
+          createdAt: (new Date()).getTime(),
+          isDeleted: false
+        }
+        Loader.isLoading = true;
+        let hotelFacility = doc(this.firestore, "facility_hotel_facility",User.hotel+"_"+facilityDocId)
+        // const  facilityRef= collection(hotelRef, 'facilities');
+        let hotelFacilityId:any=0;
+        await setDoc(hotelFacility, _payLoad);
+        // let addedFacilityRef = doc(
+        //   this.firestore,
+        //    'facility_hotel_facility/' + hotelFacilityId
+        // );
+        // await updateDoc(addedFacilityRef, {
+        //   id: hotelFacilityId
+        // });
         
         this.showAddFacility=false
         this.AddFacilityForm.get('facility')?.setValue('')
@@ -104,8 +123,8 @@ export class FacilitiesComponent implements OnInit {
     Loader.isLoading=true
     this.facilitiesList=[]
     let hotelId = User.hotel;
-    const hotelRef = doc(this.firestore, 'hotels', hotelId);
-    let facilities = collection(hotelRef, "facilities")
+    const facilities = collection(this.firestore, 'facilities');
+    // let facilities = collection(hotelRef, "facilities")
     const data = await getDocs(facilities);
     data.forEach((doc) => {
       var data = doc.data()
