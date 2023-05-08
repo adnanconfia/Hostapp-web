@@ -25,18 +25,41 @@ export class AddBookingComponent implements OnInit {
   public imagePreview: any;
   currentdate = new Date()
   nextday = new Date()
+  selectedcheckout=new Date()
+  selectedcheckin=new Date()
+  currentDateDisable:any[]=[];
+  nextDateDisable:any[]=[];
+  InitialCheckIn = new Date()
+  InitialCheckout = new Date()
+  countries: any[]=[];
   ngOnInit(): void {
    
     this.nextday = new Date( this.nextday.setDate(this.nextday.getDate() + 1));
-    
-   
+    //this.InitialCheckout = new Date( this.nextday.setDate(this.nextday.getDate() + 1));
+    this.currentDateDisable.push(this.currentdate)
+    this.nextDateDisable.push(this.nextday)
     Loader.isLoading=true;
+
+    this.countries = [
+      { name: 'Australia'},
+      { name: 'Brazil'},
+      {name: 'India'},
+      {name: 'Pakistan'},
+      { name: 'China'},
+      { name: 'Egypt' },
+      { name: 'France'},
+      { name: 'Germany' },
+      { name: 'India'},
+      { name: 'Japan' },
+      { name: 'Spain' },
+      { name: 'United States' }
+  ];
     this.AddForm = this.fb.group({
       user: ['',Validators.required],
       FirstName: [''],
       LastName: [''],
       Email: [''],
-      PostelCode: [""],
+      PostalCode: [""],
       UserAddress: [''],
       PhoneNuber: [''],
       City: [''],
@@ -78,11 +101,11 @@ export class AddBookingComponent implements OnInit {
          checkInDate: new Date(formData['CheckIn']).getTime(),
          checkOutDate: new Date(formData['CheckOut']).getTime(),
          city: formData['City']?formData['City']:" ",
-         country:formData['Country']?formData['Country']:" ",
+         country:formData['Country']?formData['Country'].name:" ",
          email: formData['Email']?formData['Email']:"",
          firstName:formData['FirstName']?formData['FirstName']:" ",
          lastName:formData['LastName']?formData['LastName']:" ",
-         zipCode:formData['PostelCode']?formData['PostelCode']:" ",
+         zipCode:formData['PostalCode']?formData['PostalCode']:" ",
          address: formData['UserAddress'] ?formData['UserAddress'] :" ",
          number: formData['PhoneNuber']?formData['PhoneNuber']:" ",
          status: parseInt(formData['BookingStatus']),
@@ -95,6 +118,7 @@ export class AddBookingComponent implements OnInit {
          hotelId: User.hotel,
          isDeleted: false
       }
+
       let bookingRef = collection(this.firestore, "bookings")
       let bookingId:any;
       await addDoc(bookingRef, payLoad).then(resp => {
@@ -332,7 +356,7 @@ export class AddBookingComponent implements OnInit {
 
           FirstName: "",
           Email: "",
-          PostelCode: "",
+          PostalCode: "",
           PhoneNuber: "",
           City: "",
           Country:""
@@ -346,7 +370,7 @@ export class AddBookingComponent implements OnInit {
 
         FirstName: _data['name'],
         Email: _data['email'],
-        PostelCode: _data['postalCode'],
+        PostalCode: _data['postalCode'],
         PhoneNuber: _data['phoneNumber'],
         City: _data['city'],
         Country: _data['country']
@@ -370,4 +394,35 @@ export class AddBookingComponent implements OnInit {
   //       console.log("Date selected is greater than today")
   //     }
   // }
+
+
+  checkInDateSelected(event:any){
+    let selectedCheckIn = event
+    let formData = this.AddForm.value
+    this.currentdate=selectedCheckIn
+
+    this.currentDateDisable=[]
+    this.currentDateDisable.push(selectedCheckIn)
+    //console.log(selectedCheckIn)
+    this.getAvailableRooms()
+  }
+  checkOutDateSelect(event:any){
+    let selectedCheckOut = event
+    let formData = this.AddForm.value
+    this.nextday = selectedCheckOut
+    this.nextDateDisable=[]
+    this.nextDateDisable.push(selectedCheckOut)
+    //console.log(selectedCheckOut)
+    this.getAvailableRooms()
+  }
+
+  ResetCalender(){
+    this.currentdate=new Date()
+    this.AddForm.patchValue({
+      CheckIn: new Date()
+    })
+    this.currentDateDisable=[]
+    this.currentDateDisable.push(this.currentdate)
+  }
+
 }

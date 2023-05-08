@@ -44,8 +44,12 @@
                         <div class="col-6 col-md-3 mt-3 ">
                             <div class="form-group">
                                 <label>Country</label>
-                                <input type="text" placeholder="Country" class="form-control p-12px br-8px mt-2" formControlName="Country">
+                                <!-- <input type="text" placeholder="Country" class="form-control p-12px br-8px mt-2" formControlName="Country"> -->
+                                    <div  class="mt-1">
+                                        <p-dropdown [filter]="true" filterBy="name" [options]="countries" formControlName="Country" placeholder="Country" optionLabel="name"></p-dropdown>
 
+                                    </div>
+                                
                                 <small class="text-danger" *ngIf="AddForm.get('Country')!.invalid && (AddForm.get('Country')!.dirty || AddForm.get('Country')!.touched)">Country is required</small>
                             </div>
                         </div>
@@ -54,7 +58,7 @@
                                 <label>Zip/Postal Code</label>
                                 <input type="text" placeholder="Postal Code" class="form-control p-12px br-8px mt-2" formControlName="PostalCode">
 
-                                <small class="text-danger" *ngIf="AddForm.get('PostelCode')!.invalid && (AddForm.get('PostelCode')!.dirty || AddForm.get('PostelCode')!.touched)">Postal Code is required</small>
+                                <small class="text-danger" *ngIf="AddForm.get('PostalCode')!.invalid && (AddForm.get('PostalCode')!.dirty || AddForm.get('PostalCode')!.touched)">Postal Code is required</small>
                             </div>
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
@@ -164,17 +168,18 @@
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group position-relative">
                                 <label class="mb-2">Check in</label>
-                                <p-calendar formControlName="CheckIn" inputId="basic" (onSelect)="getAvailableRooms()" [minDate]="currentdate"></p-calendar>
+                                <p-calendar formControlName="CheckIn" inputId="basic" (onSelect)="checkInDateSelected($event)" [minDate]="currentdate" [maxDate]="nextday" [disabledDates]="nextDateDisable"></p-calendar>
                                 <small class="text-danger" *ngIf="AddForm.get('CheckIn')!.invalid && (AddForm.get('CheckIn')!.dirty || AddForm.get('CheckIn')!.touched)">Check in is required</small>
                                 <span type='button' class="calendar-icon  material-symbols-rounded" (click)='openCalendar($event)'>calendar_today</span>
                             </div>
+                            <button class="mt-3 btn-primary" type="button" (click)="ResetCalender()">Reset Calender</button>
                         </div>
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group position-relative">
                                 <label class="mb-2">Check Out</label>
-                                <p-calendar (onSelect)="getAvailableRooms()" formControlName="CheckOut" inputId="basic" [minDate]="nextday"></p-calendar>
+                                <p-calendar (onSelect)="checkOutDateSelect($event)" formControlName="CheckOut" inputId="basic" [minDate]="currentdate" [disabledDates]="currentDateDisable"></p-calendar>
                                 <small class="text-danger" *ngIf="AddForm.get('CheckOut')!.invalid && (AddForm.get('CheckOut')!.dirty || AddForm.get('CheckOut')!.touched)">Check Out is required</small>
-                                <span type='button' class="calendar-icon  material-symbols-rounded" (click)='openCalendar($event)'>calendar_today</span>
+                                <span type='button' class="calendar-icon  material-symbols-rounded" (click)='openCalendar($event)' >calendar_today</span>
                             </div>
                         </div>
                         <div class="col-12 col-md-3 mt-3">
@@ -192,6 +197,8 @@
                                 <div class="d-flex justify-content-end w-100">
                                     <button (click)="cancel()" class="btn btn-dark  px-xxl-5 px-0 py-3 m-0 w-100 br-8px mx-2">Cancel</button>
                                     <button href="#" class="btn  btn-primary px-xxl-5 px-0 py-3 m-0 w-100 br-8px" [disabled]="!AddForm.valid" type="submit">Add</button>
+
+
                                 </div>
                             </div>
                         </div>
