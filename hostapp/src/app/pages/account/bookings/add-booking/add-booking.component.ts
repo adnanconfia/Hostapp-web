@@ -24,8 +24,12 @@ export class AddBookingComponent implements OnInit {
   public selectedImage: any;
   public imagePreview: any;
   currentdate = new Date()
-  
+  nextday = new Date()
   ngOnInit(): void {
+   
+    this.nextday = new Date( this.nextday.setDate(this.nextday.getDate() + 1));
+    
+   
     Loader.isLoading=true;
     this.AddForm = this.fb.group({
       user: ['',Validators.required],
@@ -47,7 +51,7 @@ export class AddBookingComponent implements OnInit {
       // Image: ['', Validators.required],
       imageSource: [],
       CheckIn: [this.currentdate, Validators.required],
-      CheckOut: [this.currentdate, Validators.required],
+      CheckOut: [this.nextday, Validators.required],
       
       isPaid: [false, Validators.required]
     });
@@ -213,6 +217,7 @@ export class AddBookingComponent implements OnInit {
     this.router.navigateByUrl("/account/booking");
   }
   async getAvailableRooms(){
+    
     Loader.isLoading=true
     // all bookings
     let bookings:any=[]
@@ -227,7 +232,7 @@ export class AddBookingComponent implements OnInit {
     let formValues = this.AddForm.value
     let checkInDate= new Date(formValues['CheckIn']).setHours(0,0,0,0);
     let checkOutDate= new Date(formValues['CheckOut']).setHours(0,0,0,0);
-
+    
 
     let availableRooms = [...this.allRooms]
     let notavailble_rooms=[]

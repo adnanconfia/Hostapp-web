@@ -164,7 +164,7 @@
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group position-relative">
                                 <label class="mb-2">Check in</label>
-                                <p-calendar formControlName="CheckIn" inputId="basic" (onSelect)="getAvailableRooms()"></p-calendar>
+                                <p-calendar formControlName="CheckIn" inputId="basic" (onSelect)="getAvailableRooms()" [minDate]="currentdate"></p-calendar>
                                 <small class="text-danger" *ngIf="AddForm.get('CheckIn')!.invalid && (AddForm.get('CheckIn')!.dirty || AddForm.get('CheckIn')!.touched)">Check in is required</small>
                                 <span type='button' class="calendar-icon  material-symbols-rounded" (click)='openCalendar($event)'>calendar_today</span>
                             </div>
@@ -172,7 +172,7 @@
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group position-relative">
                                 <label class="mb-2">Check Out</label>
-                                <p-calendar (onSelect)="getAvailableRooms()" formControlName="CheckOut" inputId="basic" ></p-calendar>
+                                <p-calendar (onSelect)="getAvailableRooms()" formControlName="CheckOut" inputId="basic" [minDate]="nextday"></p-calendar>
                                 <small class="text-danger" *ngIf="AddForm.get('CheckOut')!.invalid && (AddForm.get('CheckOut')!.dirty || AddForm.get('CheckOut')!.touched)">Check Out is required</small>
                                 <span type='button' class="calendar-icon  material-symbols-rounded" (click)='openCalendar($event)'>calendar_today</span>
                             </div>
