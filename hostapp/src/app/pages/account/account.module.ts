@@ -33,6 +33,7 @@ import { DialogModule } from 'primeng/dialog';
 import { QRCodeModule } from 'angularx-qrcode';
 import { EditBookingComponent } from './bookings/edit-booking/edit-booking.component';
 import { TagModule } from 'primeng/tag';
+import { TabViewModule } from 'primeng/tabview';
 @NgModule({
   declarations: [
     AccountComponent,
@@ -71,7 +72,8 @@ import { TagModule } from 'primeng/tag';
     CalendarModule,
     RadioButtonModule,
     DialogModule,
-    QRCodeModule
+    QRCodeModule,
+    TabViewModule
 
   ]
 })

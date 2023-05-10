@@ -10,5 +10,6 @@ export const User={
     serviceName:"",
     hotel:"",
     isActive:false,
-    imageUrl:""
+    imageUrl:"",
+    token:""
 }

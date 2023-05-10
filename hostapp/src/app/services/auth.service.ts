@@ -11,16 +11,17 @@ import { tap, shareReplay, filter, pairwise, finalize, map } from 'rxjs/operator
 
 import { isPlatformBrowser } from '@angular/common';
 import { Auth, authState, signInWithEmailAndPassword, signOut, user } from '@angular/fire/auth';
-import { Firestore, collection, collectionData, getDocs, query, where } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, getDoc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import Swal from 'sweetalert2';
 import { User } from '../helpers/user';
-
+import { AngularFireMessaging } from '@angular/fire/compat/messaging';
+import { take } from 'rxjs/operators';
 @Injectable()
 export class AuthService {
 
 
   isBrowser: boolean;
-  constructor(private http: HttpClient, private router: Router, @Inject(PLATFORM_ID) platformId: Object, public afAuth: Auth, private firestore: Firestore,) {
+  constructor(private http: HttpClient, private router: Router, @Inject(PLATFORM_ID) platformId: Object, public afAuth: Auth, private firestore: Firestore,private afMessaging: AngularFireMessaging) {
     this.isBrowser = isPlatformBrowser(platformId)
   }
 
@@ -98,6 +99,28 @@ export class AuthService {
             // }
 
           // })
+          this.afMessaging.requestToken
+          .pipe(take(1))
+          .subscribe(
+            async (token:any) => {
+              //console.log('Token:', token);
+              User.token=token
+              let user = doc(this.firestore,"administrators", id);
+              await updateDoc(user, {
+                fcmToken: User.token
+              })
+
+            },
+            (error) => {
+              console.error('Error requesting token:', error);
+            }
+          );
+          // this.afMessaging.messages
+          // .pipe(take(1))
+          // .subscribe((message:any) => {
+          //   // Handle received message
+          //   console.log(message)
+          // });
           ref = collection(this.firestore, "roles");
 
           q = query(ref, where("roleId", "==", roleId));
