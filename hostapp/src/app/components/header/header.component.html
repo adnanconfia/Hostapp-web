@@ -68,6 +68,7 @@
 
                 </div>
 
+                <p-dropdown  [options]="languages" formControlName="language" placeholder="Language" optionLabel="name" optionValue="id" (onChange)="onLanguageSelect($event)"></p-dropdown>
                 <div class="user-pick ms-2">
                          <p-avatar *ngIf="!user.imageUrl" [label]="user.name.charAt(0).toString().toUpperCase()" styleClass="mr-2" size="large"  [style]="{'background-color':'#1DB9A1', 'color': '#ffffff'}" shape="circle"></p-avatar>
                   <p-avatar [image]="user.imageUrl" styleClass="mr-2" size="large" *ngIf="user.imageUrl" [style]="{'border':'1px solid #1DB9A1 ', 'color': '#ffffff'}" shape="circle"></p-avatar>

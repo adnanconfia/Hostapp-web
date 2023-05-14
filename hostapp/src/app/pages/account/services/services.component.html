@@ -2,12 +2,12 @@
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter bg-white  br-8px p-3">
             <div class="form-section mb-4" *ngIf="serviceFormShow">
-                <h5 class="mb-0">Add Service Item</h5>
+                <h5 class="mb-0" [translate]="'ADDSERVICE.TITLE'">Add Service</h5>
                 <form class="row" [formGroup]="AddForm" (ngSubmit)="onSubmit()">
                
                     <div class="col-6 col-md-4 mt-3">
                         <div class="form-group">
-                            <label>Service Name</label>
+                            <label [translate]="'ADDSERVICE.SERVICENAME'">Service Name</label>
                             <input type="text" placeholder="Service Name" class="form-control p-12px br-8px mt-2" formControlName="serviceName">
 
                             <small class="text-danger" *ngIf="AddForm.get('serviceName')!.invalid && (AddForm.get('serviceName')!.dirty || AddForm.get('serviceName')!.touched)">Service Name is required</small>
@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-6 col-md-4 mt-3">
                         <div class="form-group">
-                            <label>Service Description</label>
+                            <label [translate]="'ADDSERVICE.SERVICEDESCRIPTION'">Service Description</label>
                             <input type="text" placeholder="Service Description" class="form-control p-12px br-8px mt-2" formControlName="serviceDescription">
 
                             <small class="text-danger" *ngIf="AddForm.get('serviceDescription')!.invalid && (AddForm.get('serviceDescription')!.dirty || AddForm.get('serviceDescription')!.touched)">Service Description is required</small>

@@ -11,70 +11,70 @@
                 <a href="/account/dashboard" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
             dashboard
-          </span> Dashboard
+          </span> <span [translate]="'DASHBOARD.SIDEBAR-DASHBOARD'"></span>
                 </a>
             </li>
             <li *ngIf="user.roleName=='Admin'" [ngClass]="urlComplete!.indexOf('booking')>0?'active':' '">
                 <a href="/account/booking" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
             calendar_month
-          </span> Bookings
+          </span> <span [translate]="'DASHBOARD.SIDEBAR-BOOKINGS'"></span>
                 </a>
             </li>
             <li *ngIf="user.roleName=='Manager'" [ngClass]="urlComplete!.indexOf('tasks')>0?'active':' '">
                 <a href="/account/tasks" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
             calendar_month
-          </span> Tasks
+          </span> <span [translate]="'DASHBOARD.SIDEBAR-TASKS'"></span>
                 </a>
             </li>
             <li *ngIf="user.roleName=='Admin' " [ngClass]="urlComplete!.indexOf('users')>0?'active':' '">
                 <a href="/account/users" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
             group
-          </span> Users
+          </span> <span [translate]="'DASHBOARD.SIDEBAR-USERS'"></span>
                 </a>
             </li>
             <li *ngIf="user.roleName=='Admin' " [ngClass]="urlComplete!.indexOf('facilities')>0?'active':' '">
                 <a href="/account/facilities" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
             group
-          </span> Facilities
+          </span> <span [translate]="'DASHBOARD.SIDEBAR-FACILITIES'"></span>
                 </a>
             </li>
             <li *ngIf="user.roleName=='Admin' " [ngClass]="urlComplete!.indexOf('bedtypes')>0?'active':' '">
                 <a href="/account/bedtypes" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
             group
-          </span> Bed Types
+          </span> <span [translate]="'DASHBOARD.SIDEBAR-BEDTYPES'"></span>
                 </a>
             </li>
             <li *ngIf="user.roleName=='Admin' " [ngClass]="urlComplete!.indexOf('rooms')>0?'active':' '">
                 <a href="/account/rooms" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
                         event_seat
-            </span> Rooms
+            </span> <span [translate]="'DASHBOARD.SIDEBAR-ROOMS'"></span>
                 </a>
             </li>
             <li *ngIf="user.roleName=='Admin' " [ngClass]="urlComplete!.indexOf('roomtypes')>0?'active':' '">
                 <a href="/account/roomtypes" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
                             home
-                </span> Room Types
+                </span><span [translate]="'DASHBOARD.SIDEBAR-ROOMTYPES'"></span>
                 </a>
             </li>
             <li *ngIf="user.roleName=='Admin' " [ngClass]="urlComplete!.indexOf('services')>0?'active':' '">
                 <a href="/account/services" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
                             room_service
-                    </span> Services
+                    </span> <span [translate]="'DASHBOARD.SIDEBAR-SERVICES'"></span>
                 </a>
             </li>
             <li *ngIf="user.roleName=='Admin'" [ngClass]="urlComplete!.indexOf('serviceitems')>0?'active':' '">
                 <a href="/account/serviceitems" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
                             room_service
-                    </span> Service Items
+                    </span> <span [translate]="'DASHBOARD.SIDEBAR-SERVICEITEMS'"></span>
                 </a>
             </li>
             
@@ -82,7 +82,7 @@
                 <a href="/account/hotels" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
                             hotel
-                    </span> Hotels
+                    </span> <span [translate]="'DASHBOARD.SIDEBAR-HOTELS'"></span>
                 </a>
             </li>
             
@@ -90,14 +90,14 @@
                 <a href="/account/admins" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
                             group
-                    </span> Admins
+                    </span> <span [translate]="'DASHBOARD.SIDEBAR-ADMINS'"></span>
                 </a>
             </li>
             <li>
                 <a href="javascript:void(0)" (click)="logout()" class="d-flex align-items-center me-2">
                     <span class="material-symbols-rounded">
             group
-          </span> Logout
+          </span> <span [translate]="'DASHBOARD.SIDEBAR-LOGOUT'"></span>
                 </a>
             </li>
         </ul>

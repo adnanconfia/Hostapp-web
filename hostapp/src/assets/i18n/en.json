@@ -1,0 +1,144 @@
+{
+    "DASHBOARD":{       
+        "TITLE":"Dashboard",
+        "SIDEBAR-DASHBOARD":"Dashboard",
+        "SIDEBAR-TASKS": "Tasks",
+        "SIDEBAR-BOOKINGS": "Bookings",
+        "SIDEBAR-USERS": "Users",
+        "SIDEBAR-BEDTYPES": "Bed Types",
+        "SIDEBAR-ROOMS": "Rooms",
+        "SIDEBAR-ROOMTYPES": "Room Types",
+        "SIDEBAR-SERVICES": "Services",
+        "SIDEBAR-SERVICEITEMS": "Service Items",
+        "SIDEBAR-HOTELS": "Hotels",
+        "SIDEBAR-ADMINS": "Admins",
+        "SIDEBAR-FACILITIES":"Facilities",
+        "SIDEBAR-LOGOUT": "Logout"
+    },
+    "ADDBOOKINGS":{
+        "ADD":"Create",
+        "CANCEL":"Cancel",
+        "TITLE":"User Details",
+        "USERS":"Users",
+        "FIRSTNAME":"First Name",
+        "LASTNAME":"Last Name",
+        "EMAIL":"Email",
+        "COUNTRY":"Country",
+        "ZIPPOSTALCODE":"Zip/Postal Code",
+        "CITY":"City",
+        "ADDRESS":"Address",
+        "PHONENUMBER":"Phone Number",
+        "HOTELNAME":"Hotel Name",
+        "DESCRIPTION":"Description",
+        "HOTELADDRESS":"Hotel Address",
+        "PRICEPERROOM":"Price Per Room",
+        "ROOMS":"Rooms",
+        "BOOKINGSTATUS":"Booking Status",
+        "CHECKIN":"Check In",
+        "CHECKOUT":"Check Out",
+        "BOOKINGDETAILS":"Booking Details",
+        "INFO":"Rooms are available according to checkout and checkin"
+    },
+    "EDITBOOKING":{
+        "ADD":"Create",
+        "CANCEL":"Cancel",
+        "TITLE":"Edit Booking",
+        "USERS":"Users",
+        "FIRSTNAME":"First Name",
+        "LASTNAME":"Last Name",
+        "EMAIL":"Email",
+        "COUNTRY":"Country",
+        "ZIPPOSTALCODE":"Zip/Postal Code",
+        "CITY":"City",
+        "ADDRESS":"Address",
+        "PHONENUMBER":"Phone Number",
+        "HOTELNAME":"Hotel Name",
+        "DESCRIPTION":"Description",
+        "HOTELADDRESS":"Hotel Address",
+        "PRICEPERROOM":"Price Per Room",
+        "ROOMS":"Rooms",
+        "BOOKINGSTATUS":"Booking Status",
+        "CHECKIN":"Check In",
+        "CHECKOUT":"Check Out",
+        "BOOKINGDETAILS":"Booking Details",
+        "INFO":"Rooms are available according to checkout and checkin"
+    },
+    "BOOKING":{
+        "TITLE":"All Bookings"
+    },
+    "VIEWBOOKING":{
+        "PRICEPERNIGHT":"Price / Per Night",
+        "BOOKINGSTATUS": "Booking Status",
+        "DESCRIPTION":"Description",
+        "FACILITIES":"Facilities",
+        "BOOKINGID":"Booking Id",
+        "USERDETAILS":"User Details"
+    },
+    "ADDUSER":{
+        "USERNAME":"Username",
+        "EMAIL":"Email",
+        "PASSWORD":"Password",
+        "SELECTSERVICE":"Select Service",
+        "USERROLE":"User Role",
+        "PROFILEIMAGE":"Profile Image",
+        "CREATEUSER":"Create User"
+    },
+    "EDITUSER":{
+        "USERNAME":"Username",
+        "SELECTSERVICE":"Select Service",
+        "PROFILEIMAGE":"Profile Image"
+    },
+    "ADDFACILITY":{
+        "CREATEFACILITY":"Create Facility",
+        "FACILITY":"Facility"
+    },
+    "EDITBEDTYPE":{
+        "TITLE":"Edit Bed Type",
+        "FACILITY":"Facility"
+    },
+    "ADDBEDTYPE":{
+        "CREATEBEDTYPE":"Create Bed Type",
+        "BEDTYPE":"Bed Type"
+    },
+    "ADDROOM":{
+        "ADDROOMDETAILS":"Add Room Details",
+        "ROOMNUMBER":"Room Number",
+        "ROOMTYPE":"Room Type",
+        "SETPRICE":"Set Price",
+        "UPLOADROOMIMAGES":"Upload Room Images"
+    },
+    "VIEWROOM":{
+        "ROOMDETAILS":"Room Details",
+        "ROOMNUMBER":"Room Number",
+        "ROOMTYPE":"Room Type",
+        "PRICE":"Price",
+        "ROOMPICTURES":"Room Pictures"
+    },
+    "ADDROOMTYPE":{
+        "ROOMTYPETITLE":"Add Room Type",
+        "ROOMTYPE":"Room Type",
+        "BEDTYPE":"Bed Type",
+        "ISAVAILABLE":"Is Available"
+    },
+    "EDITROOMTYPE":{
+        "TITLE":"Edit Room Type",
+        "ROOMTYPE":"Room Type",
+        "BEDTYPE":"Bed Type",
+        "ISAVAILABLE":"Is Available"
+    },
+    "ADDSERVICE":{
+        "TITLE":"Add Service",
+        "SERVICENAME":"Service Name",
+        "SERVICEDESCRIPTION":"Service Description"
+    },
+    "ADDSERVICEITEM":{
+        "TITLE":"Add Service Item",
+        "SERVICES":"Services",
+        "ITEMNAME":"Item Name",
+        "PRICEITEM":"Price Item"
+    },
+    "EDITSERVICEITEM":{
+        "TITLE":"Edit Service Item",
+        "EDIT":"Edit"
+    }
+}

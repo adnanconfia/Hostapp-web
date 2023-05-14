@@ -2,7 +2,7 @@
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter bg-white  br-8px p-3">
             <div class="form-section mb-4" *ngIf="serviceFormShow">
-                <h5 class="mb-0">Add Service Item</h5>
+                <h5 class="mb-0" [translate]="'ADDSERVICEITEM.TITLE'">Add Service Item</h5>
                 <form class="row" [formGroup]="AddForm" (ngSubmit)="onSubmit()">
                     <div class="col-6 col-md-4 mt-3">
                         <!-- <div class="form-group">
@@ -11,14 +11,14 @@
                             <small class="text-danger" *ngIf="AddForm.get('items')!.invalid && (AddForm.get('items')!.dirty || AddForm.get('items')!.touched)">Select items</small>
                         </div> -->
                         <div class="form-group">
-                            <p class="mb-2">Services</p>
+                            <p class="mb-2" [translate]="'ADDSERVICEITEM.SERVICES'">Services</p>
                             <p-dropdown [options]="servicesList" formControlName="services" placeholder="Services" optionLabel="name" optionValue="id"></p-dropdown>
                             <small class="text-danger" *ngIf="AddForm.get('services')!.invalid && (AddForm.get('services')!.dirty || AddForm.get('services')!.touched)">Service is requied</small>
                         </div>
                     </div>
                     <div class="col-6 col-md-4 mt-3" *ngIf="AddForm.controls['services'].value">
                         <div class="form-group">
-                            <label>Item Name</label>
+                            <label [translate]="'ADDSERVICEITEM.ITEMNAME'">Item Name</label>
                             <input type="text" placeholder="Item Name" class="form-control p-12px br-8px mt-2" formControlName="itemName">
 
                             <small class="text-danger" *ngIf="AddForm.get('itemName')!.invalid && (AddForm.get('itemName')!.dirty || AddForm.get('itemName')!.touched)">Item Name is required</small>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-6 col-md-4 mt-3" *ngIf="serviceDic[AddForm.controls['services'].value]?.name.toLowerCase()=='room service'">
                         <div class="form-group">
-                            <p class="mb-2">Price item</p>
+                            <p class="mb-2" [translate]="'ADDSERVICEITEM.PRICEITEM'">Price item</p>
                             <p-inputNumber class="w-100 text-start  br-8px" formControlName="priceItem" inputId="horizontal" mode="currency" currency="USD">
 
                             </p-inputNumber>
@@ -70,7 +70,7 @@
             </div>
 
             <div class="form-section mb-4" *ngIf="editForm">
-                <h5 class="mb-0">Add Service Item</h5>
+                <h5 class="mb-0" [translate]="'EDITSERVICEITEM.TITLE'">Edit Service Item</h5>
                 <form class="row" [formGroup]="EditForm" (ngSubmit)="onEditSubmit()">
                     <div class="col-6 col-md-4 mt-3">
                         <!-- <div class="form-group">
@@ -79,7 +79,7 @@
                             <small class="text-danger" *ngIf="AddForm.get('items')!.invalid && (AddForm.get('items')!.dirty || AddForm.get('items')!.touched)">Select items</small>
                         </div> -->
                         <div class="form-group">
-                            <p class="mb-2">Edit</p>
+                            <p class="mb-2" [translate]="'EDITSERVICEITEM.EDIT'">Edit</p>
                             <input type="text" placeholder="Item name" class="form-control p-12px br-8px mt-2" formControlName="ServiceItemEdit">
                             <small class="text-danger" *ngIf="EditForm.get('ServiceItemEdit')!.invalid && (EditForm.get('ServiceItemEdit')!.dirty || EditForm.get('ServiceItemEdit')!.touched)">Service Item is requied</small>
                         </div>

@@ -5,11 +5,11 @@
     <div class="col-12 border-lighter br-11px p-3">
     <div class="border-lighter bg-white br-8px p-3">
                     <div class="form-section mb-4" *ngIf="showAddBedType">
-                        <h5>Create Bed Type</h5>
+                        <h5 [translate]="'ADDBEDTYPE.CREATEBEDTYPE'">Create Bed Type</h5>
                         <form class="row" [formGroup]="AddBedTypeForm" (ngSubmit)="onSubmit()" >
                             <div class="col-12 col-md-3 mt-3 mt-sm-3 mt-md-0">
                                 <div class="form-group">
-                                    <label>Bed Type</label>
+                                    <label [translate]="'ADDBEDTYPE.BEDTYPE'">Bed Type</label>
                                     <input type="text" placeholder="Bed type" class="form-control p-12px br-8px mt-2" formControlName="bed_type">
                                     <small class="text-danger" *ngIf="AddBedTypeForm.get('bed_type')!.invalid && (AddBedTypeForm.get('bed_type')!.dirty || AddBedTypeForm.get('bed_type')!.touched)">Bed type is required</small>
                                 </div>
@@ -39,11 +39,11 @@
                     </div>
                     <!-- Edit Facility -->
                     <div class="form-section mb-4" *ngIf="showEditBedType">
-                        <h5>Edit Bed Type</h5>
+                        <h5 [translate]="'EDITBEDTYPE.TITLE'">Edit Bed Type</h5>
                         <form class="row" [formGroup]="EditBedTypeForm" (ngSubmit)="onEditSubmit()" >
                             <div class="col-12 col-md-3 mt-3 mt-sm-3 mt-md-0">
                                 <div class="form-group">
-                                    <label>Faciltiy</label>
+                                    <label [translate]="'EDITBEDTYPE.FACILITY'">Faciltiy</label>
                                     <input type="text" placeholder="bed type" class="form-control p-12px br-8px mt-2" formControlName="bedtype_edit">
                                     <small class="text-danger" *ngIf="EditBedTypeForm.get('bedtype_edit')!.invalid && (EditBedTypeForm.get('bedtype_edit')!.dirty || EditBedTypeForm.get('bedtype_edit')!.touched)">Bed Type is required</small>
             

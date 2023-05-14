@@ -2,7 +2,7 @@
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter br-8px p-3">
             <div class="form-section mb-4" *ngIf="showform">
-                <h5>Add Types</h5>
+                <h5 [translate]="'ADDROOMTYPE.ROOMTYPETITLE'">Add Types</h5>
                 <form class="row" [formGroup]="AddForm" (ngSubmit)="onSubmit()">
                     <div class="col-6 col-md-3 mt-3 mt-sm-3 mt-md-0">
                         <div class="form-group">
@@ -19,7 +19,7 @@
                             <!-- <p class="mb-2">Room Type</p>
                             <p-dropdown [options]="roomTypeList" formControlName="RoomType" placeholder="Room Type" optionLabel="name"></p-dropdown>
                             <small class="text-danger" *ngIf="AddForm.get('RoomType')!.invalid && (AddForm.get('RoomType')!.dirty || AddForm.get('RoomType')!.touched)">Select Room Type</small> -->
-                            <label class="">Room Type</label>
+                            <label class="" [translate]="'ADDROOMTYPE.ROOMTYPE'">Room Type</label>
                             <input type="text" placeholder="room type" class="form-control p-12px br-8px mt-2" formControlName="RoomType">
                             <small class="text-danger" *ngIf="AddForm.get('RoomType')!.invalid && (AddForm.get('RoomType')!.dirty || AddForm.get('RoomType')!.touched)"> Room Type is requried</small> 
                         </div>
@@ -32,14 +32,14 @@
                                 <option value="1">Single Bed</option>
                                 <option value="2">Double Bed</option>
                             </select> -->
-                            <p class="mb-2">Bed Type</p>
+                            <p class="mb-2" [translate]="'ADDROOMTYPE.BEDTYPE'">Bed Type</p>
                             <p-dropdown [options]="bedTypeList" formControlName="BedType" placeholder="Bed Type" optionLabel="name" optionValue="id"></p-dropdown>
                             <small class="text-danger" *ngIf="AddForm.get('BedType')!.invalid && (AddForm.get('BedType')!.dirty || AddForm.get('BedType')!.touched)">Select Bed Type</small>
                         </div>
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-sm-3 mt-md-0">
                         <div>
-                            <label>Is Available</label><br>
+                            <label [translate]="'ADDROOMTYPE.ISAVAILABLE'">Is Available</label><br>
                             <mat-slide-toggle formControlName="isAvailable" class="text-black mt-4">Is Available?</mat-slide-toggle>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                 </form>
             </div>
             <div class="form-section mb-4" *ngIf="showeditform">
-                <h5>Edit room type</h5>
+                <h5 [translate]="'EDITROOMTYPE.TITLE'">Edit room type</h5>
                 <form class="row" [formGroup]="EditForm" (ngSubmit)="onEditSubmit()">
                     <div class="col-6 col-md-3 mt-3 mt-sm-3 mt-md-0">
                         <div class="form-group">
@@ -76,7 +76,7 @@
                             <!-- <p class="mb-2">Room Type</p>
                             <p-dropdown [options]="roomTypeList" formControlName="RoomType" placeholder="Room Type" optionLabel="name"></p-dropdown>
                             <small class="text-danger" *ngIf="AddForm.get('RoomType')!.invalid && (AddForm.get('RoomType')!.dirty || AddForm.get('RoomType')!.touched)">Select Room Type</small> -->
-                            <label class="">Room Type</label>
+                            <label class="" [translate]="'EDITROOMTYPE.ROOMTYPE'">Room Type</label>
                             <input type="text" placeholder="room type" class="form-control p-12px br-8px mt-2" formControlName="RoomTypeEdit">
                             <small class="text-danger" *ngIf="EditForm.get('RoomTypeEdit')!.invalid && (EditForm.get('RoomTypeEdit')!.dirty || EditForm.get('RoomTypeEdit')!.touched)"> Room Type is requried</small> 
                         </div>
@@ -89,14 +89,14 @@
                                 <option value="1">Single Bed</option>
                                 <option value="2">Double Bed</option>
                             </select> -->
-                            <p class="mb-2">Bed Type</p>
+                            <p class="mb-2" [translate]="'EDITROOMTYPE.BEDTYPE'">Bed Type</p>
                             <p-dropdown [options]="bedTypeList" formControlName="BedTypeEdit" placeholder="Bed Type" optionLabel="name" optionValue="id"></p-dropdown>
                             <small class="text-danger" *ngIf="EditForm.get('BedTypeEdit')!.invalid && (EditForm.get('BedTypeEdit')!.dirty || EditForm.get('BedTypeEdit')!.touched)">Select Bed Type</small>
                         </div>
                     </div>
                     <div class="col-6 col-md-3 mt-3 mt-sm-3 mt-md-0">
                         <div>
-                            <label>Is Available</label><br>
+                            <label [translate]="'EDITROOMTYPE.ISAVAILABLE'">Is Available</label><br>
                             <mat-slide-toggle formControlName="isAvailableEdit" class="text-black mt-4">Is Available?</mat-slide-toggle>
                         </div>
                     </div>

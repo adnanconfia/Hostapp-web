@@ -2,14 +2,14 @@
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter br-8px p-3">
             <div class="form-section mb-4">
-                <h5>Room Details</h5>
+                <h5 [translate]="'VIEWROOM.ROOMDETAILS'">Room Details</h5>
                 <form [formGroup]="AddForm" (ngSubmit)="onSubmit()">
                     <div class="row">
                         <div class="col-7">
                             <div class="row">
                                 <div class="col-6 col-md-6 mt-3 mt-sm-3 mt-md-0">
                                     <div class="form-group">
-                                        <label>Room Number</label>
+                                        <label [translate]="'VIEWROOM.ROOMNUMBER'">Room Number</label>
                                         <input type="text" placeholder="" class="form-control p-12px br-8px mt-2" formControlName="RoomNumber" [disabled]="true">
 
                                         <small class="text-danger" *ngIf="AddForm.get('RoomNumber')!.invalid && (AddForm.get('RoomNumber')!.dirty || AddForm.get('RoomNumber')!.touched)">Room Number is required</small>
@@ -28,7 +28,7 @@
                                                             <option value="2">Under 16 Kids</option>
                                                             <option value="3">Friends Room/option>
                                                           </select> -->
-                                        <p class="mb-2">Room Type</p>
+                                        <p class="mb-2" [translate]="'VIEWROOM.ROOMTYPE'">Room Type</p>
                                         <input type="text" placeholder="" class="form-control p-12px br-8px mt-2" formControlName="RoomType" [disabled]="true">
                                         <!-- <p-dropdown [options]="roomTypeList" formControlName="RoomType" placeholder="Room Type" optionLabel="name"></p-dropdown> -->
                                         <small class="text-danger" *ngIf="AddForm.get('RoomType')!.invalid && (AddForm.get('RoomType')!.dirty || AddForm.get('RoomType')!.touched)">Select Room Type</small>
@@ -44,7 +44,7 @@
                                 </div> -->
                                 <div class="col-6 mt-3">
                                     <div class="form-group position-relative">
-                                        <p class="mb-2">Price</p>
+                                        <p class="mb-2" [translate]="'VIEWROOM.PRICE'">Price</p>
                                         <!-- <span type='button' class="minus-price" (click)="decrement()">$5 -</span> -->
                                         <p-inputNumber class="text-center" formControlName="Price" inputId="horizontal" mode="currency" currency="USD">
 
@@ -58,7 +58,7 @@
                         <div class="col-5">
                             <div class="row  px-2">
                                 <div class="d-flex justify-content-between">
-                                    <h5>Room Pictures</h5>
+                                    <h5 [translate]="'VIEWROOM.ROOMPICTURES'">Room Pictures</h5>
 
                                 </div>
 

@@ -2,7 +2,7 @@
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter br-8px p-3">
             <div class="form-section mb-4">
-                <h5 class="mb-0">Edit Booking</h5>
+                <h5 class="mb-0" [translate]="'EDITBOOKING.TITLE'">Edit Booking</h5>
                 <form [formGroup]="EditForm" (ngSubmit)="onSubmit()">
                     <div class="row">
                         <!-- <div class="col-6 col-md-3 mt-3">
@@ -18,7 +18,7 @@
                         </div> -->
                         <div class="col-6 col-md-3 mt-3 ">
                             <div class="form-group">
-                                <label>First Name</label>
+                                <label [translate]="'EDITBOOKING.FIRSTNAME'">First Name</label>
                                 <input type="text" placeholder="First name" class="form-control p-12px br-8px mt-2" formControlName="FirstName">
 
                                 <small class="text-danger" *ngIf="EditForm.get('FirstName')!.invalid && (EditForm.get('FirstName')!.dirty || EditForm.get('FirstName')!.touched)">First Name is required</small>
@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
                             <div class="form-group">
-                                <label>Last Name</label>
+                                <label [translate]="'EDITBOOKING.LASTNAME'">Last Name</label>
                                 <input type="text" placeholder="Last name" class="form-control p-12px br-8px mt-2" formControlName="LastName">
 
                                 <small class="text-danger" *ngIf="EditForm.get('LastName')!.invalid && (EditForm.get('LastName')!.dirty || EditForm.get('LastName')!.touched)">Last Name is required</small>
@@ -35,7 +35,7 @@
 
                         <div class="col-12 col-md-3  mt-3 ">
                             <div class="form-group">
-                                <label>Email</label>
+                                <label [translate]="'EDITBOOKING.EMAIL'">Email</label>
                                 <input type="email" placeholder="email" class="form-control p-12px br-8px  mt-2" formControlName="Email">
 
                                 <small class="text-danger" *ngIf="EditForm.get('Email')!.invalid && (EditForm.get('Email')!.dirty || EditForm.get('Email')!.touched)">Email is required</small>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
                             <div class="form-group">
-                                <label>Country</label>
+                                <label [translate]="'EDITBOOKING.COUNTRY'">Country</label>
                                 <input type="text" placeholder="Country" class="form-control p-12px br-8px mt-2" formControlName="Country">
 
                                 <small class="text-danger" *ngIf="EditForm.get('Country')!.invalid && (EditForm.get('Country')!.dirty || EditForm.get('Country')!.touched)">Country is required</small>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
                             <div class="form-group">
-                                <label>Zip/Postel Code</label>
+                                <label [translate]="'EDITBOOKING.ZIPPOSTALCODE'">Zip/Postel Code</label>
                                 <input type="text" placeholder="Postal Code" class="form-control p-12px br-8px mt-2" formControlName="PostelCode">
 
                                 <small class="text-danger" *ngIf="EditForm.get('PostelCode')!.invalid && (EditForm.get('PostelCode')!.dirty || EditForm.get('PostelCode')!.touched)">Postel Code is required</small>
@@ -59,7 +59,7 @@
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
                             <div class="form-group">
-                                <label>City</label>
+                                <label [translate]="'EDITBOOKING.CITY'">City</label>
                                 <input type="text" placeholder="City" class="form-control p-12px br-8px mt-2" formControlName="City">
 
                                 <small class="text-danger" *ngIf="EditForm.get('City')!.invalid && (EditForm.get('City')!.dirty || EditForm.get('City')!.touched)">City is required</small>
@@ -67,7 +67,7 @@
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
                             <div class="form-group">
-                                <label>User Address</label>
+                                <label [translate]="'EDITBOOKING.ADDRESS'">User Address</label>
                                 <input type="text" placeholder="User Address" class="form-control p-12px br-8px mt-2" formControlName="UserAddress">
 
                                 <small class="text-danger" *ngIf="EditForm.get('UserAddress')!.invalid && (EditForm.get('UserAddress')!.dirty || EditForm.get('UserAddress')!.touched)">User Address is required</small>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="col-6 col-md-3 mt-3 ">
                             <div class="form-group">
-                                <label>Phone Number</label>
+                                <label [translate]="'EDITBOOKING.PHOENUMBER'">Phone Number</label>
                                 <input type="text" placeholder="Phone number" class="form-control p-12px br-8px mt-2" formControlName="PhoneNuber">
 
                                 <small class="text-danger" *ngIf="EditForm.get('PhoneNuber')!.invalid && (EditForm.get('PhoneNuber')!.dirty || EditForm.get('PhoneNuber')!.touched)">Phone Number is required</small>
@@ -85,11 +85,11 @@
                     </div>
                     <div class="row mt-4">
                         <div class="col-12">
-                            <h5>Booking Details</h5>
+                            <h5 [translate]="'EDITBOOKING.BOOKINGDETAILS'">Booking Details</h5>
                         </div>
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group">
-                                <label>Hotel Name</label>
+                                <label [translate]="'EDITBOOKING.HOTELNAME'">Hotel Name</label>
                                 <input type="text" placeholder="Hotel Name" class="form-control p-12px br-8px mt-2" formControlName="HotelName">
 
                                 <small class="text-danger" *ngIf="EditForm.get('HotelName')!.invalid && (EditForm.get('HotelName')!.dirty || EditForm.get('HotelName')!.touched)">HotelName is required</small>
@@ -105,7 +105,7 @@
                         </div> -->
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group">
-                                <label>Description</label>
+                                <label [translate]="'EDITBOOKING.DESCRIPTION'">Description</label>
                                 <input type="text" placeholder="Description" class="form-control p-12px br-8px mt-2" formControlName="Description">
 
                                 <small class="text-danger" *ngIf="EditForm.get('Description')!.invalid && (EditForm.get('Description')!.dirty || EditForm.get('Description')!.touched)">Description is required</small>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group">
-                                <label>Hotel Address</label>
+                                <label [translate]="'EDITBOOKING.HOTELADDRESS'">Hotel Address</label>
                                 <input type="text" placeholder="Hotel Address" class="form-control p-12px br-8px mt-2" formControlName="HotelAddress">
 
                                 <small class="text-danger" *ngIf="EditForm.get('HotelAddress')!.invalid && (EditForm.get('HotelAddress')!.dirty || EditForm.get('HotelAddress')!.touched)">Hotel Address is required</small>
@@ -121,7 +121,7 @@
                         </div>
                         <div class="col-3 mt-3">
                             <div class="form-group position-relative">
-                                <p class="mb-2">Price Per Room</p>
+                                <p class="mb-2" [translate]="'EDITBOOKING.PRICEPERROOM'">Price Per Room</p>
                                 <!-- <span type='button' class="minus-price left-30px" (click)="decrement()">$5 -</span> -->
                                 <p-inputNumber class="text-center" formControlName="Price" inputId="horizontal" mode="currency" currency="USD">
 
@@ -132,7 +132,7 @@
                         </div>
                         <div class="col-12 col-md-3 mt-3">
                             <div class="form-group">
-                                <p class="mb-2">Rooms</p>
+                                <p class="mb-2" [translate]="'EDITBOOKING.ROOMS'">Rooms</p>
                                
                                 <p-tag *ngFor="let item of allRooms" styleClass="mr-2" [value]="item.number" [rounded]="true"></p-tag>
                                 <!-- <p-multiSelect id="select-items" defaultLabel="Choose Rooms" [options]="roomsList" formControlName="Rooms" optionLabel="roomNumber"></p-multiSelect>
@@ -142,7 +142,7 @@
                         </div>
                         <div class="col-12 col-md-3 mt-3">
                             <div class="form-group">
-                                <p class="mb-2">Booking Status</p>
+                                <p class="mb-2" [translate]="'EDITBOOKING.BOOKINGSTATUS'">Booking Status</p>
                                 <p-dropdown [options]="bookingStatusList" formControlName="BookingStatus" placeholder="Booking Status" dataKey="code" optionLabel="name" optionValue="code">
                                
                                 </p-dropdown>
@@ -167,7 +167,7 @@
                         </div> -->
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group position-relative">
-                                <label class="mb-2">Check in</label>
+                                <label class="mb-2" [translate]="'EDITBOOKING.CHECKIN'">Check in</label>
                                 <p-calendar formControlName="CheckIn" inputId="basic" (onSelect)="getAvailableRooms()"></p-calendar>
                                 <small class="text-danger" *ngIf="EditForm.get('CheckIn')!.invalid && (EditForm.get('CheckIn')!.dirty || EditForm.get('CheckIn')!.touched)">Check in is required</small>
                                 <span type='button' class="calendar-icon  material-symbols-rounded" (click)='openCalendar($event)'>calendar_today</span>
@@ -175,7 +175,7 @@
                         </div>
                         <div class="col-12 col-md-3 mt-3 ">
                             <div class="form-group position-relative">
-                                <label class="mb-2">Check Out</label>
+                                <label class="mb-2" [translate]="'EDITBOOKING.CHECKOUT'">Check Out</label>
                                 <p-calendar (onSelect)="getAvailableRooms()" formControlName="CheckOut" inputId="basic" ></p-calendar>
                                 <small class="text-danger" *ngIf="EditForm.get('CheckOut')!.invalid && (EditForm.get('CheckOut')!.dirty || EditForm.get('CheckOut')!.touched)">Check Out is required</small>
                                 <span type='button' class="calendar-icon  material-symbols-rounded" (click)='openCalendar($event)'>calendar_today</span>

@@ -7,7 +7,7 @@
                   
                     <img [src]="hotelData?.photo?hotelData.photo:'../../../../../assets/Images/hotel_pic.png'" class="br-11px object-fit-cover" alt="hotel picture" width="300px">
                     <div class="py-2 w-300px text-white bg-primary text-primary text-center mt-2 br-8px">
-                        Price / Per night: ${{hotelData?.pricePerRoom}}
+                        <span [translate]="'VIEWBOOKING.PRICEPERNIGHT'">Price / Per night</span>: ${{hotelData?.pricePerRoom}}
                     </div>
                 </div>
             <div class="col-8">
@@ -19,7 +19,7 @@
                             <span class="material-symbols-rounded me-1">star_border</span>
                             <p class="m-0">{{hotelData?.rating}}.0</p>
                         </div>
-                        <p>Booking Status:
+                        <p><span [translate]="'VIEWBOOKING.BOOKINGSTATUS'">Booking Status</span>:
                             
                             <span class="inprogress px-2 py-1 text-center br-6px " *ngIf="bookingDetails?.status==1">
                                 In Progress
@@ -38,17 +38,17 @@
                                 Completed
                             </span>
                         </p>
-                        <h6 class="fw-semibold">Description</h6>
+                        <h6 class="fw-semibold" [translate]="'VIEWBOOKING.DESCRIPTION'">Description</h6>
                         <p>
                             {{hotelData?.description}}
                         </p>
                     </div>
                     <div class="col-6">
                         <div class="verticalLine px-3">
-                            <h6 class="fw-bold">Facilities</h6>
+                            <h6 class="fw-bold" [translate]="'VIEWBOOKING.FACILITIES'">Facilities</h6>
                             <p>{{hotelFacilities != "" ? hotelFacilities:"" }}</p>
                             <div class="hl-y">
-                                <p class="py-3 m-0">Booking Id: {{bookingId}}</p>
+                                <p class="py-3 m-0"><span [translate]="'VIEWBOOKING.BOOKINGID'">Booking Id</span>: {{bookingId}}</p>
                             </div>
                             <div class="h1-y" *ngIf="isPaid">
                                 <div class="d-inline-flex">
@@ -125,7 +125,7 @@
             </div>
       
             <div class="row mt-3">
-                <h5>User Details</h5>
+                <h5 [translate]="'VIEWBOOKING.USERDETAILS'">User Details</h5>
                 <app-data-grid [cols]="cols" [respFiles]="userDetailsList" (CreateEmitter)="create()" (Update)="update($event)"></app-data-grid>
             </div>
         </div>

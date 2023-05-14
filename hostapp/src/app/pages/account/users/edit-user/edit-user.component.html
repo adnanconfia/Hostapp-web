@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-6 col-md-6 mt-3 mt-sm-3 mt-md-0">
                     <div class="form-group">
-                        <label>User Name</label>
+                        <label [translate]="'EDITUSER.USERNAME'">User Name</label>
                         <input type="text" placeholder="Name" class="form-control p-12px br-8px mt-2" formControlName="username" >
 
                         <small class="text-danger" *ngIf="EditForm.get('username')!.invalid && (EditForm.get('username')!.dirty || EditForm.get('username')!.touched)">User Name is required</small>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-12 col-md-6  mt-3 mt-sm-3 mt-md-0">
                     <div class="form-group">
-                        <h6 class="mb-2">Select Service</h6>
+                        <h6 class="mb-2" [translate]="'EDITUSER.SELECTSERVICE'">Select Service</h6>
                        <select formControlName="serviceId" class=" form-select p-12px br-8px mt-3">
                         <ng-container *ngFor="let item of services">
                             <option [value]="item.id" >{{item.name}}</option>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="col-12 col-md-6 mt-3 ">
-                    <p class="mb-2">Profile Image</p>
+                    <p class="mb-2" [translate]="'EDITUSER.PROFILEIMAGE'">Profile Image</p>
 
                     <div class="w-100 max-w-234px file-bg p-2 m-2 br-11px file-bg text-center position-relative" *ngIf="profilePic.src || newImage">
 

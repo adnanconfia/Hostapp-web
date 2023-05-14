@@ -5,11 +5,11 @@
     <div class="col-12 border-lighter br-11px p-3">
     <div class="border-lighter bg-white br-8px p-3">
                     <div class="form-section mb-4" *ngIf="showAddFacility">
-                        <h5>Create Facility</h5>
+                        <h5 [translate]="'ADDFACILITY.CREATEFACILITY'">Create Facility</h5>
                         <form class="row" [formGroup]="AddFacilityForm" (ngSubmit)="onSubmit()" >
                             <div class="col-12 col-md-3 mt-3 mt-sm-3 mt-md-0">
                                 <div class="form-group">
-                                    <label>Faciltiy</label>
+                                    <label [translate]="'ADDFACILITY.FACILITY'">Faciltiy</label>
                                     <input type="text" placeholder="facility" class="form-control p-12px br-8px mt-2" formControlName="facility">
                                     <small class="text-danger" *ngIf="AddFacilityForm.get('facility')!.invalid && (AddFacilityForm.get('facility')!.dirty || AddFacilityForm.get('facility')!.touched)">Facility is required</small>
 

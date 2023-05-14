@@ -1,0 +1,144 @@
+{
+    "DASHBOARD":{       
+        "TITLE":"لوحة القيادة",
+        "SIDEBAR-DASHBOARD":"لوحة القيادة",
+        "SIDEBAR-TASKS": "مهام",
+        "SIDEBAR-BOOKINGS": "الحجوزات",
+        "SIDEBAR-USERS": "المستخدمون",
+        "SIDEBAR-BEDTYPES": "أنواع السرير",
+        "SIDEBAR-ROOMS": "غرف",
+        "SIDEBAR-ROOMTYPES": "أنواع الغرف",
+        "SIDEBAR-SERVICES": "خدمات",
+        "SIDEBAR-SERVICEITEMS": "عناصر الخدمة",
+        "SIDEBAR-HOTELS": "الفنادق",
+        "SIDEBAR-ADMINS": "مدراء",
+        "SIDEBAR-LOGOUT": "تسجيل خروج",
+        "SIDEBAR-FACILITIES":"مرافق"
+    },
+    "BOOKING":{
+        "TITLE":"كل الحجوزات"
+    },
+    "ADDBOOKINGS":{
+        "ADD":"يخلق",
+        "CANCEL":"يلغي",
+        "TITLE":"بيانات المستخدم",
+        "USERS":"المستخدمون",
+        "FIRSTNAME":"الاسم الأول",
+        "LASTNAME":"اسم العائلة",
+        "EMAIL":"بريد إلكتروني",
+        "COUNTRY":"دولة",
+        "ZIPPOSTALCODE":"الرمز البريدي",
+        "CITY":"مدينة",
+        "ADDRESS":"عنوان",
+        "PHONENUMBER":"رقم التليفون",
+        "HOTELNAME":"اسم فندق",
+        "DESCRIPTION":"وصف",
+        "HOTELADDRESS":"عنوان الفندق",
+        "PRICEPERROOM":"سعر الغرفة",
+        "ROOMS":"غرف",
+        "BOOKINGSTATUS":"وضع الحجز",
+        "CHECKIN":"تحقق في",
+        "CHECKOUT":"الدفع",
+        "BOOKINGDETAILS":"تفاصيل الحجز",
+        "INFO":"الغرف متاحة حسب إجراءات المغادرة وتسجيل الوصول"
+    },
+    "EDITBOOKING":{
+        "ADD":"يخلق",
+        "CANCEL":"يلغي",
+        "TITLE":"تحرير الحجز",
+        "USERS":"المستخدمون",
+        "FIRSTNAME":"الاسم الأول",
+        "LASTNAME":"اسم العائلة",
+        "EMAIL":"بريد إلكتروني",
+        "COUNTRY":"دولة",
+        "ZIPPOSTALCODE":"الرمز البريدي",
+        "CITY":"مدينة",
+        "ADDRESS":"عنوان",
+        "PHONENUMBER":"رقم التليفون",
+        "HOTELNAME":"اسم فندق",
+        "DESCRIPTION":"وصف",
+        "HOTELADDRESS":"عنوان الفندق",
+        "PRICEPERROOM":"سعر الغرفة",
+        "ROOMS":"غرف",
+        "BOOKINGSTATUS":"وضع الحجز",
+        "CHECKIN":"تحقق في",
+        "CHECKOUT":"الدفع",
+        "BOOKINGDETAILS":"تفاصيل الحجز",
+        "INFO":"الغرف متاحة حسب إجراءات المغادرة وتسجيل الوصول"
+    },
+    "VIEWBOOKING":{
+        "PRICEPERNIGHT":"سعر الليلة الواحدة",
+        "BOOKINGSTATUS": "وضع الحجز",
+        "DESCRIPTION":"وصف",
+        "FACILITIES":"مرافق",
+        "BOOKINGID":"رقم الحجز",
+        "USERDETAILS":"بيانات المستخدم"
+    },
+    "ADDUSER":{
+        "USERNAME":"اسم المستخدم",
+        "EMAIL":"بريد إلكتروني",
+        "PASSWORD":"كلمة المرور",
+        "SELECTSERVICE":"اختر الخدمة",
+        "USERROLE":"دور المستخدم",
+        "PROFILEIMAGE":"صورة الملف الشخصي",
+        "CREATEUSER":"إنشاء المستخدم"
+    },
+    "EDITUSER":{
+        "USERNAME":"اسم المستخدم",
+        "SELECTSERVICE":"اختر الخدمة",
+        "PROFILEIMAGE":"صورة الملف الشخصي"
+    },
+    "ADDFACILITY":{
+        "CREATEFACILITY":"إنشاء مرفق",
+        "FACILITY":"منشأة"
+    },
+    "ADDBEDTYPE":{
+        "CREATEBEDTYPE":"إنشاء نوع السرير",
+        "BEDTYPE":"نوع السرير"
+    },
+    "EDITBEDTYPE":{
+        "TITLE":"تحرير نوع السرير",
+        "FACILITY":"منشأة"
+    },
+    "ADDROOM":{
+        "ADDROOMDETAILS":"أضف تفاصيل الغرفة",
+        "ROOMNUMBER":"رقم الغرفة",
+        "ROOMTYPE":"نوع الغرفة",
+        "SETPRICE":"ضع سعر",
+        "UPLOADROOMIMAGES":"تحميل صور الغرفة"
+    },
+    "VIEWROOM":{
+        "ROOMDETAILS":"تفاصيل الغرفة",
+        "ROOMNUMBER":"رقم الغرفة",
+        "ROOMTYPE":"نوع الغرفة",
+        "PRICE":"سعر",
+        "ROOMPICTURES":"صور الغرفة"
+    },
+    "ADDROOMTYPE":{
+        "ROOMTYPETITLE":"أضف نوع الغرفة",
+        "ROOMTYPE":"نوع الغرفة",
+        "BEDTYPE":"نوع السرير",
+        "ISAVAILABLE":"متاح"
+    },
+    "EDITROOMTYPE":{
+        "TITLE":"تعديل نوع الغرفة",
+        "ROOMTYPE":"نوع الغرفة",
+        "BEDTYPE":"نوع السرير",
+        "ISAVAILABLE":"متاح"
+    },
+    "ADDSERVICE":{
+        "TITLE":"أضف الخدمة",
+        "SERVICENAME":"اسم الخدمة",
+        "SERVICEDESCRIPTION":"وصف الخدمة"
+    },
+    "ADDSERVICEITEM":{
+        "TITLE":"إضافة عنصر الخدمة",
+        "SERVICES":"خدمات",
+        "ITEMNAME":"اسم العنصر",
+        "PRICEITEM":"عنصر السعر"
+    },
+    "EDITSERVICEITEM":{
+        "TITLE":"تحرير عنصر الخدمة",
+        "EDIT":"يحرر"
+    }
+}

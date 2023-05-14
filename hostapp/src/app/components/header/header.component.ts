@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/compat/messaging';
 import { Firestore, collection, doc, getDoc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
+import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs';
 import { Loader } from 'src/app/helpers/loader';
 import { User } from 'src/app/helpers/user';
@@ -15,7 +16,21 @@ export class HeaderComponent implements OnInit {
   user=User;
   date = new Date();
   notifications:any[]=[]
-  constructor(private auth:AuthService,private afMessaging: AngularFireMessaging,private firestore: Firestore ) { }
+  currentLanguage="en";
+  languages = [
+    {
+      id:"en",
+      name:"English"
+    },
+    {
+      id: "ar",
+      name:"Arabic"
+    }
+  ]
+  constructor(private auth:AuthService,private afMessaging: AngularFireMessaging,private firestore: Firestore,private translate: TranslateService ) {
+    translate.setDefaultLang('en');
+    translate.use(this.currentLanguage);
+   }
   
   ngOnInit(): void {
     setInterval(()=>{
@@ -82,6 +97,12 @@ export class HeaderComponent implements OnInit {
     let notidoc = doc(this.firestore, "notification/"+ event.id)
     await updateDoc(notidoc, {isRead:true});
     this.getData()
+  }
+
+  onLanguageSelect(event:any){
+    
+    this.translate.use(event.value)
+    this.currentLanguage=event.value
   }
 
 }

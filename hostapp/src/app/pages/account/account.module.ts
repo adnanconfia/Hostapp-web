@@ -34,6 +34,13 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { EditBookingComponent } from './bookings/edit-booking/edit-booking.component';
 import { TagModule } from 'primeng/tag';
 import { TabViewModule } from 'primeng/tabview';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 @NgModule({
   declarations: [
     AccountComponent,
@@ -73,7 +80,15 @@ import { TabViewModule } from 'primeng/tabview';
     RadioButtonModule,
     DialogModule,
     QRCodeModule,
-    TabViewModule
+    TabViewModule,
+    TranslateModule.forRoot({
+      loader: {
+         
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+  })
 
   ]
 })

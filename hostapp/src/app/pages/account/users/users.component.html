@@ -14,11 +14,11 @@
     <div class="col-12  border-lighter br-11px p-3">
         <div class="border-lighter br-8px p-3">
             <div class="form-section mb-4" *ngIf="showAddUserForm">
-                <h5>Create User</h5>
+                <h5  [translate]="'ADDUSER.CREATEUSER'">Create User</h5>
                 <form class="row" [formGroup]="AddUserForm" (ngSubmit)="onSubmit()">
                     <div class="col-12 col-md-3 mt-3 mt-sm-3 mt-md-0">
                         <div class="form-group">
-                            <label>Username</label>
+                            <label [translate]="'ADDUSER.USERNAME'">Username</label>
                             <input type="text" placeholder="UserName" class="form-control p-12px br-8px mt-2" formControlName="username">
                             <small class="text-danger" *ngIf="AddUserForm.get('username')!.invalid && (AddUserForm.get('username')!.dirty || AddUserForm.get('username')!.touched)">Username is required</small>
 
@@ -28,7 +28,7 @@
 
                     <div class="col-12 col-md-6  mt-3 mt-sm-3 mt-md-0">
                         <div class="form-group">
-                            <label>email</label>
+                            <label  [translate]="'ADDUSER.EMAIL'">email</label>
                             <input type="email" placeholder="example@example.com" class="form-control p-12px br-8px  mt-2" formControlName="email">
 
                             <small class="text-danger" *ngIf="AddUserForm.get('email')!.invalid && (AddUserForm.get('email')!.dirty || AddUserForm.get('email')!.touched)">Email is required</small>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-12 col-md-6  mt-3 mt-sm-3 mt-md-0">
                         <div class="form-group">
-                            <label class="mb-2 mt-2">Password</label>
+                            <label class="mb-2 mt-2"  [translate]="'ADDUSER.PASSWORD'">Password</label>
                             <input type="password"  class="form-control p-12px br-8px  mt-2" formControlName="password">
 
                             <small class="text-danger" *ngIf="AddUserForm.get('password')!.invalid && (AddUserForm.get('password')!.dirty || AddUserForm.get('password')!.touched)">Password is required</small>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="col-6 col-md-6  mt-3 mt-sm-3 mt-md-0">
                         <div class="form-group">
-                            <h6 class="mb-2 mt-2">Select Service</h6>
+                            <h6 class="mb-2 mt-2"  [translate]="'ADDUSER.SELECTSERVICE'">Select Service</h6>
                             <p-dropdown [options]="services" formControlName="serviceId" placeholder="Service" optionLabel="name" optionValue="id"></p-dropdown>
                             <!-- <select formControlName="serviceId" class=" form-select p-12px br-8px mt-3" >
                                 <option [value]="" hidden>Select Service</option>
@@ -59,7 +59,7 @@
                     <div class="row mt-3">
                         <div class="col-6">
                             <div class="form-group">
-                                <label>User Role</label>
+                                <label  [translate]="'ADDUSER.USERROLE'">User Role</label>
                                 <!-- <div class="field-checkbox">
                                     <p-checkbox name="group1" value="1" formControlName="userrole" inputId="ny"></p-checkbox>
                                     <label class="ms-2 me-3" for="ny">Manager</label>
@@ -80,7 +80,7 @@
                 
             
                         <div class="row">
-                            <p class="mb-2">Profile Image</p>
+                            <p class="mb-2"  [translate]="'ADDUSER.PROFILEIMAGE'">Profile Image</p>
                             <div class="w-100 max-w-234px file-bg p-2 m-2 br-11px file-bg text-center position-relative" *ngIf="AddUserForm.get('profile_pic')!.value">
 
                                 <!-- <img [src]="src" alt="" class="br-15px "> -->
